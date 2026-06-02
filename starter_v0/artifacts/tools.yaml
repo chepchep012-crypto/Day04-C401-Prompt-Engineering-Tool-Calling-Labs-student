@@ -116,3 +116,25 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: translate
+    description: "Dịch văn bản từ ngôn ngữ này sang ngôn ngữ khác. Dùng khi user yêu cầu dịch nội dung hoặc khi cần hiểu tài liệu bằng ngôn ngữ khác."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Văn bản cần dịch"}
+        source_lang: {type: string, default: "en", description: "Mã ngôn ngữ nguồn, ví dụ 'en', 'vi', 'ja'"}
+        target_lang: {type: string, default: "en", description: "Mã ngôn ngữ đích, ví dụ 'vi' cho tiếng Việt, 'en' cho tiếng Anh"}
+      required: [text, target_lang]
+
+  - name: notify
+    description: "Gửi thông báo / tin nhắn qua Telegram, Gmail, hoặc cả hai. LUÔN gọi clarify(response_type='yes_no') để xác nhận trước, sau đó truyền confirmed=true khi user đồng ý. Dùng khi user muốn gửi bản tin, gửi email, hoặc đăng lên Telegram."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Nội dung tin nhắn cần gửi"}
+        channel: {type: string, enum: [telegram, gmail, both], default: "telegram", description: "Kênh gửi: 'telegram', 'gmail', hoặc 'both' để gửi cả hai"}
+        confirmed: {type: boolean, default: false, description: "Phải là true — chỉ truyền sau khi user đã xác nhận rõ ràng"}
+        subject: {type: string, default: "", description: "Tiêu đề email (chỉ dùng khi channel là gmail hoặc both)"}
+        to_email: {type: string, default: "", description: "Địa chỉ email người nhận; để trống để dùng GMAIL_TO env var"}
+      required: [text, channel, confirmed]
