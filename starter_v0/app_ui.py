@@ -380,6 +380,35 @@ def api_transcript_detail(filename: str):
     return jsonify(json.loads(path.read_text(encoding="utf-8")))
 
 
+@app.route("/api/resume", methods=["POST"])
+def api_resume():
+    """Load an existing transcript into the current session so chat can continue."""
+    data = request.get_json(force=True)
+    filename = (data.get("file") or "").strip()
+    if not filename:
+        return jsonify({"error": "file required"}), 400
+    path = ROOT / "transcripts" / filename
+    if not path.exists():
+        return jsonify({"error": "not found"}), 404
+    try:
+        transcript = json.loads(path.read_text(encoding="utf-8"))
+        turns = transcript.get("turns", [])
+        # Rebuild conversation history from turns
+        history: list[dict] = []
+        for turn in turns:
+            if turn.get("user"):
+                history.append({"role": "user", "content": turn["user"]})
+            if turn.get("assistant_text"):
+                history.append({"role": "assistant", "content": turn["assistant_text"]})
+        _state["history"] = history
+        _state["transcript"] = transcript
+        _state["transcript_path"] = path
+        _state["turn_index"] = len(turns)
+        return jsonify({"status": "ok", "turns_loaded": len(turns)})
+    except Exception as exc:
+        return jsonify({"error": str(exc)}), 500
+
+
 @app.route("/")
 def index():
     return render_template(

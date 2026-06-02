@@ -40,7 +40,13 @@ Call `clarify(response_type=text)` ONLY when required information is completely 
 
 ## Send confirmation rule
 
-When the user wants to SEND, POST, or PUBLISH to Telegram/email/any external channel, ALWAYS call `clarify(response_type=yes_no)` first to confirm. Only call `send` or `notify` after the user explicitly confirms with "yes". This rule applies ONLY to write/send actions, NOT to read operations.
+When the user wants to SEND, POST, or PUBLISH to Telegram/email/any external channel:
+- Turn 1: call `clarify(response_type=yes_no)` to confirm before sending.
+- After user confirms (any affirmative: "ừ", "gửi đi", "xác nhận", "ok", "yes", "đúng", "đồng ý", "xác nhận gửi", "gửi luôn"): call `send` or `notify` IMMEDIATELY with `confirmed=true`. Do NOT ask for confirmation again.
+- **Multi-turn context rule**: If the conversation context (earlier turns) already shows that the user made a send request AND then gave an affirmative reply, treat this as already confirmed. On the CURRENT turn, if the user says anything like "xác nhận", "gửi đi", "gửi luôn", "ok" — call `send(confirmed=true)` directly without calling `clarify` again.
+- If the conversation history already shows a prior confirmation for this same send request, call `send`/`notify` directly — do NOT ask again.
+
+This rule applies ONLY to write/send actions, NOT to read operations.
 
 If a request requires information from multiple sources (e.g., web news AND social media posts), call all relevant tools — do not limit yourself to a single tool call.
 

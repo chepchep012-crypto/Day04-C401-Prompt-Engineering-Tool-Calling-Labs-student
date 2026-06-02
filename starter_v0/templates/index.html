@@ -25,6 +25,25 @@
     --font: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
+  [data-theme="light"] {
+    --bg: #f4f5f9;
+    --surface: #ffffff;
+    --surface2: #eef0f6;
+    --border: #d1d5e8;
+    --accent: #6c63ff;
+    --accent2: #7c6cf0;
+    --user-bubble: #6c63ff;
+    --bot-bubble: #ffffff;
+    --text: #1a1d2e;
+    --muted: #6b7080;
+    --tool-bg: #f0f1f8;
+    --tool-border: #d8daea;
+    --success: #16a34a;
+    --warn: #d97706;
+    --error: #dc2626;
+    --info: #2563eb;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -389,6 +408,7 @@
     <span class="version-badge">{{ version }}</span>
     <a href="/logs" class="btn-icon" title="Xem Logs Dashboard" style="text-decoration:none">📊 Logs</a>
     <button class="btn-icon" title="Download transcript" onclick="window.open('/transcript/download','_blank')">⬇️</button>
+    <button class="btn-icon" id="theme-btn" onclick="toggleTheme()" title="Chế độ sáng/tối">🌙</button>
     <button class="btn-icon" onclick="clearChat()" title="Xóa lịch sử">🗑️</button>
   </div>
 </header>
@@ -415,10 +435,11 @@
 <div class="hist-view" id="hist-view">
   <div class="hist-view-head">
     <button onclick="closeHistView()">← Quay lại</button>
-    <div>
+    <div style="flex:1">
       <div class="hist-view-title" id="hv-title"></div>
       <div class="hist-view-meta" id="hv-meta"></div>
     </div>
+    <button id="hv-resume-btn" onclick="resumeChat()" style="background:rgba(108,99,255,.15);border-color:rgba(108,99,255,.4);color:var(--accent2)">💬 Tiếp tục chat</button>
   </div>
   <div class="hist-messages" id="hv-messages"></div>
 </div>
@@ -501,6 +522,7 @@
     const data = histListEl._data;
     if (!data) return;
     const t = data[idx];
+    _activeHistFile = t.file;
     document.querySelectorAll('.hist-item').forEach(el => el.classList.remove('active'));
     document.getElementById('hi-' + idx).classList.add('active');
 
@@ -576,8 +598,59 @@
     document.querySelectorAll('.hist-item').forEach(el => el.classList.remove('active'));
   }
 
+  let _activeHistFile = null;
+
+  async function resumeChat() {
+    if (!_activeHistFile) return;
+    const btn = document.getElementById('hv-resume-btn');
+    btn.disabled = true;
+    btn.textContent = 'Đang tải…';
+    try {
+      const res = await fetch('/api/resume', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file: _activeHistFile }),
+      });
+      const data = await res.json();
+      if (data.error) { alert('Lỗi: ' + data.error); return; }
+      // Populate live chat messages from history view
+      messagesContainerEl.innerHTML = '';
+      welcomeEl && messagesContainerEl.appendChild(welcomeEl);
+      welcomeEl.style.display = 'none';
+      // Copy rendered messages from hist-view into live chat
+      const hvMsgs = document.getElementById('hv-messages');
+      Array.from(hvMsgs.children).forEach(node => {
+        const clone = node.cloneNode(true);
+        messagesContainerEl.appendChild(clone);
+      });
+      closeHistView();
+      scrollToBottom();
+      inputEl.focus();
+    } catch (e) {
+      alert('Lỗi kết nối: ' + e);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '💬 Tiếp tục chat';
+    }
+  }
+
   // Load history on page open
   loadHistory();
+
+  // ── Theme toggle ────────────────────────────────────────────────
+  const themeBtn = document.getElementById('theme-btn');
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    themeBtn.textContent = theme === 'light' ? '🌕' : '🌙';
+    themeBtn.title = theme === 'light' ? 'Sang chế độ tối' : 'Sang chế độ sáng';
+    localStorage.setItem('theme', theme);
+  }
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    applyTheme(cur === 'light' ? 'dark' : 'light');
+  }
+  // Restore saved preference
+  applyTheme(localStorage.getItem('theme') || 'dark');
 
   const messagesEl = document.getElementById('messages');
   const inputEl = document.getElementById('input-area');

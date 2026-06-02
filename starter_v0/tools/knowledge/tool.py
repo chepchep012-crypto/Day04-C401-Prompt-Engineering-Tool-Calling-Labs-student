@@ -85,6 +85,41 @@ def manage_knowledge(
         if action == "save":
             if not content:
                 return err("knowledge", ValueError("content is required for action=save"))
+
+            # Try to merge with an existing entry on the same topic
+            MERGE_THRESHOLD = 5
+            merged_entry: dict[str, Any] | None = None
+            if title or tags:
+                query_str = (title or "") + " " + " ".join(tags or [])
+                query_t = terms(query_str)
+                if query_t:
+                    candidates = [(e, _score(e, query_t)) for e in entries]
+                    candidates = [(e, s) for e, s in candidates if s >= MERGE_THRESHOLD]
+                    if candidates:
+                        best_entry, best_score = max(candidates, key=lambda x: x[1])
+                        # Append new content under a separator
+                        best_entry["content"] = best_entry["content"] + "\n\n---\n\n" + content
+                        best_entry["char_count"] = len(best_entry["content"])
+                        best_entry["updated_at"] = datetime.now().isoformat(timespec="seconds")
+                        # Merge tags (union)
+                        existing_tags: set[str] = set(best_entry.get("tags") or [])
+                        best_entry["tags"] = sorted(existing_tags | set(tags or []))
+                        if url:
+                            best_entry["url"] = url
+                        merged_entry = best_entry
+                        _save_db(entries)
+
+            if merged_entry:
+                return {
+                    "tool": "knowledge",
+                    "action": "merge",
+                    "id": merged_entry["id"],
+                    "title": merged_entry["title"],
+                    "char_count": merged_entry["char_count"],
+                    "status": "merged",
+                    "total_entries": len(entries),
+                }
+
             entry: dict[str, Any] = {
                 "id": _next_id(entries),
                 "title": title or (content[:80] + ("…" if len(content) > 80 else "")),
