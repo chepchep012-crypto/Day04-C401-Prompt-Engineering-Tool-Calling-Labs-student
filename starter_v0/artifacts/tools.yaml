@@ -153,3 +153,76 @@ tools:
         top_k: {type: integer, default: 3, description: "Số kết quả trả về (action=search)"}
         entry_id: {type: string, default: "", description: "ID entry cần xóa (action=delete)"}
       required: [action]
+
+  # ---------------- Post-processing tools ----------------
+  - name: dedup
+    description: "Bỏ các kết quả trùng lặp trong danh sách items. Dùng sau khi tổng hợp kết quả từ nhiều nguồn để loại bỏ bài viết giống nhau theo URL hoặc tiêu đề."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần lọc trùng"
+          items: {type: object}
+        key: {type: string, enum: [url, title, both], default: "url", description: "Chiến lược so sánh: 'url' (exact URL), 'title' (fuzzy title), 'both' (loại nếu url HOẶC title trùng)"}
+        title_threshold: {type: number, default: 0.80, description: "Ngưỡng overlap từ khóa để coi là trùng title (0.0–1.0)"}
+      required: [items]
+
+  - name: rank
+    description: "Xếp hạng danh sách items theo độ liên quan tới câu truy vấn. Mỗi item được gắn thêm trường _relevance (0.0–1.0). Dùng sau lookup/papers/social_search để sắp xếp kết quả sát với ý định user nhất."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Câu truy vấn gốc để so sánh"}
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần xếp hạng (có trường title, summary)"
+          items: {type: object}
+        top_k: {type: integer, default: 0, description: "Số item giữ lại; 0 = giữ tất cả"}
+      required: [query, items]
+
+  - name: keywords
+    description: "Trích xuất từ khóa nổi bật nhất (unigram và bigram) từ văn bản hoặc danh sách bài viết, xếp theo tần suất. Dùng khi user hỏi chủ đề chính hoặc muốn tag bài viết."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Văn bản thô cần phân tích"}
+        items:
+          type: array
+          default: []
+          description: "Danh sách item (nối title+summary thành văn bản)"
+          items: {type: object}
+        top_k: {type: integer, default: 10, description: "Số từ khóa trả về"}
+        include_bigrams: {type: boolean, default: true, description: "Có tính cặp từ liền nhau không"}
+      required: []
+
+  - name: cite
+    description: "Tạo danh sách trích dẫn có định dạng (plain/APA/MLA) từ danh sách bài viết. Dùng khi user muốn liệt kê nguồn tham khảo hoặc tạo bibliography."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần trích dẫn (cần có title, url; tùy chọn authors, published, source)"
+          items: {type: object}
+        style: {type: string, enum: [plain, apa, mla], default: "plain", description: "Kiểu trích dẫn: 'plain' (đơn giản), 'apa' (học thuật), 'mla'"}
+        numbered: {type: boolean, default: true, description: "Có đánh số thứ tự không"}
+      required: [items]
+
+  - name: credibility
+    description: "Đánh giá độ tin cậy của danh sách bài viết hoặc một đoạn văn bản. Trả về score 0–1 và label high/medium/low dựa trên các tín hiệu: HTTPS, domain uy tín, có tác giả, có ngày, không clickbait."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần đánh giá (có title, url, summary, authors, published)"
+          items: {type: object}
+        text: {type: string, default: "", description: "Văn bản thô (nếu không có items)"}
+        url: {type: string, default: "", description: "URL nguồn (dùng kèm text)"}
+      required: []
+

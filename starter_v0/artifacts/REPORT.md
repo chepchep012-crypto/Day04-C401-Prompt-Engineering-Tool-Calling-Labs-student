@@ -16,7 +16,7 @@
 
 ## A1. Agent này làm được gì
 
-Research agent: tìm tin tức theo từ khóa, lấy tweet theo tài khoản, đọc nội dung URL, tìm bài báo khoa học trên arXiv, tổng hợp thành digest, và gửi lên Telegram khi được người dùng xác nhận.
+Research agent: tìm tin tức theo từ khóa, lấy tweet theo tài khoản, đọc nội dung URL, tìm bài báo khoa học trên arXiv, tổng hợp thành digest, xếp hạng và lọc trùng kết quả, trích từ khóa, đánh giá độ tin cậy nguồn, tạo trích dẫn, và gửi lên Telegram khi được người dùng xác nhận.
 
 **Link dùng thử (deploy):**
 
@@ -39,6 +39,11 @@ Research agent: tìm tin tức theo từ khóa, lấy tweet theo tài khoản, �
 | notify | Gửi thông báo qua Telegram, Gmail, hoặc cả hai (yêu cầu xác nhận) | Không |
 | knowledge | Lưu và tìm kiếm knowledge base cục bộ (save/search/list/delete) | Không |
 | translate | Dịch văn bản giữa các ngôn ngữ qua MyMemory API | **Có** |
+| dedup | Bỏ kết quả trùng lặp từ danh sách items theo URL, tiêu đề (fuzzy), hoặc cả hai | **Có** |
+| rank | Xếp hạng danh sách items theo độ liên quan với câu truy vấn (score 0–1) | **Có** |
+| keywords | Trích xuất từ khóa nổi bật nhất (unigram + bigram) từ văn bản hoặc danh sách bài viết | **Có** |
+| cite | Tạo danh sách trích dẫn định dạng plain / APA / MLA từ danh sách bài viết | **Có** |
+| credibility | Đánh giá độ tin cậy nội dung: HTTPS, domain uy tín, có tác giả/ngày, không clickbait → label high/medium/low | **Có** |
 
 ## A3. Câu hỏi mẫu để thử
 
@@ -47,6 +52,10 @@ Research agent: tìm tin tức theo từ khóa, lấy tweet theo tài khoản, �
 3. "Tóm tắt tweet mới nhất của Sam Altman"
 4. "Tìm bài viết tại https://example.com/article và dịch sang tiếng Việt"
 5. "Đăng bản tin AI hôm nay lên Telegram"
+6. "Lọc các bài trùng và xếp hạng kết quả tìm kiếm AI theo độ liên quan"
+7. "Từ khóa nổi bật trong những bài báo AI này là gì?"
+8. "Tạo danh sách trích dẫn APA cho 5 bài báo vừa tìm được"
+9. "Đánh giá độ tin cậy của các nguồn tin vừa tổng hợp"
 
 ---
 
@@ -160,6 +169,11 @@ Only fill if your team did bonus.
 | arXiv/company policy | transcript turn 1 + tools/papers/tool.py + tools/policy/tool.py | `papers` gọi arXiv API real-time; `policy` tìm local markdown KB trong company_policy/ | arXiv không cần API key nhưng có rate limit; policy chỉ tìm file local, không real-time |
 | UI | templates/index.html + app_ui.py | Giao diện chat qua Flask, hỗ trợ hiển thị tool calls và stream | Chạy local, cần Cloudflare Tunnel để expose public |
 | Extra tool: translate | tools/translate/tool.py + tools/translate/TOOL.md | Dịch text qua MyMemory API, không cần API key | Giới hạn 500 ký tự/request free tier; source_lang phải là ISO code, không hỗ trợ "auto" |
+| Extra tool: dedup | tools/dedup/tool.py + tools/dedup/TOOL.md | Bỏ trùng theo URL (exact) hoặc title (fuzzy term-overlap); trả về `removed` count | Fuzzy threshold 0.80 có thể loại nhầm bài cùng chủ đề nhưng khác nội dung |
+| Extra tool: rank | tools/rank/tool.py + tools/rank/TOOL.md | Xếp hạng items theo Jaccard recall vs query; gắn `_relevance` vào mỗi item | Chỉ dùng term-overlap, không hiểu ngữ nghĩa — kém với query tiếng Việt có dấu nếu không fold |
+| Extra tool: keywords | tools/keywords/tool.py + tools/keywords/TOOL.md | Trích unigram + bigram theo tần suất từ text hoặc danh sách items; không cần API | Stopword list chủ yếu tiếng Anh + tiếng Việt không dấu — bài tiếng Việt có dấu cần `fold_text` |
+| Extra tool: cite | tools/cite/tool.py + tools/cite/TOOL.md | Tạo trích dẫn plain/APA/MLA từ danh sách items; hỗ trợ nhiều tác giả (et al.) | Không kiểm tra DOI; năm lấy từ regex `20xx` trong trường `published` |
+| Extra tool: credibility | tools/credibility/tool.py + tools/credibility/TOOL.md | 8 tín hiệu heuristic (HTTPS, trusted domain, author, date, no clickbait…); weighted score 0–1 | Danh sách trusted domain cố định — domain mới uy tín chưa có trong list sẽ bị chấm thấp hơn thực tế |
 
 ## B6. Reflection
 
@@ -174,4 +188,7 @@ Only fill if your team did bonus.
   2. Thêm name→handle mapping rõ hơn trong tools.yaml (description của `timeline`)
   3. Viết thêm eval case để test edge case: handle không tồn tại, URL không truy cập được
   4. Cân nhắc model mạnh hơn (gpt-4o) cho multi-turn cases phức tạp
+  5. Nâng `rank` và `keywords` lên dùng embedding/TF-IDF thay vì term-overlap để hỗ trợ tốt hơn với tiếng Việt
+  6. Mở rộng danh sách trusted domain trong `credibility` và cho phép cập nhật động qua file config
+  7. Viết eval case cho 5 tool mới: dedup (cặp URL giống/khác), rank (query tiếng Việt), keywords (bài ngắn), cite (thiếu authors), credibility (domain không có trong list)
 
