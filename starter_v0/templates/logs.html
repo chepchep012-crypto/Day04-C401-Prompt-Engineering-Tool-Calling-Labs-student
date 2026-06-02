@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Logs Dashboard — Research Agent</title>
+<style>
+  :root {
+    --bg: #0c0e18;
+    --surface: #141722;
+    --surface2: #1c2035;
+    --border: #272c46;
+    --accent: #6c63ff;
+    --accent2: #a78bfa;
+    --text: #e2e4f0;
+    --muted: #7a7e9a;
+    --success: #4ade80;
+    --warn: #fbbf24;
+    --error: #f87171;
+    --info: #60a5fa;
+    --radius: 12px;
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; }
+
+  /* ── Header ── */
+  header {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 14px 28px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .header-left { display: flex; align-items: center; gap: 12px; }
+  .logo {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .header-title { font-size: 16px; font-weight: 600; }
+  .header-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .back-btn {
+    background: transparent; border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 14px; color: var(--muted); cursor: pointer; font-size: 13px;
+    text-decoration: none; transition: all 0.15s;
+  }
+  .back-btn:hover { background: var(--surface2); color: var(--text); }
+
+  /* ── Main layout ── */
+  main { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+
+  /* ── Stat cards ── */
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px; margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .stat-value { font-size: 26px; font-weight: 700; margin-top: 6px; }
+  .stat-value.green { color: var(--success); }
+  .stat-value.yellow { color: var(--warn); }
+  .stat-value.blue { color: var(--info); }
+  .stat-value.purple { color: var(--accent2); }
+
+  /* ── Tabs ── */
+  .tabs { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .tab {
+    padding: 10px 20px; font-size: 14px; cursor: pointer; border: none;
+    background: transparent; color: var(--muted); border-bottom: 2px solid transparent;
+    margin-bottom: -1px; transition: all 0.15s;
+  }
+  .tab.active { color: var(--accent2); border-bottom-color: var(--accent); }
+  .tab:hover:not(.active) { color: var(--text); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Section heading ── */
+  .section-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .section-head h2 { font-size: 15px; font-weight: 600; }
+  .count-badge {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2px 10px; font-size: 12px; color: var(--muted);
+  }
+
+  /* ── Table ── */
+  .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead { background: var(--surface); }
+  th { padding: 10px 14px; text-align: left; color: var(--muted); font-weight: 500; font-size: 12px;
+       text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+  td { padding: 10px 14px; border-top: 1px solid var(--border); vertical-align: middle; }
+  tr:hover td { background: var(--surface2); cursor: pointer; }
+
+  /* ── Accuracy bar ── */
+  .acc-cell { display: flex; align-items: center; gap: 8px; }
+  .bar-bg { flex: 1; background: var(--border); border-radius: 4px; height: 6px; min-width: 60px; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.4s; }
+  .acc-pct { font-size: 12px; color: var(--text); font-weight: 500; min-width: 36px; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 500;
+  }
+  .badge-green { background: rgba(74,222,128,.15); color: var(--success); }
+  .badge-yellow { background: rgba(251,191,36,.15); color: var(--warn); }
+  .badge-red { background: rgba(248,113,113,.15); color: var(--error); }
+  .badge-blue { background: rgba(96,165,250,.12); color: var(--info); }
+  .badge-purple { background: rgba(167,139,250,.12); color: var(--accent2); }
+
+  /* ── Empty state ── */
+  .empty { text-align: center; padding: 48px 20px; color: var(--muted); }
+  .empty-icon { font-size: 40px; margin-bottom: 12px; }
+  .empty p { font-size: 14px; }
+
+  /* ── Modal ── */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65);
+    align-items: flex-start; justify-content: center;
+    padding: 40px 16px; z-index: 100; overflow-y: auto;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    width: 100%; max-width: 760px; padding: 28px; position: relative;
+    animation: fadeUp 0.2s ease;
+  }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .modal-close {
+    position: absolute; top: 18px; right: 18px;
+    background: transparent; border: none; color: var(--muted);
+    font-size: 20px; cursor: pointer; line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-title { font-size: 15px; font-weight: 600; margin-bottom: 18px; padding-right: 30px; }
+
+  /* modal sections */
+  .modal-section { margin-bottom: 20px; }
+  .modal-section h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 10px; }
+  .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .meta-item { background: var(--surface2); border-radius: 8px; padding: 10px 12px; }
+  .meta-key { font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+  .meta-val { font-size: 13px; font-weight: 500; }
+
+  /* failure table */
+  .fail-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+  .fail-table th, .fail-table td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+  .fail-table th { color: var(--muted); font-weight: 500; }
+
+  /* turn list */
+  .turn-list { display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; }
+  .turn-item {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px;
+  }
+  .turn-user { font-size: 13px; margin-bottom: 6px; }
+  .turn-user strong { color: var(--accent2); }
+  .turn-bot { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .turn-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .turn-tool-chip {
+    font-size: 11px; background: rgba(108,99,255,.12); color: var(--accent2);
+    border: 1px solid rgba(108,99,255,.3); border-radius: 6px; padding: 2px 8px;
+  }
+  .turn-status { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* spinner */
+  .spinner-wrap { display: flex; align-items: center; gap: 10px; color: var(--muted); padding: 20px; font-size: 13px; }
+  .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo">📊</div>
+    <div>
+      <div class="header-title">Logs Dashboard</div>
+      <div class="header-sub">{{ version }} · {{ model }}</div>
+    </div>
+  </div>
+  <a class="back-btn" href="/">← Chat</a>
+</header>
+
+<main>
+
+  <!-- Global stats -->
+  <div class="stats-grid" id="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Eval Runs</div>
+      <div class="stat-value blue" id="stat-runs">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Best Case Acc.</div>
+      <div class="stat-value green" id="stat-best-case">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Best Routing</div>
+      <div class="stat-value purple" id="stat-best-routing">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Transcripts</div>
+      <div class="stat-value yellow" id="stat-transcripts">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Turns</div>
+      <div class="stat-value blue" id="stat-turns">—</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('runs')">📈 Eval Runs</button>
+    <button class="tab" onclick="switchTab('transcripts')">💬 Transcripts</button>
+  </div>
+
+  <!-- Eval Runs panel -->
+  <div class="tab-panel active" id="panel-runs">
+    <div class="section-head">
+      <h2>Eval Runs</h2>
+      <span class="count-badge" id="runs-count">loading…</span>
+    </div>
+    <div id="runs-content">
+      <div class="spinner-wrap"><div class="spinner"></div> Loading…</div>
+    </div>
+  </div>
+
+  <!-- Transcripts panel -->
+  <div class="tab-panel" id="panel-transcripts">
+    <div class="section-head">
+      <h2>Chat Transcripts</h2>
+      <span class="count-badge" id="transcripts-count">loading…</span>
+    </div>
+    <div id="transcripts-content">
+      <div class="spinner-wrap"><div class="spinner"></div> Loading…</div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModalOnBackdrop(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+let runsData = [], transcriptsData = [];
+
+// ── Tabs ─────────────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', ['runs','transcripts'][i] === name);
+  });
+  document.getElementById('panel-runs').classList.toggle('active', name === 'runs');
+  document.getElementById('panel-transcripts').classList.toggle('active', name === 'transcripts');
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function accBar(val, color) {
+  const pct = Math.round((val || 0) * 100);
+  const c = pct >= 80 ? '#4ade80' : pct >= 60 ? '#fbbf24' : '#f87171';
+  return `<div class="acc-cell"><div class="bar-bg"><div class="bar-fill" style="width:${pct}%;background:${c}"></div></div><span class="acc-pct">${pct}%</span></div>`;
+}
+
+function accBadge(val) {
+  const pct = Math.round((val || 0) * 100);
+  const cls = pct >= 80 ? 'badge-green' : pct >= 60 ? 'badge-yellow' : 'badge-red';
+  return `<span class="badge ${cls}">${pct}%</span>`;
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fmt(dt) {
+  if (!dt) return '—';
+  try { return new Date(dt).toLocaleString('vi-VN'); } catch { return dt; }
+}
+
+// ── Render Runs ───────────────────────────────────────────────────────────────
+function renderRuns(data) {
+  document.getElementById('runs-count').textContent = data.length + ' runs';
+  const el = document.getElementById('runs-content');
+  if (!data.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">📭</div><p>Chưa có eval run nào.<br>Chạy <code>python run_eval.py ...</code> để tạo run.</p></div>';
+    return;
+  }
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr>
+      <th>Run ID</th><th>Version</th><th>Suite</th><th>Provider</th>
+      <th>Cases</th><th>Case Acc.</th><th>Routing</th><th>Args</th><th>Date</th>
+    </tr></thead>
+    <tbody>${data.map((r, i) => `<tr onclick="openRunModal(${i})">
+      <td style="font-family:monospace;font-size:11px;color:var(--muted)">${esc(r.run_id).slice(0,24)}</td>
+      <td><span class="badge badge-purple">${esc(r.version)}</span></td>
+      <td><span class="badge badge-blue">${esc(r.suite)}</span></td>
+      <td style="font-size:12px;color:var(--muted)">${esc(r.provider)}</td>
+      <td style="text-align:center">${r.passed_cases}/${r.total_cases}</td>
+      <td>${accBar(r.case_accuracy)}</td>
+      <td>${accBar(r.tool_routing_accuracy)}</td>
+      <td>${accBar(r.argument_accuracy)}</td>
+      <td style="font-size:11px;color:var(--muted)">${fmt(r.generated_at)}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+// ── Render Transcripts ────────────────────────────────────────────────────────
+function renderTranscripts(data) {
+  document.getElementById('transcripts-count').textContent = data.length + ' files';
+  const el = document.getElementById('transcripts-content');
+  if (!data.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">💬</div><p>Chưa có transcript nào.<br>Mở chat và gửi tin nhắn để tạo transcript.</p></div>';
+    return;
+  }
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr>
+      <th>Transcript ID</th><th>Version</th><th>Provider</th>
+      <th>Turns</th><th>Tool Calls</th><th>Created</th><th>Updated</th>
+    </tr></thead>
+    <tbody>${data.map((t, i) => `<tr onclick="openTranscriptModal(${i})">
+      <td style="font-family:monospace;font-size:11px;color:var(--muted)">${esc(t.transcript_id).slice(0,32)}</td>
+      <td><span class="badge badge-purple">${esc(t.version)}</span></td>
+      <td style="font-size:12px;color:var(--muted)">${esc(t.provider)}</td>
+      <td style="text-align:center"><strong>${t.total_turns}</strong></td>
+      <td style="text-align:center">${t.total_tool_calls}</td>
+      <td style="font-size:11px;color:var(--muted)">${fmt(t.created_at)}</td>
+      <td style="font-size:11px;color:var(--muted)">${fmt(t.updated_at)}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+// ── Run Modal ─────────────────────────────────────────────────────────────────
+async function openRunModal(idx) {
+  const r = runsData[idx];
+  let detail = null;
+  try {
+    const res = await fetch('/api/runs/' + encodeURIComponent(r.file));
+    if (res.ok) detail = await res.json();
+  } catch {}
+
+  const fc = r.failure_counts || {};
+  const fcRows = Object.entries(fc).length
+    ? Object.entries(fc).map(([k,v]) => `<tr><td>${esc(k)}</td><td>${v}</td></tr>`).join('')
+    : '<tr><td colspan="2" style="color:var(--muted)">No failures 🎉</td></tr>';
+
+  let caseRows = '';
+  if (detail && detail.results) {
+    caseRows = detail.results.map(c => {
+      const pass = c.passed ? '✓' : '✗';
+      const cls = c.passed ? 'badge-green' : 'badge-red';
+      const tools = (c.tool_calls_expected || []).join(', ');
+      const actual = (c.tool_calls_actual || []).join(', ');
+      return `<tr>
+        <td><span class="badge ${cls}">${pass}</span></td>
+        <td style="font-size:12px">${esc(c.case_id || '')}</td>
+        <td style="font-size:12px;max-width:300px">${esc((c.user_input||'').slice(0,100))}</td>
+        <td style="font-size:11px;color:var(--muted)">${esc(tools)}</td>
+        <td style="font-size:11px;color:${c.tool_routing_pass?'var(--success)':'var(--error)'}">${esc(actual||'—')}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-title">📈 ${esc(r.run_id)}</div>
+    <div class="modal-section">
+      <h3>Metadata</h3>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-key">Version</div><div class="meta-val">${esc(r.version)}</div></div>
+        <div class="meta-item"><div class="meta-key">Suite</div><div class="meta-val">${esc(r.suite)}</div></div>
+        <div class="meta-item"><div class="meta-key">Provider</div><div class="meta-val">${esc(r.provider)}</div></div>
+        <div class="meta-item"><div class="meta-key">Model</div><div class="meta-val" style="font-size:11px">${esc(r.model)}</div></div>
+        <div class="meta-item"><div class="meta-key">Cases</div><div class="meta-val">${r.passed_cases}/${r.total_cases}</div></div>
+        <div class="meta-item"><div class="meta-key">Generated</div><div class="meta-val" style="font-size:11px">${fmt(r.generated_at)}</div></div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <h3>Accuracy</h3>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-key">Case Accuracy</div><div class="meta-val">${accBadge(r.case_accuracy)}</div></div>
+        <div class="meta-item"><div class="meta-key">Tool Routing</div><div class="meta-val">${accBadge(r.tool_routing_accuracy)}</div></div>
+        <div class="meta-item"><div class="meta-key">Arg Accuracy</div><div class="meta-val">${accBadge(r.argument_accuracy)}</div></div>
+      </div>
+    </div>
+    <div class="modal-section">
+      <h3>Failure Analysis</h3>
+      <table class="fail-table"><thead><tr><th>Failure Type</th><th>Count</th></tr></thead>
+      <tbody>${fcRows}</tbody></table>
+    </div>
+    ${caseRows ? `<div class="modal-section">
+      <h3>Case Details</h3>
+      <div class="table-wrap" style="max-height:320px;overflow-y:auto">
+        <table><thead><tr><th>Pass</th><th>Case ID</th><th>Input</th><th>Expected Tools</th><th>Actual Tools</th></tr></thead>
+        <tbody>${caseRows}</tbody></table>
+      </div>
+    </div>` : ''}
+  `;
+  openModal();
+}
+
+// ── Transcript Modal ──────────────────────────────────────────────────────────
+function openTranscriptModal(idx) {
+  const t = transcriptsData[idx];
+  const turns = (t.turns || []).map((turn, i) => {
+    const toolChips = (turn.tool_calls || []).map(tc =>
+      `<span class="turn-tool-chip">${esc(tc)}</span>`
+    ).join('');
+    return `<div class="turn-item">
+      <div class="turn-user"><strong>#${turn.turn_index || i+1}</strong> ${esc((turn.user||'').slice(0,120))}</div>
+      ${turn.assistant_text ? `<div class="turn-bot">${esc(turn.assistant_text.slice(0,200))}${turn.assistant_text.length>200?'…':''}</div>` : ''}
+      ${toolChips ? `<div class="turn-tools">${toolChips}</div>` : ''}
+      <div class="turn-status">${esc(turn.status||'')} · ${fmt(turn.started_at)}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-title">💬 ${esc(t.transcript_id)}</div>
+    <div class="modal-section">
+      <h3>Metadata</h3>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-key">Version</div><div class="meta-val">${esc(t.version)}</div></div>
+        <div class="meta-item"><div class="meta-key">Provider</div><div class="meta-val">${esc(t.provider)}</div></div>
+        <div class="meta-item"><div class="meta-key">Model</div><div class="meta-val" style="font-size:11px">${esc(t.model)}</div></div>
+        <div class="meta-item"><div class="meta-key">Turns</div><div class="meta-val">${t.total_turns}</div></div>
+        <div class="meta-item"><div class="meta-key">Tool Calls</div><div class="meta-val">${t.total_tool_calls}</div></div>
+        <div class="meta-item"><div class="meta-key">Created</div><div class="meta-val" style="font-size:11px">${fmt(t.created_at)}</div></div>
+      </div>
+    </div>
+    ${turns ? `<div class="modal-section">
+      <h3>Turns (${t.total_turns})</h3>
+      <div class="turn-list">${turns}</div>
+    </div>` : '<div class="empty"><div class="empty-icon">💬</div><p>Transcript trống.</p></div>'}
+    <div style="margin-top:16px">
+      <a href="/api/transcripts/${encodeURIComponent(t.file)}" target="_blank"
+         style="font-size:12px;color:var(--accent2);text-decoration:none">⬇️ Download full JSON</a>
+    </div>
+  `;
+  openModal();
+}
+
+// ── Modal helpers ─────────────────────────────────────────────────────────────
+function openModal() {
+  document.getElementById('modal-backdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-backdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOnBackdrop(e) {
+  if (e.target === document.getElementById('modal-backdrop')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── Load data ─────────────────────────────────────────────────────────────────
+async function loadAll() {
+  const [runs, transcripts] = await Promise.all([
+    fetch('/api/runs').then(r => r.json()).catch(() => []),
+    fetch('/api/transcripts').then(r => r.json()).catch(() => []),
+  ]);
+
+  runsData = runs;
+  transcriptsData = transcripts;
+
+  // Update stat cards
+  document.getElementById('stat-runs').textContent = runs.length;
+  document.getElementById('stat-transcripts').textContent = transcripts.length;
+
+  const bestCase = runs.length ? Math.max(...runs.map(r => r.case_accuracy || 0)) : null;
+  const bestRouting = runs.length ? Math.max(...runs.map(r => r.tool_routing_accuracy || 0)) : null;
+  document.getElementById('stat-best-case').textContent = bestCase !== null ? Math.round(bestCase * 100) + '%' : '—';
+  document.getElementById('stat-best-routing').textContent = bestRouting !== null ? Math.round(bestRouting * 100) + '%' : '—';
+
+  const totalTurns = transcripts.reduce((s, t) => s + (t.total_turns || 0), 0);
+  document.getElementById('stat-turns').textContent = totalTurns;
+
+  renderRuns(runs);
+  renderTranscripts(transcripts);
+}
+
+loadAll();
+</script>
+</body>
+</html>

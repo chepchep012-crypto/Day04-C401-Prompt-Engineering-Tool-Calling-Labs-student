@@ -165,7 +165,110 @@ def run_agent(user_text: str) -> dict[str, Any]:
     return {"text": fallback, "tool_events": tool_events}
 
 
+# ── Helper: scan runs / transcripts ──────────────────────────────────────────
+
+def _load_run_summaries() -> list[dict[str, Any]]:
+    """Scan runs/*.json and return lightweight summaries."""
+    runs_dir = ROOT / "runs"
+    results = []
+    if not runs_dir.exists():
+        return results
+    for f in sorted(runs_dir.glob("*.json"), reverse=True):
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+            s = data.get("summary", {})
+            results.append({
+                "file": f.name,
+                "run_id": data.get("run_id", f.stem),
+                "version": data.get("version", ""),
+                "suite": data.get("suite", ""),
+                "provider": data.get("provider", ""),
+                "model": data.get("model", ""),
+                "generated_at": data.get("generated_at", ""),
+                "total_cases": s.get("total_cases", 0),
+                "passed_cases": s.get("passed_cases", 0),
+                "case_accuracy": s.get("case_accuracy", 0),
+                "tool_routing_accuracy": s.get("tool_routing_accuracy", 0),
+                "argument_accuracy": s.get("argument_accuracy", 0),
+                "failure_counts": s.get("failure_counts", {}),
+            })
+        except Exception:
+            pass
+    return results
+
+
+def _load_transcript_summaries() -> list[dict[str, Any]]:
+    """Scan transcripts/*.transcript.json and return lightweight summaries."""
+    tr_dir = ROOT / "transcripts"
+    results = []
+    if not tr_dir.exists():
+        return results
+    for f in sorted(tr_dir.glob("*.transcript.json"), reverse=True):
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+            turns = data.get("turns", [])
+            tool_count = sum(len(t.get("tool_events", [])) for t in turns)
+            results.append({
+                "file": f.name,
+                "transcript_id": data.get("transcript_id", f.stem),
+                "version": data.get("version", ""),
+                "provider": data.get("provider", ""),
+                "model": data.get("model", ""),
+                "created_at": data.get("created_at", ""),
+                "updated_at": data.get("updated_at", ""),
+                "total_turns": len(turns),
+                "total_tool_calls": tool_count,
+                "turns": [
+                    {
+                        "turn_index": t.get("turn_index", i + 1),
+                        "user": (t.get("user") or "")[:120],
+                        "assistant_text": (t.get("assistant_text") or "")[:200],
+                        "status": t.get("status", ""),
+                        "started_at": t.get("started_at", ""),
+                        "tool_calls": [e.get("tool") for e in t.get("tool_events", [])],
+                    }
+                    for i, t in enumerate(turns)
+                ],
+            })
+        except Exception:
+            pass
+    return results
+
+
 # ── Routes ────────────────────────────────────────────────────────────────────
+
+@app.route("/logs")
+def logs_page():
+    return render_template("logs.html",
+                           version=_state.get("artifact_version", ""),
+                           model=_state.get("model", ""))
+
+
+@app.route("/api/runs")
+def api_runs():
+    return jsonify(_load_run_summaries())
+
+
+@app.route("/api/transcripts")
+def api_transcripts():
+    return jsonify(_load_transcript_summaries())
+
+
+@app.route("/api/runs/<filename>")
+def api_run_detail(filename: str):
+    path = ROOT / "runs" / filename
+    if not path.exists() or not path.suffix == ".json":
+        return jsonify({"error": "not found"}), 404
+    return jsonify(json.loads(path.read_text(encoding="utf-8")))
+
+
+@app.route("/api/transcripts/<filename>")
+def api_transcript_detail(filename: str):
+    path = ROOT / "transcripts" / filename
+    if not path.exists():
+        return jsonify({"error": "not found"}), 404
+    return jsonify(json.loads(path.read_text(encoding="utf-8")))
+
 
 @app.route("/")
 def index():
