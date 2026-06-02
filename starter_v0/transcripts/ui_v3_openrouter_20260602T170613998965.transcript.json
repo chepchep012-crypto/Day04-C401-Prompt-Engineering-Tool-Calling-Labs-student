@@ -1,0 +1,48 @@
+{
+  "transcript_id": "ui_v3_openrouter_20260602T170613998965",
+  "version": "v3",
+  "artifact_version": "v3+pb9700bf6cb73+t91c81c875362",
+  "prompt_hash": "b9700bf6cb73f0d7c087a33f00b97fd5fe9a770939fe670a32e8817b66e22c92",
+  "tools_hash": "91c81c875362e2b0fd0a14aeb8b4081fae0a5a1d4beaa2590258ff4508b2dfc9",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "created_at": "2026-06-02T17:06:13",
+  "updated_at": "2026-06-02T17:07:21",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-02T17:07:00",
+      "user": "tim bài đăng trên mạng xã hội của  Elon Musk",
+      "status": "answered",
+      "assistant_text": "Hiện tại, tôi không thể truy cập vào bài đăng trên mạng xã hội của Elon Musk do lỗi quyền truy cập. Bạn có thể thử kiểm tra trực tiếp trên tài khoản Twitter của ông ấy tại [@elonmusk](https://twitter.com/elonmusk). Nếu bạn cần thông tin khác, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "elonmusk"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=elonmusk"
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 7793,
+        "completion_tokens": 85,
+        "total_tokens": 7878
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T17:07:21"
+    }
+  ],
+  "token_totals": {
+    "prompt_tokens": 7793,
+    "completion_tokens": 85,
+    "total_tokens": 7878
+  },
+  "all_sources": []
+}

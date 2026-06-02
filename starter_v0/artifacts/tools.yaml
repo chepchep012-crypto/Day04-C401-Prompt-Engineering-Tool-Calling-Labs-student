@@ -19,22 +19,22 @@ tools:
       required: [question, response_type]
 
   - name: timeline
-    description: "Lấy các bài đăng gần đây."
+    description: "Lấy các tweet / bài đăng gần đây từ MỘT tài khoản Twitter/X cụ thể theo handle (screenname). Dùng khi user hỏi về bài đăng của một người/tổ chức có tên tài khoản cụ thể (ví dụ: @elonmusk, @openai). KHÔNG dùng để tìm kiếm theo từ khóa."
     parameters:
       type: object
       properties:
-        screenname: {type: string, default: "", description: "Tên tài khoản"}
-        limit: {type: integer, default: 5, description: "Số lượng"}
+        screenname: {type: string, default: "", description: "Handle tài khoản Twitter/X, không có dấu @. Ví dụ: elonmusk, openai"}
+        limit: {type: integer, default: 5, description: "Số lượng bài đăng trả về"}
       required: [screenname]
 
   - name: social_search
-    description: "Tìm trên mạng xã hội."
+    description: "Tìm kiếm bài đăng trên mạng xã hội (Twitter/X) theo từ khóa hoặc chủ đề. Dùng khi user muốn xem bài đăng về một chủ đề cụ thể (ví dụ: 'AI news', 'GPT-5'). KHÔNG dùng khi user hỏi về bài đăng của một tài khoản cụ thể — trong trường hợp đó dùng timeline."
     parameters:
       type: object
       properties:
-        query: {type: string, default: "", description: "Từ khóa"}
-        search_type: {type: string, enum: [Latest, Top], default: "Latest", description: "Cách sắp xếp"}
-        limit: {type: integer, default: 5, description: "Số lượng"}
+        query: {type: string, default: "", description: "Từ khóa tìm kiếm"}
+        search_type: {type: string, enum: [Latest, Top], default: "Latest", description: "Latest: mới nhất, Top: nổi bật nhất"}
+        limit: {type: integer, default: 5, description: "Số lượng kết quả"}
       required: [query]
 
   - name: lookup
