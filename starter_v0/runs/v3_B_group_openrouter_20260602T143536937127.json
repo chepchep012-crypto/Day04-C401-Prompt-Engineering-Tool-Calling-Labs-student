@@ -1,0 +1,719 @@
+{
+  "run_id": "v3_B_group_openrouter_20260602T143536937127",
+  "version": "v3",
+  "artifact_version": "v3+p91fa52a48464+t011c271ef0bb",
+  "prompt_hash": "91fa52a4846431ea25e30ac68b9ac9a253d30007c3d5defb3b711fa001a0664b",
+  "tools_hash": "011c271ef0bbad1e19a5d7b660b2ed481b7d72950f1faa8a0798c3bdd8784ee1",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "/Users/phamtuyetnga/Documents/Vinuni/Untitled/Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student/starter_v0/artifacts/system_prompt.md",
+  "tools": "/Users/phamtuyetnga/Documents/Vinuni/Untitled/Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student/starter_v0/artifacts/tools.yaml",
+  "eval_cases": "data/eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-06-02T14:35:36",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 9,
+    "case_accuracy": 0.9,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 0.9,
+    "multiturn_accuracy": 0.8,
+    "failure_counts": {
+      "wrong_boundary": 1
+    },
+    "observed_mismatch_counts": {
+      "wrong_arg_value": 1
+    }
+  },
+  "results": [
+    {
+      "id": "G01_news_today_routing",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_web_news_today",
+        "difficulty": "medium",
+        "what_it_tests": "Tin tức thời sự 'hôm nay' → lookup với topic=news, timeframe=day; không nhầm sang social_search."
+      },
+      "input": "Tin tức mới nhất về OpenAI hôm nay là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "OpenAI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "OpenAI",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "OpenAI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "OpenAI offers rival AI to UK banks blocked from Claude Mythos - BBC",
+                "url": "https://www.bbc.com/news/articles/cm2p3j6lvn7o",
+                "source": "bbc.com",
+                "summary": "OpenAI has offered nine major UK banks access to its cyber security AI tool GPT-5.5 Cyber, as its fierce rival Anthropic has blocked them in previews of its version, Claude Mythos. Both tools are designed to find hidden security weaknesses in digital systems and can outperform humans at some hacking and cyber-security tasks. Some finance ministers, central bankers and financiers have since expressed serious concerns about it, fearing the model could undermine the security of all financial systems. The AI Security Institute, which has tested both Anthropic's Mythos and OpenAI's GPT-5.5 Cyber, said in its report that they reached \"a similar level of performance\" in the tasks it set them. The UK banks which will now gain access to OpenAI's GPT 5.5 Cyber include Lloyds Banking Group, HSBC and Nationwide. OpenAI has been more generous with access to Cyber 5.5, opening it up in the EU and also to banks in Japan and Canada, among others.",
+                "score": 0.9931496
+              },
+              {
+                "title": "Флорида штати OpenAI ва Sam Altman устидан судга шикоят киритди - Zamin.uz",
+                "url": "https://zamin.uz/en/technology/204648-florida-files-lawsuit-against-openai-and-sam-altman.html",
+                "source": "zamin.uz",
+                "summary": "# Florida files lawsuit against OpenAI and Sam Altman. The Florida Attorney General's Office has filed a lawsuit against OpenAI and its CEO Sam Altman. This is the first state-level legal action regarding the involvement of the ChatGPT chatbot in cases of violence. The lawsuit accuses the company of neglecting safety measures in order to win the \"AI race\" and generate massive wealth. As part of a criminal investigation launched in April, the role of ChatGPT in a mass shooting that occurred last year at Florida State University (FSU) is being examined. OpenAI representatives deny responsibility for this tragedy, maintaining that ChatGPT is not the cause of the crime. This is not the only legal challenge for OpenAI. Additionally, a lawsuit recently filed by Elon Musk has concluded, in which the entrepreneur accused the company of abandoning its mission to benefit humanity and becoming a commercial organization. News » Technology » Florida files lawsuit against OpenAI and Sam Altman.",
+                "score": 0.98942953
+              },
+              {
+                "title": "OpenAI hit with lawsuit by Florida AG over AI risks - Politico",
+                "url": "https://www.politico.com/news/2026/06/01/openai-hit-with-florida-lawsuit-00944215",
+                "source": "politico.com",
+                "summary": "# OpenAI hit with lawsuit by Florida AG over AI risks. It is the first such lawsuit to be filed by a state against OpenAI and Sam Altman. Florida Attorney General James Uthmeier filed a lawsuit on Monday against OpenAI and its chairman Sam Altman, alleging that the AI startup’s ChatGPT is unsafe. According to reports from the Wall Street Journal and NBC News, the suit contends that ChatGPT has provided assistance for mass shootings, and poses addiction and suicide risks to users. It is the first such product liability lawsuit to be filed against the company and its Chairman Sam Altman by a state. The Florida Attorney General’s office and OpenAI did not immediately respond to request for comment. This civil action is separate from a criminal investigation that Uthmeier opened into OpenAI in March after ChatGPT allegedly offered advice to the suspected gunman in a mass shooting at Florida State University that resulted in two deaths.",
+                "score": 0.9861514
+              },
+              {
+                "title": "OpenAI and Sam Altman are being sued by the Florida Attorney General for 'releasing a dangerous ChatGPT.' - GIGAZINE",
+                "url": "https://gigazine.net/gsc_news/en/20260602-florida-sues-openai-sam-altman",
+                "source": "gigazine.net",
+                "summary": "# OpenAI and Sam Altman are being sued by the Florida Attorney General for 'releasing a dangerous ChatGPT.'. James Ousmayer, Attorney General of Florida, has filed a lawsuit against OpenAI and its CEO, Sam Altman, alleging deceptive practices and damages. **Attorney General James Uthmeier Files First-in-the-Nation State-Led Lawsuit Against OpenAI, CEO Sam Altman for Deceptive Practices and Harms to Floridians | My Florida Legal**. **OpenAI Sued by Florida's Attorney General Over AI Harms - WSJ**. On June 1, 2026, local time, Attorney General James Usmayer filed a lawsuit against OpenAI and CEO Sam Altman, alleging that the company deliberately released ChatGPT to the public, including children, while concealing significant risks, suppressing internal safety warnings, and deceiving Florida residents about the true nature and dangers of the product. Attorney General Ousmayer explained, 'Today we announced the first state-led lawsuit in the nation against OpenAI and its CEO, Sam Altman. > Today, we announced the first-in-the-nation state-led lawsuit against OpenAI and its CEO, Sam Altman.",
+                "score": 0.9849274
+              },
+              {
+                "title": "CNBC Exclusive: Transcript: OpenAI CEO Sam Altman Speaks with CNBC’s David Faber on “Power Lunch” Today - CNBC",
+                "url": "https://www.cnbc.com/amp/2026/06/01/cnbc-exclusive-transcript-openai-ceo-sam-altman-speaks-with-cnbcs-david-faber-on-power-lunch-today.html",
+                "source": "cnbc.com",
+                "summary": "# CNBC Exclusive: Transcript: OpenAI CEO Sam Altman Speaks with CNBC’s David Faber on “Power Lunch” Today. Following is the unofficial transcript of a CNBC exclusive interview with OpenAI CEO Sam Altman on CNBC's \"Power Lunch\" (M-F, 2PM-3PM ET) today, Monday, June 1. It doesn't, you can't read the numbers and understand what you're kind of looking at. We have, so, one gigawatt is a huge amount of compute, but we understand what demand looks like and how much people want to use these models and the degree to which revenue is ramping at our company and in the industry and, more than that, the degree that value is now ramping. ALTMAN:  I think that was the single biggest driver at what people, of what people realized was, the coding models have so transformed how companies are doing their work and the efficiency and the speed of which they're able to build products.",
+                "score": 0.9830851
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_search_top_arg",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_search_type_top",
+        "difficulty": "medium",
+        "what_it_tests": "'Được quan tâm nhất / hot nhất' → search_type=Top (không phải Latest mặc định)."
+      },
+      "input": "Tìm những bài đăng được quan tâm nhất về DeepSeek trên mạng xã hội",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "DeepSeek",
+              "search_type": "Top"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "DeepSeek",
+            "search_type": "Top"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "ReadTimeout",
+            "message": "HTTPSConnectionPool(host='twitter-api45.p.rapidapi.com', port=443): Read timed out. (read timeout=30)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_out_of_scope_translate",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_translate",
+        "difficulty": "easy",
+        "what_it_tests": "Tác vụ dịch thuật tự trả lời được → KHÔNG gọi tool research nào."
+      },
+      "input": "Dịch câu 'Tôi yêu Hà Nội' sang tiếng Anh giúp mình",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Câu 'Tôi yêu Hà Nội' được dịch sang tiếng Anh là 'I love Hanoi'.",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G04_missing_handle_unknown_person",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_unknown_account",
+        "difficulty": "medium",
+        "what_it_tests": "'Sếp mình' không suy ra được screenname → clarify hỏi tài khoản (response_type=text), không tự đoán."
+      },
+      "input": "Tóm tắt vài tweet gần đây của sếp mình giúp mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn vui lòng cung cấp tên tài khoản Twitter của sếp bạn để tôi có thể lấy các tweet gần đây không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn vui lòng cung cấp tên tài khoản Twitter của sếp bạn để tôi có thể lấy các tweet gần đây không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn vui lòng cung cấp tên tài khoản Twitter của sếp bạn để tôi có thể lấy các tweet gần đây không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_unnecessary_tool_thanks",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "no_tool_on_smalltalk",
+        "difficulty": "easy",
+        "what_it_tests": "Lời cảm ơn / kết thúc hội thoại → trả lời lịch sự, KHÔNG gọi tool thừa."
+      },
+      "input": "Cảm ơn bạn nhé, vậy là đủ thông tin rồi",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Bạn có cần thêm sự trợ giúp nào khác không? Nếu có, hãy cho tôi biết!",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G06_multiturn_carry_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_set_timeframe",
+        "difficulty": "hard",
+        "what_it_tests": "2 turns: giữ chủ đề tin tức Nvidia (topic=news) và set timeframe=month từ lượt 2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức về Nvidia giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Lấy tin trong tháng này thôi nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Nvidia",
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Nvidia",
+            "topic": "news",
+            "timeframe": "month",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Nvidia",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "Nvidia posts record profit of $58.3bn amid AI chip boom - Al Jazeera",
+                "url": "https://www.aljazeera.com/economy/2026/5/21/nvidia-posts-record-profit-and-revenue-amid-ai-chip-boom",
+                "source": "aljazeera.com",
+                "summary": "Nvidia has announced record quarterly profit and revenue amid explosive demand for its advanced AI chips. The US tech behemoth said on Wednesday that profit soared to $58.3bn for the February-April period, up 37 percent from the previous quarter and more than 200 percent year-on-year. Nvidia’s data-centre business was the main driver of growth, with quarterly revenue surging 92 percent year-on-year to $75.2bn. In a sweetener for shareholders, the world’s most valuable company said it would buy back an additional $80bn in shares and raise its quarterly cash dividend from $0.01 a share to $0.25 per share. Shares in Nvidia fell nearly 1.3 percent in after-hours trading, an indication of the sky-high expectations attached to a company whose blistering growth since 2022 has lifted its market capitalisation to more than $5 trillion. Rhind said the bullish case for Nvidia nonetheless remains strong, pointing to the dividend hike and share buyback scheme as signs of a company with “more cash than it can possibly redeploy into the business”.",
+                "score": 0.7418428
+              },
+              {
+                "title": "Nvidia posts another record quarter, reveals $43 billion of holdings in startups - TechCrunch",
+                "url": "https://techcrunch.com/2026/05/20/nvidia-posts-another-record-quarter-reveals-43-billion-of-holdings-in-startups/",
+                "source": "techcrunch.com",
+                "summary": "# Nvidia posts another record quarter, reveals $43 billion of holdings in startups. Over those three months, the company brought in $81.6 billion in revenue (up 20% from the previous quarter) and a record $75.2 billion in data center revenue. On the strength of that revenue, the company is authorizing $80 billion in share repurchases. Notably, Nvidia did project a slowdown in revenue growth, forecasting $91 billion in revenue for the next quarter, which will be 12% growth. The company began the quarter with $22 billion in privately held stakes, but ended with $43 billion, driven primarily by $18.5 billion in purchases over the course of the quarter. Notably, Nvidia committed to investing $30 billion in OpenAI in February, although the precise structure of the deal was not disclosed. “The amount of capacity we’re going to bring online for Anthropic this year and next year is going to be quite significant,” Huang told investors on a call.",
+                "score": 0.6172364
+              },
+              {
+                "title": "Nvidia Has Best Trading Day In Months After Revealing New Microsoft Chip - Forbes",
+                "url": "https://www.forbes.com/sites/siladityaray/2026/06/01/nvidia-has-best-trading-day-in-months-after-revealing-new-microsoft-chip/",
+                "source": "forbes.com",
+                "summary": "Nvidia had its best trading day since February after it unveiled the new RTX Spark chip—a CPU for consumer Windows laptops and desktops capable of running “personal AI agents” and the company’s first attempt to produce a fully integrated consumer chip. Nvidia has been making consumer laptops and desktop GPUs for decades, but unlike the RTX Spark—which uses the AI giant’s own custom-made CPU designed in collaboration with MediaTek—those computers had to be paired with either an Intel or AMD CPU. The RTX Spark’s CPU will be based on the ARM architecture that is used by Apple’s M-series and Qualcomm’s Snapdragon Elite chips, and its licensee ARM Holding’s shares soared 8.69% in premarket to $384.83. Nvidia’s stock price reached $224.34 per share by the time markets closed on Monday, approaching the company’s record high price of $235.74 reached in May. The RTX Spark’s CPU will be based on the ARM architecture that is used by Apple’s M-series and Qualcomm’s Snapdragon Elite chips, and its licensee ARM Holding’s shares soared 15.7% by the time markets closed.",
+                "score": 0.4765072
+              },
+              {
+                "title": "NVIDIA and Microsoft Reinvent Windows PCs for the Age of Personal AI - NVIDIA Newsroom",
+                "url": "https://nvidianews.nvidia.com/news/nvidia-microsoft-windows-pcs-agents-rtx-spark",
+                "source": "nvidianews.nvidia.com",
+                "summary": "# NVIDIA and Microsoft Reinvent Windows PCs for the Age of Personal AI. RTX Spark — a 1-Petaflop Superchip, the Full CUDA and RTX Ecosystem, and Windows-Native Agents — a New Beginning for Personal Computers. * NVIDIA RTX Spark powers the world’s first Windows PCs purpose-built for personal agents, featuring 1 petaflop of AI performance, industry-leading power efficiency, full-stack NVIDIA AI and graphics technology, and up to 128GB of unified memory. * NVIDIA and Microsoft collaborate to deliver a native Windows experience for personal agents, including new security primitives and NVIDIA OpenShell to run agents securely on primary devices. **NVIDIA GTC Taipei** --NVIDIA today unveiled NVIDIA RTX Spark™, a new superchip that reinvents Windows PCs for the era of personal AI agents — offering a new class of computer that moves from tool to teammate. Designed for AI, creating and gaming, RTX Spark brings together 30 years of NVIDIA innovation — including NVIDIA CUDA®, NVIDIA RTX™, DLSS, FP4, NVIDIA TensorRT™, NVIDIA OptiX™, Reflex and G-SYNC® — to slim Windows laptops with all-day battery life and small, ultraefficient desktop PCs.",
+                "score": 0.44015694
+              },
+              {
+                "title": "Something very unusual is happening with Nvidia options - CNBC",
+                "url": "https://www.cnbc.com/2026/05/20/something-very-unusual-is-happening-with-nvidia-options.html",
+                "source": "cnbc.com",
+                "summary": "# Something very unusual is happening with Nvidia options. Nvidia is seeing a rare setup for options traders ahead of earnings. The chip giant is almost an asset class in itself, and that makes Wednesday night's earnings a market event. But as investors gear up for the big print, something curious is happening in the options pits. When it comes to options markets, convention is almost always the same: investors pay up for downside protection, pushing implied volatility on out-of-the-money puts above that of equivalent calls. It's the fingerprint of a market that hedges first and speculates second. Ahead of earnings, NVDA's short-dated calls are trading at a premium to puts. The market is, in effect, pricing more uncertainty to the upside than the downside. The $245 calls sit $23 out of the money. The $205 puts sit just $17 out of the money. In short, enthusiasm for Nvidia is creating unique opportunities in the options market.",
+                "score": 0.43972388
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_multiturn_clarify_then_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_fill_url",
+        "difficulty": "hard",
+        "what_it_tests": "2 turns: lượt 1 thiếu URL (đáng lẽ clarify), lượt 2 có link → fetch đúng url vừa nhận, không tự bịa."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đọc và tóm tắt giúp mình bài viết này"
+        },
+        {
+          "role": "user",
+          "content": "Link đây nhé: https://example.com/ai-weekly"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/ai-weekly"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/ai-weekly"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com/ai-weekly"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com/ai-weekly",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com/ai-weekly",
+                "source": "example.com",
+                "summary": "# Example Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\n\n[Learn more](https://iana.org/domains/example)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_multiturn_send_after_confirm",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "send_only_after_confirm",
+        "difficulty": "hard",
+        "what_it_tests": "2 turns: lượt 1 chưa được xác nhận (đáng lẽ clarify yes_no), lượt 2 user đồng ý → send với confirmed=true."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đăng bản tin AI tuần này lên Telegram giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Ừ mình xác nhận rồi, đăng đi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": true,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Bản tin AI tuần này đã được đăng!"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "wrong_arg_value",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "confirmed: expected True, got None"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Bản tin AI tuần này đã được đăng!"
+          },
+          "result": {
+            "tool": "send_telegram",
+            "status": "needs_confirmation",
+            "message": "Only send after the user explicitly confirms."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_multiturn_papers_route",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_route_papers",
+        "difficulty": "medium",
+        "what_it_tests": "2 turns: yêu cầu paper khoa học trên arXiv → papers (không phải lookup/social_search) và max_results=3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm giúp mình vài paper về mixture of experts"
+        },
+        {
+          "role": "user",
+          "content": "Trên arXiv nhé, lấy 3 bài thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "query": "mixture of experts",
+              "max_results": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "mixture of experts",
+            "max_results": 3
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "mixture of experts",
+            "api_query": "all:mixture AND all:of AND all:experts",
+            "total_results": 0,
+            "items": [],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_multiturn_switch_tool",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_tool",
+        "difficulty": "hard",
+        "what_it_tests": "2 turns: user đổi ý từ tweet (timeline) sang web (lookup) → chỉ gọi lookup, không còn gọi timeline thừa."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tweet mới nhất của Sam Altman là gì?"
+        },
+        {
+          "role": "user",
+          "content": "À thôi, tìm bài viết trên web về Sam Altman thay vì tweet nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Sam Altman",
+              "topic": "general",
+              "timeframe": "week"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Sam Altman",
+            "topic": "general",
+            "timeframe": "week"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Sam Altman",
+            "topic": "general",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Watch CNBC's full interview with OpenAI CEO Sam Altman",
+                "url": "https://www.cnbc.com/video/2026/06/01/watch-cnbcs-full-interview-with-openai-ceo-sam-altman.html",
+                "source": "cnbc.com",
+                "summary": "[Markets](https://www.cnbc.com/markets/). *   [U.S. Markets](https://www.cnbc.com/us-markets/). *   [Currencies](https://www.cnbc.com/currencies/). *   [Cryptocurrency](https://www.cnbc.com/cryptocurrency/). *   [Bonds](https://www.cnbc.com/bonds/). [Business](https://www.cnbc.com/business/). *   [Economy](https://www.cnbc.com/economy/). *   [Finance](https://www.cnbc.com/finance/). *   [Media](https://www.cnbc.com/media/). *   [Energy](https://www.cnbc.com/energy/). *   [Climate](https://www.cnbc.com/climate/). *   [Transportation](https://www.cnbc.com/transportation/). *   [Industrials](https://www.cnbc.com/industrials/). *   [Retail](https://www.cnbc.com/retail/). *   [Wealth](https://www.cnbc.com/wealth/). *   [Sports](https://www.cnbc.com/sports/). *   [Life](https://www.cnbc.com/life/). [Investing](https://www.cnbc.com/investing/). *   [Personal Finance](https://www.cnbc.com/personal-finance/). *   [Fintech](https://www.cnbc.com/fintech/). *   [Earnings](https://www.cnbc.com/earnings/). [Tech](https://www.cnbc.com/technology/). *   [Cybersecurity](https://www.cnbc.com/cybersecurity/). *   [Enterprise](https://www.cnbc.com/enterprise/). *   [Internet](https://www.cnbc.com/internet/). *   [Media](https://www.cnbc.com/media/). *   [Mobile](https://www.cnbc.com/mobile/). [Politics](https://www.cnbc.com/politics/). *   [Policy](https://www.cnbc.com/policy/). *   [Defense](https://www.cnbc.com/defense/). *   [Congress](https://www.cnbc.com/congress/). [Video](https://www.cnbc.com/tv/). *   [Livestream](https://www.cnbc.com/live-tv/). *   [CEO Interviews](https://www.cnbc.com/video-ceo-interviews/). [Watchlist](https://www.cnbc.com/watchlist/). *   [Analysis](https://www.cnbc.com/investingclub/analysis/). *   [Meeting Videos](https://www.cnbc.com/investingclub/video/). *   [Homestretch](https://www.cnbc.com/investingclub/homestretch/). *   [Education](https://www.cnbc.com/investingclub/education/). *   [Pro News](https://www.cnbc.com/pro/news/). *   [My Portfolio](https://www.cnbc.com/my-portfolio/). *   [Livestream](https://www.cnbc.com/live-tv/). [Livestream](https://www.cnbc.com/live-tv/). *   [INTL](https://www.cnbc.com/world/). *    [Livestream](https://www.cnbc.com/live-tv/). *    [Livestream](https://www.cnbc.com/live-tv/). [Watchlist](https://www.cnbc.com/watchlist/). [Markets](https://www.cnbc.com/markets/). [Business](https://www.cnbc.com/business/). [Investing](https://www.cnbc.com/investing/). [Tech](https://www.cnbc.com/technology/). [Politics](https://www.cnbc.com/politics/). [Video](https://www.cnbc.com/tv/). [Watchlist](https://www.cnbc.com/watchlist/). [Livestream](https://www.cnbc.com/live-tv/). [CNBC PRO](https://www.cnbc.com/pro/). *   [Pro Analysis](https://www.cnbc.com/pro/analysis/). [](https://www.cnbc.com/pro/). ## [Must Watch](https://www.cnbc.com/pro/video/). *   [](https://www.facebook.com/cnbc/). *   [](https://www.twitter.com/cnbc/). *   [](https://www.linkedin.com/company/cnbc/). *   [](https://www.instagram.com/cnbc/). *   [](https://www.youtube.com/user/cnbc/). *   [](https://www.cnbc.com/rss-feeds/). *   [CNBC Councils](https://www.cnbccouncils.com/). *   [Select Personal Finance](https://www.cnbc.com/select/). *   [Digital Products](https://www.cnbc.com/subscribe/all-access/). *   [Corrections](https://www.cnbc.com/corrections/). *   [About CNBC](https://www.cnbc.com/about/). *   [Site Map](https://www.cnbc.com/site-map/). *   [Podcasts](https://www.cnbc.com/podcast/). [Get In Touch](https://www.cnbc.com/news-tips/). *   ![Image 17: California Consumer Privacy Act (CCPA) Opt-Out Icon](https://static-redesign.cnbcfm.com/dist/17269f1b6083fd5f61be.svg)[Your Privacy Choices](https://www.cnbc.com/video/2026/06/01/watch-cnbcs-full-interview-with-openai-ceo-sam-altman.html). *   [Terms of Service](https://www.cnbc.com/terms/).",
+                "score": 0.6227582
+              },
+              {
+                "title": "OpenAI CEO Sam Altman: 'People are right to be anxious ...",
+                "url": "https://www.youtube.com/shorts/tO7W7TOtImo",
+                "source": "youtube.com",
+                "summary": "Sam Atlman, OpenAI CEO, joins 'Power Lunch' to discuss the pace of AI buildouts, what consumers believe around AI and much more.",
+                "score": 0.5954225
+              },
+              {
+                "title": "Sam Altman: People are right to be anxious about AI - YouTube",
+                "url": "https://www.youtube.com/watch?v=4qGz2uFuRvs",
+                "source": "youtube.com",
+                "summary": "[Video 1](https://www.youtube.com/watch?v=4qGz2uFuRvs). [Sam Altman: People are right to be anxious about AI](https://www.youtube.com/watch?v=4qGz2uFuRvs). ![Image 4](https://www.youtube.com/watch?v=4qGz2uFuRvs). [](https://www.youtube.com/watch?v=4qGz2uFuRvs \"Share link\")- [x] Include playlist. ![Image 6](https://www.youtube.com/watch?v=4qGz2uFuRvs). ![Image 11](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 12](https://i.ytimg.com/vi/yxax4xpZus8/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLAHBcSI9RaYdrJUdtu1oPK8HeDFGA) 1:02:14](https://www.youtube.com/watch?v=yxax4xpZus8). ![Image 13](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 14](https://i.ytimg.com/vi/aMyubFA106U/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLCiPawstEVDZHg8xWDks3yTMmf5MA) 1:42:49](https://www.youtube.com/watch?v=aMyubFA106U). ![Image 15](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 16](https://i.ytimg.com/vi/5bCY7c4fNNs/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLBQDX0VemaXvs7fIVYHOlnu8vtWvg) 25:01](https://www.youtube.com/watch?v=5bCY7c4fNNs&pp=ugUEEgJlbg%3D%3D). ![Image 17](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 18](https://i.ytimg.com/vi/l0K4XPu3Qhg/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLAVcyHMxybHvNTITdvdtXJKbnSs7w) 14:19](https://www.youtube.com/watch?v=l0K4XPu3Qhg). ![Image 19](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 20](https://i.ytimg.com/vi/hMpUEQUIcpo/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLCIWDyVpK6q9pyvyQPTgbDORoZKzw) 15:55](https://www.youtube.com/watch?v=hMpUEQUIcpo&pp=ugUHEgVlbi1VUw%3D%3D). ![Image 21](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 22](https://i.ytimg.com/vi/iFYF_e1GSGI/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLCnNu2_qtJheSIHdeAGIzZ2SWGc9Q) 1:26:16](https://www.youtube.com/watch?v=iFYF_e1GSGI&pp=ugUEEgJlbg%3D%3D). ![Image 23](https://www.youtube.com/watch?v=4qGz2uFuRvs). ### [The Uncomfortable Truth About AI “Reasoning” | World Science Festival](https://www.youtube.com/watch?v=iFYF_e1GSGI&pp=ugUEEgJlbg%3D%3D). [![Image 24](https://i.ytimg.com/vi/FpnHmouqYl4/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLBZj26Q54pNdcoMtEzW2vSOrUkOqw) 46:50](https://www.youtube.com/watch?v=FpnHmouqYl4&pp=ugUHEgVlbi1VUw%3D%3D). ![Image 25](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 26](https://i.ytimg.com/vi/J6J8vhIzfLo/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLAebiySQAqXhOOMpztWRjLfXzuTnA) 12:09](https://www.youtube.com/watch?v=J6J8vhIzfLo&pp=ugUEEgJlbg%3D%3D). ![Image 27](https://www.youtube.com/watch?v=4qGz2uFuRvs). ### [Amazon VP Told Me Amazon is Regretting AI](https://www.youtube.com/watch?v=J6J8vhIzfLo&pp=ugUEEgJlbg%3D%3D). [![Image 28](https://i.ytimg.com/vi/XqqkqO82LDA/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLB5JoGVtukevZq1vxTbJULD7MlyQQ) 5:53](https://www.youtube.com/watch?v=XqqkqO82LDA&pp=ugUEEgJlbg%3D%3D). ![Image 29](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 30](https://i.ytimg.com/vi/NdU6UdUKaYc/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLAoV4AT0NxBj3-1hyFq0mKdNicfIQ) 1:58:11](https://www.youtube.com/watch?v=NdU6UdUKaYc&pp=ugUEEgJlbg%3D%3D). ![Image 31](https://www.youtube.com/watch?v=4qGz2uFuRvs). ![Image 32](https://www.youtube.com/watch?v=4qGz2uFuRvs). ### [Scott Galloway: AI Wasn’t Built For You. The Rich Don’t Need You Anymore!](https://www.youtube.com/watch?v=NdU6UdUKaYc&pp=ugUEEgJlbg%3D%3D). [![Image 33](https://i.ytimg.com/vi/HzIGNWDWBSk/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLB__c-Ygn9dLas--y-a6Vq6KFMihA) 9:55](https://www.youtube.com/watch?v=HzIGNWDWBSk&pp=ugUHEgVlbi1JTg%3D%3D). ![Image 34](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 35](https://i.ytimg.com/vi/cn0g0CaqofQ/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLCiahzTrWOArYg4bFveas1Y4ODzCg) 17:51](https://www.youtube.com/watch?v=cn0g0CaqofQ&pp=ugUEEgJlbg%3D%3D). ![Image 36](https://www.youtube.com/watch?v=4qGz2uFuRvs). ![Image 38](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 39](https://www.youtube.com/watch?v=4qGz2uFuRvs) 31:09](https://www.youtube.com/watch?v=KHIAFMTp1Mk&pp=ugUEEgJlbg%3D%3D). ![Image 40](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 41](https://www.youtube.com/watch?v=4qGz2uFuRvs) 14:26](https://www.youtube.com/watch?v=AhPnpcbDcaM&pp=ugUHEgVlbi1VUw%3D%3D). ![Image 42](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 43](https://www.youtube.com/watch?v=4qGz2uFuRvs) 31:12](https://www.youtube.com/watch?v=02YLwsCKUww&pp=ugUEEgJlbg%3D%3D). ![Image 44](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 45](https://www.youtube.com/watch?v=4qGz2uFuRvs) 1:27:38](https://www.youtube.com/watch?v=UclrVWafRAI&pp=ugUEEgJlbg%3D%3D). ![Image 46](https://www.youtube.com/watch?v=4qGz2uFuRvs). ![Image 47](https://www.youtube.com/watch?v=4qGz2uFuRvs). - Dr. Roman Yampolskiy](https://www.youtube.com/watch?v=UclrVWafRAI&pp=ugUEEgJlbg%3D%3D). [![Image 48](https://www.youtube.com/watch?v=4qGz2uFuRvs) 11:32](https://www.youtube.com/watch?v=dFLopVeV31A&pp=ugUEEgJlbg%3D%3D). ![Image 49](https://www.youtube.com/watch?v=4qGz2uFuRvs). [![Image 50](https://www.youtube.com/watch?v=4qGz2uFuRvs) 19:23](https://www.youtube.com/watch?v=b50C4Avf_M0&pp=ugUEEgJlbg%3D%3D). ![Image 51](https://www.youtube.com/watch?v=4qGz2uFuRvs).",
+                "score": 0.562874
+              },
+              {
+                "title": "OpenAI CEO Sam Altman: 'Very soon AI will just be running for ...",
+                "url": "https://www.youtube.com/shorts/c2P16KMjXA8",
+                "source": "youtube.com",
+                "summary": "OpenAI CEO Sam Altman talks to CNBC's David Faber about the future of AI.",
+                "score": 0.529191
+              },
+              {
+                "title": "Top five moments from CNBC's interview with OpenAI CEO Sam ...",
+                "url": "https://www.youtube.com/watch?v=w271qzmkNk0",
+                "source": "youtube.com",
+                "summary": "Top five moments from CNBC's interview with OpenAI CEO Sam Altman\nCNBC Television\n3370000 subscribers\n11 likes\n1124 views\n1 Jun 2026\nCNBC’s David Faber sat down with OpenAI CEO Sam Altman for a wide-ranging interview on data centers, the future of AI, a possible IPO, and much more. Here are the top five moments from their conversation.\n1 comments\n",
+                "score": 0.4395795
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

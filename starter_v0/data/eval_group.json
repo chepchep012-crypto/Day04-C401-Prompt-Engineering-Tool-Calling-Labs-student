@@ -3,5 +3,259 @@
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_news_today_routing",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tin tức mới nhất về OpenAI hôm nay là gì?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "routing_web_news_today",
+        "difficulty": "medium",
+        "what_it_tests": "Tin tức thời sự 'hôm nay' → lookup với topic=news, timeframe=day; không nhầm sang social_search."
+      }
+    },
+    {
+      "id": "G02_search_top_arg",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm những bài đăng được quan tâm nhất về DeepSeek trên mạng xã hội",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "arg_search_type_top",
+        "difficulty": "medium",
+        "what_it_tests": "'Được quan tâm nhất / hot nhất' → search_type=Top (không phải Latest mặc định)."
+      }
+    },
+    {
+      "id": "G03_out_of_scope_translate",
+      "phase": "B",
+      "suite": "group",
+      "query": "Dịch câu 'Tôi yêu Hà Nội' sang tiếng Anh giúp mình",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer"
+      },
+      "metadata": {
+        "skill": "out_of_scope_translate",
+        "difficulty": "easy",
+        "what_it_tests": "Tác vụ dịch thuật tự trả lời được → KHÔNG gọi tool research nào."
+      }
+    },
+    {
+      "id": "G04_missing_handle_unknown_person",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tóm tắt vài tweet gần đây của sếp mình giúp mình",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "clarify_unknown_account",
+        "difficulty": "medium",
+        "what_it_tests": "'Sếp mình' không suy ra được screenname → clarify hỏi tài khoản (response_type=text), không tự đoán."
+      }
+    },
+    {
+      "id": "G05_unnecessary_tool_thanks",
+      "phase": "B",
+      "suite": "group",
+      "query": "Cảm ơn bạn nhé, vậy là đủ thông tin rồi",
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer"
+      },
+      "metadata": {
+        "skill": "no_tool_on_smalltalk",
+        "difficulty": "easy",
+        "what_it_tests": "Lời cảm ơn / kết thúc hội thoại → trả lời lịch sự, KHÔNG gọi tool thừa."
+      }
+    },
+    {
+      "id": "G06_multiturn_carry_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức về Nvidia giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Lấy tin trong tháng này thôi nhé"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_set_timeframe",
+        "difficulty": "hard",
+        "what_it_tests": "2 turns: giữ chủ đề tin tức Nvidia (topic=news) và set timeframe=month từ lượt 2."
+      }
+    },
+    {
+      "id": "G07_multiturn_clarify_then_url",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đọc và tóm tắt giúp mình bài viết này"
+        },
+        {
+          "role": "user",
+          "content": "Link đây nhé: https://example.com/ai-weekly"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/ai-weekly"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_fill_url",
+        "difficulty": "hard",
+        "what_it_tests": "2 turns: lượt 1 thiếu URL (đáng lẽ clarify), lượt 2 có link → fetch đúng url vừa nhận, không tự bịa."
+      }
+    },
+    {
+      "id": "G08_multiturn_send_after_confirm",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đăng bản tin AI tuần này lên Telegram giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Ừ mình xác nhận rồi, đăng đi"
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "send_only_after_confirm",
+        "difficulty": "hard",
+        "what_it_tests": "2 turns: lượt 1 chưa được xác nhận (đáng lẽ clarify yes_no), lượt 2 user đồng ý → send với confirmed=true."
+      }
+    },
+    {
+      "id": "G09_multiturn_papers_route",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm giúp mình vài paper về mixture of experts"
+        },
+        {
+          "role": "user",
+          "content": "Trên arXiv nhé, lấy 3 bài thôi"
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "papers",
+            "args": {
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_route_papers",
+        "difficulty": "medium",
+        "what_it_tests": "2 turns: yêu cầu paper khoa học trên arXiv → papers (không phải lookup/social_search) và max_results=3."
+      }
+    },
+    {
+      "id": "G10_multiturn_switch_tool",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tweet mới nhất của Sam Altman là gì?"
+        },
+        {
+          "role": "user",
+          "content": "À thôi, tìm bài viết trên web về Sam Altman thay vì tweet nhé"
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {}
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_switch_tool",
+        "difficulty": "hard",
+        "what_it_tests": "2 turns: user đổi ý từ tweet (timeline) sang web (lookup) → chỉ gọi lookup, không còn gọi timeline thừa."
+      }
+    }
+  ]
 }

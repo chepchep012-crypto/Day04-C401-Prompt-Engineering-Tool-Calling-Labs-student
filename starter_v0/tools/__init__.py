@@ -13,6 +13,10 @@ from .paper_text.tool import get_arxiv_paper_text
 from .timeline.tool import get_user_tweets
 from .fetch.tool import read_url
 from .format.tool import render_digest
+from .rank.tool import rank_items
+from .dedupe.tool import dedupe_items
+from .cite.tool import build_citations
+from .keywords.tool import extract_keywords
 from .policy.tool import search_company_policy
 from .social_search.tool import search_tweets
 from .send.tool import send_telegram
@@ -31,6 +35,10 @@ TOOL_FUNCTIONS = {
     "lookup": web_search,
     "fetch": read_url,
     "format": render_digest,
+    "rank": rank_items,
+    "dedupe": dedupe_items,
+    "cite": build_citations,
+    "keywords": extract_keywords,
     "send": send_telegram,
     "policy": search_company_policy,
     "papers": arxiv_search,

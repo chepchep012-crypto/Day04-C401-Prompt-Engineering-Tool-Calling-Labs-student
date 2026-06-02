@@ -77,6 +77,81 @@ tools:
         headline: {type: string, default: "", description: "Tiêu đề"}
       required: [items, template]
 
+  - name: rank
+    description: "Xếp hạng lại các item đã thu thập theo độ liên quan với một truy vấn, trả về top_k mục liên quan nhất. Local, không tìm dữ liệu mới; dùng trước format khi kết quả quá dài."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item đã có (title, url, source, summary)"
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+              summary: {type: string}
+        query: {type: string, default: "", description: "Truy vấn để tính độ liên quan"}
+        top_k: {type: integer, default: 5, description: "Số mục giữ lại"}
+      required: [items, query]
+
+  - name: dedupe
+    description: "Loại bỏ item trùng lặp trong danh sách đã thu thập (theo url hoặc title). Local, dùng sau khi gộp kết quả nhiều nguồn."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item"
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+              summary: {type: string}
+        key: {type: string, enum: [url, title], default: "url", description: "Tiêu chí trùng"}
+      required: [items]
+
+  - name: cite
+    description: "Tạo danh sách trích dẫn nguồn từ các item đã có. Local, định dạng numbered hoặc markdown."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item"
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+        style: {type: string, enum: [numbered, markdown], default: "numbered", description: "Kiểu trích dẫn"}
+      required: [items]
+
+  - name: keywords
+    description: "Rút từ khóa nổi bật từ các item (và/hoặc một đoạn text) kèm tần suất. Local, dùng để tóm tắt chủ đề hoặc gợi ý truy vấn tiếp."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item"
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              summary: {type: string}
+        text: {type: string, default: "", description: "Đoạn text bổ sung (tuỳ chọn)"}
+        top_k: {type: integer, default: 10, description: "Số từ khóa trả về"}
+      required: []
+
   # ---------------- Bonus tools ----------------
   - name: send
     description: "Gửi một đoạn văn bản đi."
