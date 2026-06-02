@@ -1,0 +1,279 @@
+{
+  "transcript_id": "ui_v3_openrouter_20260602T152838365682",
+  "version": "v3",
+  "artifact_version": "v3+p2998b418aecd+t8320cd33b34c",
+  "prompt_hash": "2998b418aecd4bfe56ad151d6e8f8c3dff50a1d7233d232f822a4b2747263b5e",
+  "tools_hash": "8320cd33b34cf0f67332847c7ed43fe1f854e4f1aef5b0acab69f31977f8ed54",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "created_at": "2026-06-02T15:28:38",
+  "updated_at": "2026-06-02T15:32:58",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-02T15:28:59",
+      "user": "5 bài báo về AI tháng này",
+      "status": "answered",
+      "assistant_text": "Dưới đây là 5 bài báo về trí tuệ nhân tạo (AI) được công bố trong tháng này:\n\n1. **[WorldLens: Full-Spectrum Evaluations of Driving World Models in Real World](http://arxiv.org/abs/2512.10958v2)**\n   - **Tác giả**: Ao Liang, Lingdong Kong, Tianyi Yan, và nhiều người khác.\n   - **Tóm tắt**: Bài báo giới thiệu WorldLens, một tiêu chuẩn đánh giá toàn diện cho các mô hình thế giới sinh ra, nhằm đo lường độ chính xác và khả năng hành vi của các mô hình này trong môi trường thực tế.\n   - **Ngày xuất bản**: 11 tháng 12, 2025.\n\n2. **[STABLEVAL: Disagreement-Aware and Stable Evaluation of AI Systems](http://arxiv.org/abs/2605.02122v2)**\n   - **Tác giả**: Akash Bonagiri, Gerard Janno Anderias, Saee Patil, và nhiều người khác.\n   - **Tóm tắt**: Bài báo giới thiệu STABLEVAL, một khung đánh giá nhận thức sự không đồng thuận, nhằm cải thiện độ ổn định và độ tin cậy trong việc đánh giá các hệ thống AI.\n   - **Ngày xuất bản**: 4 tháng 5, 2026.\n\n3. **[Beyond AI as Assistants: Toward Autonomous Discovery in Cosmology](http://arxiv.org/abs/2605.14791v2)**\n   - **Tác giả**: Licong Xu, Thomas Borrett.\n   - **Tóm tắt**: Bài báo thảo luận về việc sử dụng AI để phát hiện khoa học tự động trong lĩnh vực vũ trụ học, với các hệ thống AI có khả năng tự phát triển và phân tích dữ liệu.\n   - **Ngày xuất bản**: 14 tháng 5, 2026.\n\n4. **[Not All Points Are Equal: Uncertainty-Aware 4D LiDAR Scene Synthesis](http://arxiv.org/abs/2606.02510v1)**\n   - **Tác giả**: Xiang Xu, Alan Liang, Youquan Liu, và nhiều người khác.\n   - **Tóm tắt**: Bài báo trình bày U4D, một khung mới cho việc tạo ra cảnh 4D từ dữ liệu LiDAR, chú trọng vào sự không chắc chắn trong các khu vực không gian khác nhau.\n   - **Ngày xuất bản**: 1 tháng 6, 2026.\n\n5. **[AI and physics-based weather forecasting: A comparative study](http://arxiv.org/abs/2606.02508v1)**\n   - **Tác giả**: Mátyás Kocsis, Sándor Baran.\n   - **Tóm tắt**: Bài báo so sánh hiệu suất của mô hình dự báo thời tiết dựa trên AI với mô hình dự báo dựa trên vật lý, cho thấy mô hình AI có thể tạo ra dự báo nhanh hơn và tiêu tốn ít năng lượng hơn.\n   - **Ngày xuất bản**: 1 tháng 6, 2026.\n\nNếu bạn cần thêm thông tin chi tiết về bất kỳ bài báo nào, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "query": "AI",
+            "max_results": 5,
+            "sort_by": "lastUpdatedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "AI",
+            "api_query": "all:AI",
+            "total_results": 58511,
+            "items": [
+              {
+                "arxiv_id": "2512.10958v2",
+                "title": "WorldLens: Full-Spectrum Evaluations of Driving World Models in Real World",
+                "summary": "Generative world models are reshaping embodied AI, enabling agents to synthesize realistic 4D driving environments that look convincing but often fail physically or behaviorally. Despite rapid progress, the field still lacks a unified way to assess whether generated worlds preserve geometry, obey physics, or support reliable control. We introduce WorldLens, a full-spectrum benchmark evaluating how well a model builds, understands, and behaves within its generated world. It spans five aspects -- Generation, Reconstruction, Action-Following, Downstream Task, and Human Preference -- jointly covering visual realism, geometric consistency, physical plausibility, and functional reliability. Across these dimensions, no existing world model excels universally: those with strong textures often violate physics, while geometry-stable ones lack behavioral fidelity. To align objective metrics with human judgment, we further construct WorldLens-26K, a large-scale dataset of human-annotated videos with numerical scores and textual rationales, and develop WorldLens-Agent, an evaluation model distilled from these annotations to enable scalable, explainable scoring. Together, the benchmark, dataset, and agent form a unified ecosystem for measuring world fidelity -- standardizing how future models are judged not only by how real they look, but by how real they behave.",
+                "authors": [
+                  "Ao Liang",
+                  "Lingdong Kong",
+                  "Tianyi Yan",
+                  "Hongsi Liu",
+                  "Wesley Yang",
+                  "Ziqi Huang",
+                  "Wei Yin",
+                  "Jialong Zuo",
+                  "Yixuan Hu",
+                  "Dekai Zhu",
+                  "Dongyue Lu",
+                  "Youquan Liu",
+                  "Guangfeng Jiang",
+                  "Linfeng Li",
+                  "Xiangtai Li",
+                  "Long Zhuo",
+                  "Lai Xing Ng",
+                  "Benoit R. Cottereau",
+                  "Changxin Gao",
+                  "Liang Pan",
+                  "Wei Tsang Ooi",
+                  "Ziwei Liu"
+                ],
+                "published": "2025-12-11T18:59:58Z",
+                "updated": "2026-06-01T17:54:44Z",
+                "url": "http://arxiv.org/abs/2512.10958v2",
+                "pdf_url": "https://arxiv.org/pdf/2512.10958v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV"
+                ]
+              },
+              {
+                "arxiv_id": "2605.02122v2",
+                "title": "STABLEVAL: Disagreement-Aware and Stable Evaluation of AI Systems",
+                "summary": "Human evaluation remains the primary standard for assessing modern AI systems, yet annotator disagreement, bias, and variability make system rankings fragile under standard majority vote aggregation. Majority vote discards annotator reliability and item-level ambiguity, often yielding unstable comparisons across annotator subsets. We introduce STABLEVAL, a disagreement-aware evaluation framework that models latent item correctness and annotator-specific confusion patterns to produce posterior expected item credit and calibrated agent-level scores. Unlike label-denoising approaches such as Dawid-Skene, STABLEVAL is explicitly designed for stable and uncertainty-aware system evaluation rather than hard label recovery. We formalize ranking stability as a first-class evaluation objective and analyze how aggregation methods preserve or distort underlying annotator behavior. Across controlled synthetic experiments and multiple real-world human-annotated benchmarks, majority vote exhibits increasing score error and ranking instability under annotator heterogeneity and adversarial noise, while STABLEVAL yields more stable and statistically grounded system rankings. These results demonstrate that modeling disagreement is essential for robust and reproducible AI evaluation.",
+                "authors": [
+                  "Akash Bonagiri",
+                  "Gerard Janno Anderias",
+                  "Saee Patil",
+                  "Angelina Lai",
+                  "Devang Borkar",
+                  "Gezheng Kang",
+                  "Ishant Gandhi",
+                  "Setareh Rafatirad",
+                  "Houman Homayoun"
+                ],
+                "published": "2026-05-04T01:03:48Z",
+                "updated": "2026-06-01T17:49:37Z",
+                "url": "http://arxiv.org/abs/2605.02122v2",
+                "pdf_url": "https://arxiv.org/pdf/2605.02122v2",
+                "source": "arxiv.org",
+                "primary_category": "cs.LG",
+                "categories": [
+                  "cs.LG",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2605.14791v2",
+                "title": "Beyond AI as Assistants: Toward Autonomous Discovery in Cosmology",
+                "summary": "Recent advances in artificial intelligence (AI) agents are pushing AI beyond tools toward autonomous scientific discovery. We discuss two complementary agentic systems for cosmology: \\texttt{CMBEvolve}, which targets tasks with explicit quantitative objectives through LLM-guided code evolution and tree search, and \\texttt{CosmoEvolve}, which targets open-ended scientific workflows through a virtual multi-agent research laboratory. As preliminary demonstrations, we apply \\texttt{CMBEvolve} to out-of-distribution detection in weak-lensing maps, where it iteratively improves the benchmark score through code evolution, and \\texttt{CosmoEvolve} to autonomous ACT DR6 data analysis, where it identifies non-trivial pair- and scale-dependent behaviour and produces analysis-grade diagnostics. These examples show how cosmology can provide both controlled benchmark tasks and realistic open-ended research problems for the development of AI scientist systems.",
+                "authors": [
+                  "Licong Xu",
+                  "Thomas Borrett"
+                ],
+                "published": "2026-05-14T12:58:12Z",
+                "updated": "2026-06-01T17:26:00Z",
+                "url": "http://arxiv.org/abs/2605.14791v2",
+                "pdf_url": "https://arxiv.org/pdf/2605.14791v2",
+                "source": "arxiv.org",
+                "primary_category": "astro-ph.IM",
+                "categories": [
+                  "astro-ph.IM",
+                  "astro-ph.CO",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2606.02510v1",
+                "title": "Not All Points Are Equal: Uncertainty-Aware 4D LiDAR Scene Synthesis",
+                "summary": "Constructing faithful 4D worlds from LiDAR-acquired sequences is crucial for embodied AI, yet current generative frameworks apply uniform modeling capacity across all spatial regions. This ignores that perceptual difficulty varies dramatically within a single scan: distant surfaces, occluded boundaries, and small-scale objects carry far higher uncertainty than well-observed structures. We present U4D, a new framework that explicitly leverages spatial uncertainty to guide LiDAR scene generation in a \"hard-to-easy\" schedule. U4D derives per-point uncertainty maps via Shannon Entropy from a pretrained segmentor, then applies an unconditional diffusion stage to synthesize high-entropy areas with precise geometry, followed by a conditional completion stage that fills in the remaining regions using these structures as priors. A MoST (Mixture of Spatio-Temporal) block further maintains cross-frame coherence by dynamically balancing spatial detail and temporal continuity. Extensive experiments on nuScenes and SemanticKITTI demonstrate state-of-the-art scene fidelity, temporal consistency, and downstream performance.",
+                "authors": [
+                  "Xiang Xu",
+                  "Alan Liang",
+                  "Youquan Liu",
+                  "Xian Sun",
+                  "Linfeng Li",
+                  "Lingdong Kong",
+                  "Ziwei Liu",
+                  "Qingshan Liu"
+                ],
+                "published": "2026-06-01T17:24:14Z",
+                "updated": "2026-06-01T17:24:14Z",
+                "url": "http://arxiv.org/abs/2606.02510v1",
+                "pdf_url": "https://arxiv.org/pdf/2606.02510v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV",
+                  "cs.RO"
+                ]
+              },
+              {
+                "arxiv_id": "2606.02508v1",
+                "title": "AI and physics-based weather forecasting: A comparative study",
+                "summary": "In the last few years, AI-based models have become the centre of attention in weather forecasting due to their increasing accuracy and efficiency. Pioneering among weather services, ECMWF has developed its Artificial Intelligence Forecasting System (AIFS) model, which was first to provide data-driven ensemble forecasts in June 2024. Since July 2025, the AIFS ensemble model has been operational and runs in parallel with ECMWF's physics-based Integrated Forecasting System (IFS), which is considered the gold standard in weather prediction. The new AIFS model can generate forecasts ten times faster than the classical numerical weather prediction model, while consuming approximately a thousand times less energy. We present the results of our systematic assessment of the performance of the IFS and AIFS models by comparing the accuracy of raw and post-processed medium-range 10-m wind-speed ensemble forecasts generated operationally by the two models for the period between July and November 2025 for more than 9000 synoptic observation stations across the globe. The post-processed case involves the parametric ensemble model output statistics (EMOS) as well as the non-parametric quantile regression (QR) approach to correct any systematic inaccuracies in the raw forecasts. The predictive performance of raw IFS ensemble forecasts proves to be substantially superior to the skill of the raw AIFS predictions for all investigated forecast horizons. As expected, post-processing significantly improves the skill of both IFS and AIFS predictions, and, across most verification metrics, EMOS is superior to QR, especially for short lead times. Compared to the raw ensemble, the differences in skill between the matching IFS and AIFS predictions are substantially decreased by post-processing and are mostly significant at short lead times, when the IFS forecasts outperform their AIFS counterparts.",
+                "authors": [
+                  "Mátyás Kocsis",
+                  "Sándor Baran"
+                ],
+                "published": "2026-06-01T17:21:26Z",
+                "updated": "2026-06-01T17:21:26Z",
+                "url": "http://arxiv.org/abs/2606.02508v1",
+                "pdf_url": "https://arxiv.org/pdf/2606.02508v1",
+                "source": "arxiv.org",
+                "primary_category": "stat.AP",
+                "categories": [
+                  "stat.AP"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 6159,
+        "completion_tokens": 732,
+        "total_tokens": 6891
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T15:29:19"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-06-02T15:30:41",
+      "user": "bạn có thể giúp gì cho tôi",
+      "status": "answered",
+      "assistant_text": "Tôi có thể giúp bạn với nhiều loại thông tin và nhiệm vụ khác nhau, bao gồm:\n\n1. **Tìm kiếm thông tin**: Cung cấp thông tin về các chủ đề cụ thể, bài báo, nghiên cứu, hoặc tin tức mới nhất.\n2. **Lưu trữ thông tin**: Giúp bạn lưu lại các bài viết, tài liệu hoặc thông tin quan trọng để bạn có thể truy cập sau này.\n3. **Tóm tắt nội dung**: Tóm tắt các bài báo hoặc tài liệu dài để bạn dễ dàng nắm bắt thông tin chính.\n4. **Dịch thuật**: Dịch văn bản từ ngôn ngữ này sang ngôn ngữ khác.\n5. **Gửi thông báo**: Gửi tin nhắn qua Telegram hoặc email (sau khi xác nhận).\n6. **Hỗ trợ nghiên cứu**: Tìm kiếm và cung cấp các bài báo khoa học hoặc tài liệu nghiên cứu.\n\nNếu bạn có yêu cầu cụ thể nào, hãy cho tôi biết để tôi có thể hỗ trợ bạn tốt nhất!",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 2535,
+        "completion_tokens": 224,
+        "total_tokens": 2759
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T15:30:47"
+    },
+    {
+      "turn_index": 3,
+      "started_at": "2026-06-02T15:32:19",
+      "user": "1",
+      "status": "answered",
+      "assistant_text": "Bạn có thể cho tôi biết cụ thể bạn muốn tìm kiếm thông tin về chủ đề gì không? Tôi sẽ giúp bạn tìm kiếm thông tin phù hợp!",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 2767,
+        "completion_tokens": 32,
+        "total_tokens": 2799
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T15:32:22"
+    },
+    {
+      "turn_index": 4,
+      "started_at": "2026-06-02T15:32:42",
+      "user": "tìm kiếm thông tin về elson mask",
+      "status": "answered",
+      "assistant_text": "Dưới đây là một số thông tin mới nhất về Elon Musk trong tuần này:\n\n1. **[Elon Musk CONQUERED the Media Forever this Weekend and NOBODY Is Talking About It](https://www.youtube.com/watch?v=GdOZv8eMvaU)**\n   - **Nguồn**: YouTube\n   - **Tóm tắt**: Video này thảo luận về cách Elon Musk đã chiếm lĩnh truyền thông trong một sự kiện gần đây mà không ai chú ý đến.\n   - **Ngày xuất bản**: 1 tháng 6, 2026.\n\n2. **[Elon Musk's Plans For An AI Comeback](https://www.youtube.com/watch?v=gHbRLivCLp8)**\n   - **Nguồn**: YouTube\n   - **Tóm tắt**: Video này khám phá kế hoạch của Elon Musk để trở lại trong cuộc đua AI, bất chấp nhiều nhà đầu tư cho rằng cuộc đua đã kết thúc.\n   - **Ngày xuất bản**: 1 tháng 6, 2026.\n\n3. **[Who will invest in Elon Musk’s SpaceX vision? | ABC News Daily podcast](https://www.youtube.com/watch?v=6c3WYqiaotE)**\n   - **Nguồn**: YouTube\n   - **Tóm tắt**: Podcast này thảo luận về khả năng Elon Musk có thể thiết lập một thuộc địa trên sao Hỏa và ai sẽ đầu tư vào tầm nhìn của SpaceX.\n   - **Ngày xuất bản**: 1 tháng 6, 2026.\n\n4. **[Inside Elon Musk's New $80 Million Private Jet](https://www.youtube.com/watch?v=iluSb5RGOr4)**\n   - **Nguồn**: YouTube\n   - **Tóm tắt**: Video này đưa người xem vào bên trong chiếc máy bay riêng mới trị giá 80 triệu USD của Elon Musk.\n   - **Ngày xuất bản**: Chưa rõ ngày.\n\n5. **[Elon Musk - 13 Principles For Work (Choose To Be Extraordinary)](https://www.youtube.com/watch?v=_jboN_b_hd0)**\n   - **Nguồn**: YouTube\n   - **Tóm tắt**: Video này chia sẻ 13 nguyên tắc làm việc của Elon Musk, nhấn mạnh rằng mọi người có thể chọn để trở nên phi thường.\n   - **Ngày xuất bản**: 1 tháng 6, 2026.\n\nNếu bạn cần thêm thông tin chi tiết về bất kỳ nội dung nào, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Elon Musk",
+            "topic": "general",
+            "timeframe": "week",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Elon Musk",
+            "topic": "general",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Elon Musk CONQUERED the Media Forever this Weekend and NOBODY Is Talking About It",
+                "url": "https://www.youtube.com/watch?v=GdOZv8eMvaU",
+                "source": "youtube.com",
+                "summary": "Elon Musk CONQUERED the Media Forever this Weekend and NOBODY Is Talking About It\nWDW Pro\n208000 subscribers\n1279 likes\n7299 views\n1 Jun 2026\nElon Musk CONQUERED the Media Forever this Weekend and NOBODY Is Talking About It\n\n#elonmusk #starlink #xai #grok #supergrok #ai #jeffbezos #rocket #rockets #spacex #blueorigins #entertainment #entertainmentnews #hollywood \n\nArt by @FatStevenJFG \nAd by @FloralFromUnderARock\n186 comments\n",
+                "score": 0.98228765
+              },
+              {
+                "title": "Elon Musk's Plans For An AI Comeback",
+                "url": "https://www.youtube.com/watch?v=gHbRLivCLp8",
+                "source": "youtube.com",
+                "summary": "Can Elon Musk Still Win The AI Race?\nBrighter with Herbert\n183000 subscribers\n291 likes\n2214 views\n1 Jun 2026\nMany investors have already declared the AI race over, saying OpenAI and Anthropic have won. Elon Musk completely disagrees.\nSome viewers ask where they can learn more about investing in AI, Space and Robotics.  Reach out to me here: \nhttps://forms.gle/T5BgT11s1ucLQsebA\n\nNOTE: I’m not involved in offering investments and don’t provide advice. But for general informational purposes, I can share the names of independent firms people can research on their own. \n\nLarry Goldberg is a serial entrepreneur and has been an active Venture Capital investor for the last decade. Check out lumasenti.com \n\nFollow Larry on X: @TeslaLarry\n\n\nBecome a Patreon: https://www.patreon.com/brighterwithherbert\nBecome a YouTube Channel Member: https://www.youtube.com/channel/UC4DBLlq1x0AKmip1QJUcbXg/join\n\nYour support means alot! ❤️  \n\nMy website: https://www.HerbertOng.com\n15+ modules of resources for the $TSLA Investor + free TESLA Milestone Tables\n\nLet's get brighter!\nWebsite: www.herbertong.com\nX: @herbertong\n\nDisclaimer: All content on this channel is for discussion and illustrative purposes only and should not be construed as professional financial advice or recommendation to buy or sell any securities. All views expressed are personal opinion as of date of recording and are subject to change without responsibility to update views.  No guarantee is given regarding the accuracy of information on this channel.  Neither host or guests can be held responsible for any direct or incidental loss incurred by applying any of the information offered.  Author is invested in multiple Humanoid companies and is long TSLA and other stocks at time of original video publish date.\n\n#Tesla #ElonMusk #TeslaNews #investing #teslabot #technology #AI #TeslaFSD  #teslastockanalysis  #TeslaUpdate #ElonMuskNews  #EV #FSD #TSLA #robotaxi #autonomousdriving #TeslaStock\n\nMerch: \n$TSLA Black Hat: https://tinyurl.com/yc5fe3fz\n$TSLA White Hat: https://tinyurl.com/bdd9v96m\n21 comments\n",
+                "score": 0.93721074
+              },
+              {
+                "title": "Who will invest in Elon Musk’s SpaceX vision? | ABC News Daily podcast",
+                "url": "https://www.youtube.com/watch?v=6c3WYqiaotE",
+                "source": "youtube.com",
+                "summary": "Who will invest in Elon Musk’s SpaceX vision? | ABC News Daily podcast\nABC News (Australia)\n2560000 subscribers\n19 likes\n1048 views\n1 Jun 2026\nDo you believe that Elon Musk can establish a colony on Mars of a million people or launch data centres into space? \n\n\nIf you do, you might be thinking of investing in SpaceX which will go public on the Nasdaq stock market this month. \n\n\nEven if you have your doubts, you might just gamble on Musk anyway for fear of missing out.\n\n\nToday, Quinn Slobodian, co-author of ‘Muskism: A Guide for the Perplexed’ on Musk’s $1.8 trillion valuation.\n\n\nFeatured: \n\n\nQuinn Slobodian, Professor of International History at Boston University and co-author of ‘Muskism: A Guide for the Perplexed’\n\n",
+                "score": 0.86339164
+              },
+              {
+                "title": "Inside Elon Musk's New $80 Million Private Jet",
+                "url": "https://www.youtube.com/watch?v=iluSb5RGOr4",
+                "source": "youtube.com",
+                "summary": "Inside Elon Musk's New $80 Million Private Jet.",
+                "score": 0.8509647
+              },
+              {
+                "title": "Elon Musk - 13 Principles For Work (Choose To Be ...",
+                "url": "https://www.youtube.com/watch?v=_jboN_b_hd0",
+                "source": "youtube.com",
+                "summary": "Elon Musk - 13 Principles For Work (Choose To Be Extraordinary)\nPicking Nuggets\n156000 subscribers\n76 likes\n684 views\n1 Jun 2026\n\"It’s possible for ordinary people to choose to be extraordinary.\" - Elon Musk\n\n📚 Find key nuggets from over 10,000 non-fiction books on Shortform - https://shortform.com/pickingnuggets\n(Get a 5-day FREE trial and a 20% discount)\n\n🎧 Check out my podcast (where I share ideas and lessons from books I read) - https://www.youtube.com/@JuliosAlmanack\n \n📙 Get my (free) 140-page ebook - https://pickingnuggets.com/\n\n💌 Join The Little Almanack, my weekly email where I send out a 5 min nugget. Picked from influential doers (in their own words) who took the time to share their wisdom with the world! Plus, I add a visual to make the nugget more clear and memorable. And also a little reflection! - https://www.littlealmanack.com/\n\n⎯ ⎯ ⎯ ⎯ ⎯\n\nMusic used with permission\nInterstellar by @RossBugden \n\n⎯ ⎯ ⎯ ⎯ ⎯\n\nVIDEO SOURCES\nhttps://youtu.be/Kbk9BiPhm7o?si=Po1WBkNk0dUA25uY&t=4675\nhttps://youtu.be/DxREm3s1scA?si=vm1Wkx8wrQXadRtD&t=8317\nhttps://www.youtube.com/watch?v=Rni7Fz7208c\nhttps://youtu.be/afZTrfvB2AQ?si=i9jLsf1yDH_BZfiJ\nhttps://youtu.be/DxREm3s1scA?si=R4Gx7ln0Yj_HYH1n&t=8428\nhttps://youtu.be/23GzpbNUyI4?si=dCEOHqijW6ARM2pH&t=366\nhttps://youtu.be/L-s_3b5fRd8?si=cN4NtEc4NV9rwZfj&t=1266\nhttps://youtu.be/c1HZIQliuoA?si=Pp_3_c9CkwpCIcJO&t=1044\nhttps://youtu.be/Kbk9BiPhm7o?si=spsUBW3WH8skMSYi&t=2655\nhttps://www.youtube.com/watch?v=RcYjXbSJBN8\nhttps://youtu.be/tnBQmEqBCY0?si=XhEceQTJGuKd237M&t=481\nhttps://youtu.be/E-squeb0YJA?si=xTBEnsoVbKi4Qcir&t=941\nhttps://youtu.be/V1nQFotzQMQ?si=WPU9X2O_ez56eRZX&t=1181\n\n⎯ ⎯ ⎯ ⎯ ⎯\n\nCHAPTERS\n0:00 - PRINCIPLE 1 — Be Useful\n0:56 - PRINCIPLE 2 — Money Comes Naturally as the Result of Service\n1:57 - PRINCIPLE 3 — Find an Overlap of Your Talents and Interests\n3:14 - PRINCIPLE 4 — Learn as Much as You Can\n4:29 - PRINCIPLE 5 — Actively Seek Out Negative Feedback\n5:44 - PRINCIPLE 6 — Reason from First Principles\n7:39 - PRINCIPLE 7 — Follow “The Algorithm”\n9:46 - PRINCIPLE 8 — Think in Limits\n10:31 - PRINCIPLE 9 — Do Things in Parallel\n11:50 - PRINCIPLE 10 — Be a Maker\n13:25 - PRINCIPLE 11 — Have a Positive-Sum Mindset\n14:38 - PRINCIPLE 12 — Feel Fear. Do It Anyway\n15:59 - PRINCIPLE 13 — Lead by Example\n17:05 - Reflections\n\n\nDISCLAIMER 1\nLinks included in this description might be affiliate links. If you purchase a product or service with the links that I provide I may receive a small commission. There is no additional charge to you!\n\nDISCLAIMER 2\nI do not own the audio source/s used to create this video. If any of the owners want their content taken down please contact me via the email in the About section of my channel. All works of commentary, reviewing, video editing and (many times) the mixing of different content sources do come from this channel's creativity. Thus, I believe there is a \"transformation of value\" from any particular raw audio source. This value transformation and, given the non-fictional / educational nature of the audio source contents, makes it a stronger case for \"fair use\" right. Also, I believe this video is supportive to the owners of the audio source contents, as it helps to spread their invaluable message in a positive way. But in any case, as mentioned in the previous paragraph, if any owner do not want their content to be featured in this video, please contact me :)\n4 comments\n",
+                "score": 0.84695786
+              }
+            ]
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 8151,
+        "completion_tokens": 578,
+        "total_tokens": 8729
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T15:32:58"
+    }
+  ],
+  "token_totals": {
+    "prompt_tokens": 19612,
+    "completion_tokens": 1566,
+    "total_tokens": 21178
+  },
+  "all_sources": []
+}

@@ -1,0 +1,802 @@
+{
+  "run_id": "v3_B_group_openrouter_20260602T125556836101",
+  "version": "v3",
+  "artifact_version": "v3+p7701addc8fa0+t6dbf7260b213",
+  "prompt_hash": "7701addc8fa0e7855b29e192d5ac49ac4d9ebbc892867da9b78745873d8f2baa",
+  "tools_hash": "6dbf7260b213cb640bd8a3255b049c93210ed23482ad8bd8ff9b5bcbe556deef",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-06-02T12:55:56",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 8,
+    "case_accuracy": 0.8,
+    "tool_routing_accuracy": 0.8,
+    "argument_accuracy": 0.8,
+    "multiturn_accuracy": 0.6,
+    "failure_counts": {
+      "wrong_arg_value": 2
+    },
+    "observed_mismatch_counts": {
+      "extra_tool_call": 2
+    }
+  },
+  "results": [
+    {
+      "id": "GR01_fetch_explicit_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Câu có URL rõ ràng → phải dùng fetch với đúng URL đó, không gọi lookup."
+      },
+      "input": "Đọc bài này cho mình: https://techcrunch.com/2026/06/01/openai-new-model",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://techcrunch.com/2026/06/01/openai-new-model"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://techcrunch.com/2026/06/01/openai-new-model"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://techcrunch.com/2026/06/01/openai-new-model"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://techcrunch.com/2026/06/01/openai-new-model",
+            "items": [
+              {
+                "title": "Page not found | TechCrunch",
+                "url": "https://techcrunch.com/2026/06/01/openai-new-model",
+                "source": "techcrunch.com",
+                "summary": "Checking your Browser…\n\nVerifying...\n\nStuck? [Troubleshoot](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\nSuccess!\n\nVerification failed\n\n[Troubleshoot](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\nVerification expired\n\n[Refresh](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\nVerification expired\n\n[Refresh](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\n[Troubleshoot](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\n[Privacy](https://www.cloudflare.com/privacypolicy/) • [Help](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/help)\n\n![](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/d/a0543584fb23ba47/1780379725826/qjsWqHXhQg_07Ox)\n\n [Skip to content](https://techcrunch.com/2026/06/01/openai-new-model#wp--skip-link--target)\n\nThe first StrictlyVC of 2026 hits SF on April 30. Tickets are going fast. [Register now.](https://techcrunch.com/events/strictlyvc-san-francisco-2026/?utm_source=tc&utm_medium=ad&utm_campaign=svcsf2026&utm_content=ticketsales&promo=topbanner&display=)\n\nClose\n\n# 404\n\n## Page not found\n\nWe’re sorry, we seem to have lost this page\n\n\nSearch\n\n[Back to homepage](https://www.techcrunch.com/)\n\n## Latest News\n\n- ![](https://techcrunch.com/wp-content/uploads/2026/04/54889021188_e8f5317c37_o.jpg?w=563)\n\n\n\n[Startups](https://techcrunch.com/category/startups/)\n\n\n\n### [How to make the Startup Battlefield Top 20 — and what every company gets regardless](https://techcrunch.com/2026/06/01/how-to-make-the-startup-battlefield-top-20-and-what-every-company-gets-regardless/)\n\n\n\n\n\n  - [Isabelle Johannessen](https://techcrunch.com/author/isabelle-johannessen/)\n\n7 hours ago\n\n- ![Sundar Pichai, chief executive officer of Alphabet](https://techcrunch.com/wp-content/uploads/2025/02/GettyImages-2173545265.jpg?w=562)\n\n\n\nIn Brief\n\n\n\n### [Alphabet plans to raise $80B to pay for AI buildout](https://techcrunch.com/2026/06/01/alphabet-plans-to-raise-80-billion-to-pay-for-ai-buildout/)\n\n\n\n\n\n  - [Lucas Ropek](https://techcrunch.com/author/lucas-ropek/)\n\n7 hours ago\n\n- ![Ethan Thornton at StrictlyVC San Francisco](https://techcrunch.com/wp-content/uploads/2025/08/Ethan-Thornton-SVCSF-2025-e1780338289712.jpg?w=470)\n\n\n\n[Startups](https://techcrunch.com/category/startups/)\n\n\n\n### [Defense tech darling Mach Industries hits $1.8B valuation, a 4x jump in a year](https://techcrunch.com/2026/06/01/defense-tech-darling-mach-industries-hits-1-8b-valuation-a-4x-jump-in-a-year/)\n\n\n\n\n\n  - [Julie Bort](https://techcrunch.com/author/julie-bort/)\n\n8 hours ago\n\n- ![NVIDIA CEO Jensen Huang](https://techcrunch.com/wp-content/uploads/2025/03/GettyImages-2205761886.jpg?w=543)\n\n\n\n[AI](https://techcrunch.com/category/artificial-intelligence/)\n\n\n\n### [Nvidia chases $200B CPU market with AI agent PCs from Microsoft, Dell, and HP](https://techcrunch.com/2026/06/01/nvidia-chases-200b-cpu-market-with-ai-agent-pcs-from-microsoft-dell-and-hp/)\n\n\n\n\n\n  - [Julie Bort](https://techcrunch.com/author/julie-bort/)\n\n8 hours ago\n\n- ![Kevin A. Damoa, Founder & CEO, Glīd, Claire Kroft and Ankit Malhotra, winners of the Startup Battlefield 2025, pose onstage during day three of TechCrunch Disrupt 2025 at Moscone Center on October 29, 2025 in San Francisco, California.](https://techcrunch.com/wp-content/uploads/2025/11/54889460445_20c033b45a_o-2.jpg?w=563)\n\n\n\n[Startups](https://techcrunch.com/category/startups/)\n\n\n\n### [From the stage to the future: Where are Startup Battlefield’s alumni now?](https:/"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR02_handle_mapping_lecun",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Map tên đầy đủ Yann LeCun → Twitter handle ylecun, không dùng tên nguyên."
+      },
+      "input": "Xem tweet mới nhất của Yann LeCun",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "ylecun"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "ylecun",
+              "limit": 1
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "ylecun",
+            "limit": 1
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=ylecun"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR03_out_of_scope_recipe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Yêu cầu nấu ăn hoàn toàn ngoài scope research/news → không gọi tool nào."
+      },
+      "input": "Cho mình công thức nấu phở bò truyền thống",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Dưới đây là công thức nấu phở bò truyền thống:\n\n### Nguyên liệu:\n- **Nước dùng:**\n  - 2 kg xương bò (xương ống hoặc xương đuôi)\n  - 1 củ hành tây\n  - 1 củ gừng\n  - 5-6 nhánh hồi\n  - 1-2 thanh quế\n  - 5-6 hạt tiêu\n  - 1-2 muỗng canh muối\n  - 1-2 muỗng canh đường\n  - Nước\n\n- **Nguyên liệu chính:**\n  - 500g thịt bò (thịt bắp, thịt nạm hoặc thịt gầu)\n  - 400g bánh phở tươi\n  - Hành lá, rau thơm (ngò gai, húng quế)\n  - Chanh, ớt tươi\n\n### Cách làm:\n\n1. **Chuẩn bị nước dùng:**\n   - Rửa sạch xương bò, sau đó cho vào nồi nước sôi khoảng 5-10 phút để loại bỏ tạp chất. Vớt xương ra, rửa lại với nước lạnh.\n   - Cho xương vào nồi lớn, đổ nước ngập xương và đun sôi. Hớt bọt thường xuyên để nước dùng trong.\n   - Nướng hành tây và gừng trên lửa cho đến khi có mùi thơm và hơi cháy xém, sau đó cho vào nồi nước dùng.\n   - Thêm hồi, quế, tiêu vào nồi. Nêm muối và đường. Đun nhỏ lửa trong khoảng 3-4 giờ để nước dùng ngọt và đậm đà.\n\n2. **Chuẩn bị thịt bò:**\n   - Thịt bò rửa sạch, có thể luộc sơ qua nước sôi rồi thái lát mỏng.\n\n3. **Nấu bánh phở:**\n   - Luộc bánh phở trong nước sôi khoảng 1-2 phút cho đến khi mềm, sau đó vớt ra để ráo.\n\n4. **Hoàn thành:**\n   - Cho bánh phở vào tô, xếp thịt bò lên trên, sau đó chan nước dùng nóng lên.\n   - Rắc hành lá, rau thơm lên trên và thêm chanh, ớt tươi theo khẩu vị.\n\n### Thưởng thức:\nPhở bò thường được ăn kèm với các loại rau sống và gia vị như chanh, ớt, và tương ớt. Chúc bạn thành công với món phở bò truyền thống!",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "GR04_timeframe_month",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "'tháng này' → timeframe=month, topic=news."
+      },
+      "input": "Tin công nghệ tháng này có gì nổi bật?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "tin công nghệ",
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "tin công nghệ",
+            "topic": "news",
+            "timeframe": "month",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "tin công nghệ",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "Elementos brings general manager on board for Spain operations - Mining.com.au",
+                "url": "https://mining.com.au/elementos-brings-general-manager-on-board-for-spain-operations/",
+                "source": "mining.com.au",
+                "summary": "Elementos (ASX:ELT) has appointed Antonio Martín Sánchez as the company’s General Manager for its Spain-based operations, effective 1 July 2026. This will include the development of the Oropesa Tin Project in Andalucía and the project’s alignment with the Robledollano Tin Smelter, in which the company has a binding option to acquire a 50% interest stake. He has contributed to delivering reduced emissions, energy efficiency, and environmental, social, and governance (ESG) reporting in previous roles, which Elementos says aligns with its commitment to responsible development and its ambition to establish a *“modern, responsible, and reliable tin supply chain”*from Spain for Europe. *“The board welcomes Antonio to MESPA and looks forward to his contribution as we progress the growth of our vertically integrated tin operations.”*. Elementos is a tin and critical minerals development company focused on becoming a key supplier to global technology and electrification markets, with its flagship asset being the Oropesa Tin Project in Spain.",
+                "score": 0.15777196
+              },
+              {
+                "title": "Cornish Metals secures funds for UK tin project’s development - Mining.com.au",
+                "url": "https://mining.com.au/cornish-metals-secures-funds-for-uk-tin-projects-development/",
+                "source": "mining.com.au",
+                "summary": "* Cornish Metals secures funds for UK tin project’s development. Cornish Metals (AIM:TIN) has secured a £52 million ($97.05 million) credit facility with the National Wealth Fund and Vision Blue Resources to support the development of the South Crofty Tin Project in the UK. *“It also signals the National Wealth Fund* *and Vision Blue’s continued support for Cornish Metals and our goal to restart tin mining in Cornwall, providing a sustainable supply of this critical mineral to the West,”* Turvey says. *“As part of the project financing process the company has been engaging with investment parties, including strategic offtakers and institutional investors, interested in financing the development of South Crofty, and we are pleased with the level of interest we are receiving, further highlighting the significance of this project.”*. Cornish Metals is working toward reopening the historical underground tin mine, which is located in the Central Mining District of Cornwall, UK. Cornish Metals is a mineral explorer and developer focused on tin and other critical minerals in the UK.",
+                "score": 0.12899646
+              },
+              {
+                "title": "Column: Tin re-balances but investors are still betting on scarcity - Mining.com",
+                "url": "https://www.mining.com/web/column-tin-re-balances-but-investors-are-still-betting-on-scarcity/",
+                "source": "mining.com",
+                "summary": "Silver Futures $ 75.495 / ozt  7.47%. Micro Gold Futures $ 4713.1 / ozt  3.80%. Micro Silver Futures $ 75.48 / ozt  7.54%. Gold Futures $ 4713.3 / ozt  3.84%. LME three-month tin is trading at $55,225 per metric ton, close to the all-time high of $59,040 reached during the frenzied cross-metals rally in January. The London tin price is up by 36% since the start of the year. The next best performer is aluminum, which has risen by 23% and is experiencing an unprecedented supply shock after the loss of Gulf production due to the Iran war. Tin supply has no direct exposure to the war in the Gulf, unlike aluminum, nickel and copper. Global mine production is on course to grow by a healthy 8.7% this year, according to the International Tin Association (ITA). Production at the Bisie mine in the Democratic Republic of Congo is stable after last year’s brief closure due to encroaching M23 insurgents.",
+                "score": 0.11651269
+              },
+              {
+                "title": "Steel Tariffs Are Harming Tin Can Makers and Lifting Food Prices - The New York Times",
+                "url": "https://www.nytimes.com/2026/05/12/business/steel-tariffs-tin-cans-food-prices.html",
+                "source": "nytimes.com",
+                "summary": "# Steel Tariffs Are Raising the Price of Canned Foods - The New York Times. Business|Steel Tariffs Are Harming Tin Can Makers and Lifting Food Prices. # Steel Tariffs Are Harming Tin Can Makers and Lifting Food Prices. Rolls of tin-plated steel at Ohio Coatings in Yorkville, Ohio. Rolls of tin-plated steel at Ohio Coatings in Yorkville, Ohio.Credit... But imports of the kind of steel used to make cans surged in 2025, and American can makers say they will remain heavily dependent on foreign supplies — now made more expensive by the tariffs — for a long time. “We have to import all this tin plate,” said Scott Breen, the president of the Can Manufacturers Institute, referring to the thinly rolled steel that is coated with tin and used to make cans. And as Mr. Trump’s tariffs pushed up the cost of tin plate, canned food prices have risen, burdening households that rely on such staples as corn and beans.",
+                "score": 0.10737215
+              },
+              {
+                "title": "Cornwall tin mining company Cornish Metals secures £52m to advance major UK project - Business Live",
+                "url": "https://www.business-live.co.uk/economic-development/cornwall-tin-mining-company-cornish-33963179",
+                "source": "business-live.co.uk",
+                "summary": "# Cornwall tin mining company Cornish Metals secures £52m to advance major UK project. ## The AIM-listed firm is looking to restart production at an historic tin mine. A Cornwall mining company looking to revive an historic tin mine in the Duchy has secured £52m to advance its project. Cornish Metals has secured credit facilities with its two largest shareholders - the government's National Wealth Fund and Vision Blue Resources. The AIM-listed firm is working to restart production at South Crofty, near Pool. Don Turvey, chie executive of Cornish Metals, said: “This funding provides the company with the financial runway to progress through to the final investment decision for the South Crofty project while continuing to advance and derisk the project by maintaining the high level of activities across site. \"It also signals the National Wealth Fund’s and Vision Blue’s continued support for Cornish Metals and our goal to restart tin mining in Cornwall, providing a sustainable supply of this critical mineral to the West.\".",
+                "score": 0.10199143
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR05_missing_search_keyword",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Thiếu keyword/chủ đề cần tìm → phải hỏi lại trước khi gọi social_search."
+      },
+      "input": "Tìm tweet liên quan cho mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn tìm tweet từ tài khoản nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tìm tweet từ tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tìm tweet từ tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM01_carryover_search_type",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: carry query='Claude AI' từ lượt 1, cập nhật search_type=Top từ 'phổ biến nhất' ở lượt 2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tweet về Claude AI"
+        },
+        {
+          "role": "user",
+          "content": "Lấy loại phổ biến nhất nhé"
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề Claude AI"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Claude AI",
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Claude AI",
+              "search_type": "Top",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "Claude AI",
+            "search_type": "Top",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/search.php?query=Claude+AI&search_type=Top"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM02_carryover_limit_new_handle",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: đổi handle sang JeffBezos ở lượt 2, carry limit=5 từ lượt 1."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 5 tweet của Elon Musk"
+        },
+        {
+          "role": "user",
+          "content": "Bây giờ chuyển sang Jeff Bezos đi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn lấy 5 tweet thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "JeffBezos",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "JeffBezos",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "JeffBezos",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "429 Client Error: Too Many Requests for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=JeffBezos"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM03_switch_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: cập nhật timeframe week→month ở lượt 2, carry query=AI và topic=news."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin AI tuần này"
+        },
+        {
+          "role": "user",
+          "content": "Chuyển sang tin tháng này thôi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn là về AI nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 5
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI",
+              "search_type": "Latest",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "extra_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "extra tool call social_search"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "month",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "Emerging Risks to Watch: AI, Data Centers, and Autonomous Vehicles - Insurance Journal",
+                "url": "https://www.insurancejournal.com/magazines/mag-features/2026/05/04/868016.htm",
+                "source": "insurancejournal.com",
+                "summary": "# Emerging Risks to Watch: AI, Data Centers, and Autonomous Vehicles. We examine how the expanding use of AI is reshaping the risk landscape for insurance–not only within the industry but across the broader economy and physical world. From cybersecurity and data privacy concerns to the infrastructure required to support AI, to its growing role in autonomous systems, understanding where AI-related risks may emerge is essential to managing them effectively. The wide-ranging–and growing–list of AI capabilities and applications makes it difficult to determine how the transformative technology may impact potential losses across specific insurance lines of business. A recently reported security incident involving data access from a popular enterprise generative AI tool highlights how the mass adoption of large language models (LLMs) and the concentration of the office software market may increase the potential for systemic liability exposure across cyber and professional and management liability lines.",
+                "score": 0.31393534
+              },
+              {
+                "title": "AI Marketing Features - Trend Hunter",
+                "url": "https://www.trendhunter.com/amp/trends/ADWEEK-House-Possible-Group",
+                "source": "trendhunter.com",
+                "summary": "Adweek published a report on agentic AI tools in marketing, featuring insights from the ADWEEK House Possible Group Chat co-hosted with Mutinex and participants from Hershey, Breeze Airways and PubMatic. The discussion focused on agentic AI systems designed to automate workflows, support measurement and connect large datasets with creative and strategic marketing tasks while maintaining human oversight. Speakers shared examples ranging from media-mix modelling that reduced data preparation time from months to hours to AI-assisted campaign workflows that remove repetitive tasks and allow teams to focus on higher-level planning and creativity. For marketers, agentic AI is increasingly positioned as a productivity layer that frees teams to spend more time on strategy, taste and creative judgment rather than manual execution. 3. **AI-assisted Creative Collaboration** — Tools that blend generative models with human oversight to iterate on strategy, tone and creative assets present opportunities to reshape agency-client workflows and redefine creative production timelines.",
+                "score": 0.26265076
+              },
+              {
+                "title": "Agentic AI: Navigating The Evolving Frontier - Forbes",
+                "url": "https://www.forbes.com/sites/chuckbrooks/2026/05/08/agentic-ai-navigating-the-evolving-frontier/",
+                "source": "forbes.com",
+                "summary": "# Agentic AI: Navigating The Evolving Frontier. As 2026 advances, the digital landscape has evolved to be increasingly proactive and “always-on.” Using technology to guide decisions is leading to the delegation of authority. AI systems that function with machine agency are referred to as \"agentic AI.\" These systems can read intent, plan multi-step activities, use tools, access systems, and carry out tasks independently with little assistance from humans. The age of Agentic AI is transformative rather than incremental. Agentic AI is distinct from passive automation. This moment is characterized by operational autonomy and technical innovation. Agentic AI is increasingly establishing itself as the standard decision-making framework in critical systems. The implication is profound: algorithmic velocity is evolving into a form of national power. Agentic AI expedites the move to autonomous risk. Organizations must transition from reactive cybersecurity to \"Security by Design\" to mitigate these assaults. In terms of national security, AI autonomy will provide countries with considerable benefits in defense, intelligence, and cybersecurity.",
+                "score": 0.262353
+              },
+              {
+                "title": "GenAI: Moving to the forefront of claims management - InsuranceNewsNet",
+                "url": "https://insurancenewsnet.com/innarticle/genai-moving-to-the-forefront-of-claims-management",
+                "source": "insurancenewsnet.com",
+                "summary": "# GenAI: Moving to the forefront of claims management - Insurance News | InsuranceNewsNet. HomeNow reading Property and Casualty News. Property and Casualty News RSSGet our newsletter. Claims teams use AI-assisted tools to sort incoming materials, summarize large files and support litigation strategy, while defense counsel uses GenAI to draft outlines, organize chronologies and prepare initial drafts. But for risk managers overseeing claims operations, the question is no longer whether AI should be used, but how to deploy it without introducing new operational, legal or reputational risks. Let’s explore how AI is being used across claims handling and defense, where it delivers tangible value, where it still falls short, and what recent cases and regulatory developments mean for companies managing risk. When it comes to handling and defending claims, AI is already proving most useful in three core areas: document review, case summarization and litigation support.",
+                "score": 0.23532839
+              },
+              {
+                "title": "Acrisure: How AI is the Critical Core Engine for Growth - FinTech Magazine",
+                "url": "https://fintechmagazine.com/news/acrisure-how-ai-is-the-critical-core-engine-for-growth",
+                "source": "fintechmagazine.com",
+                "summary": "# Acrisure: How AI is the Critical Core Engine for Growth. Benjamin Funk, Chief Technology & AI Officer at Acrisure, explains how the company’s implementation of AI at its core is key to its success. For the modern business, AI is more than just a means to an end. Aside from the front-end benefits focused on efficiency, AI is adopting a vital role in every boardroom: strategy. Simply put, AI is more than a tool in fintech. It is rapidly becoming the solution to every company’s growth strategy. In this Q&A with FinTech Magazine, Benjamin Funk, Chief Technology & AI Officer at Acrisure, explains how Acrisure’s AI strategy is the core of its operation. At Acrisure, I’m now leading technology, innovation, and AI across our engineering, data, analytics, product, sales tech and agentic automation teams. Not as an overlay, but as a critical and core engine for how a business ought to run.",
+                "score": 0.23027907
+              }
+            ]
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "AI",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/search.php?query=AI&search_type=Latest"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM04_multiturn_confirm_then_send",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: lượt 1 agent hỏi confirm, lượt 2+3 user xác nhận → lượt cuối phải gọi send với confirmed=true."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Gửi bản tin này lên Telegram: 'OpenAI ra mô hình mới hôm nay'"
+        },
+        {
+          "role": "user",
+          "content": "Ừ, gửi đi"
+        },
+        {
+          "role": "user",
+          "content": "Xác nhận gửi luôn đi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "OpenAI ra mô hình mới hôm nay",
+              "confirmed": true
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "OpenAI ra mô hình mới hôm nay",
+            "confirmed": true
+          },
+          "result": {
+            "tool": "send_telegram",
+            "error": "RuntimeError",
+            "message": "Missing TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM05_correction_topic",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: sửa query blockchain→Web3 ở lượt 2, carry topic=news và timeframe=day."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin blockchain hôm nay"
+        },
+        {
+          "role": "user",
+          "content": "Không phải blockchain, là Web3"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn hôm nay thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Web3",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Web3",
+              "topic": "news",
+              "timeframe": "day",
+              "max_results": 5
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Web3",
+              "search_type": "Latest",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "extra_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "extra tool call social_search"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Web3",
+            "topic": "news",
+            "timeframe": "day",
+            "max_results": 5
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Web3",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Mondrian Estate Teams With One-Time NFT Sensation Doodles - Artnet News",
+                "url": "https://news.artnet.com/art-world/mondrian-estate-doodles-nft-2777701",
+                "source": "news.artnet.com",
+                "summary": "The project remixes the abstract artist's masterpieces in the colors of the Doodles universe. In a move with distinctly 2021 energy, the estate of the abstract artist **Piet Mondrian** has collaborated with a web3 entertainment company to drop a batch of digital collectibles, on-chain tokens the world once called NFTs. The company in question is **Doodles**, the outfit whose 10,000-strong lineup of mildly quirky pastel-colored avatars once ranked among the most coveted art assets on the blockchain. Together, Mondrian’s estate and Doodles have remixed five of the artist’s works, selling them from June 3 on **OpenSea**, the largest online marketplace for digital collectibles. Dubai Plans a Massive New Museum for Digital Art. How Is Arts Patronage Changing? <Art World> # An Idyllic ‘Creative Compound’ in Upstate New York Has Hit the Market for $4.25 Million—Alas, the Art Is Not Included.",
+                "score": 0.3328523
+              },
+              {
+                "title": "Ethereum Meme Coin Little Pepe (LILPEPE) Nearly Sells Out Presale, Tops $28 Million Raised - markets.businessinsider.com",
+                "url": "https://markets.businessinsider.com/news/stocks/ethereum-meme-coin-little-pepe-lilpepe-nearly-sells-out-presale-tops-28-million-raised-1036215203",
+                "source": "markets.businessinsider.com",
+                "summary": "# Ethereum Meme Coin Little Pepe (LILPEPE) Nearly Sells Out Presale, Tops $28 Million Raised. DUBAI, United Arab Emirates, June 01, 2026 (GLOBE NEWSWIRE) -- Little Pepe (LILPEPE), an Ethereum-based Layer 2 blockchain project combining meme culture with low-cost transactions, security, and speed, announced that its presale has raised over $28.19 million toward a target of $28.77 million. The token is currently priced at $0.0022, with 16.98 billion of the total 17.25 billion tokens sold to date. **Little Pepe (LILPEPE) Presale: Stage 13 Price Still Offers A Clear Entry Point**. The LILPEPE presale has moved fast, and that speed is part of the story. Little Pepe calls this phase its “pregnancy stage,” with the line that it is “cooking up in the cryptowomb with Mumma Pepe.” It is playful, sure, but the core pitch is still easy to follow. Little Pepe is trying to keep the fun while adding a cleaner technical story, a public audit, and a presale structure that is already close to full.",
+                "score": 0.035948325
+              },
+              {
+                "title": "Paxos Gets Approval To Place U.S. Stocks On Blockchain - InsuranceNewsNet",
+                "url": "https://insurancenewsnet.com/oarticle/paxos-gets-approval-to-place-u-s-stocks-on-blockchain-6",
+                "source": "insurancenewsnet.com",
+                "summary": "# Paxos Gets Approval To Place U.S. Stocks On Blockchain - Insurance News | InsuranceNewsNet. ## Image 4: InsuranceNewsNet — Your Industry. HomeNow reading INN Insider News. Sign in or register to be an INNsider. INN Insider News RSSGet our newsletter. 2 hours ago INN Insider News. # Paxos Gets Approval To Place U.S. Stocks On Blockchain. This article is available to **Insider Pro subscribers only.**Sign in or register to be an Insider Pro and access ALL LOCKED articles. ## Advisor News. *   Millennials are ready to bring their advisor to the family table. ## Annuity News. *   Matthew Michelini named Athene president, with an eye on annuity growth. ## Life Insurance News. *   AM Best Affirms Credit Ratings of Symetra Financial Corporation and Its Subsidiaries. **You Could Be Losing Up to 20% of Your Commissions**. ### **How to Write For InsuranceNewsNet**. Get breaking news, exclusive stories, and money- making insights straight into your inbox. ## Sign in with your Insider Pro Account.",
+                "score": 0.0073173977
+              },
+              {
+                "title": "Investors Say Overnight Crypto Founder 'Diverted' $12.5M - Law360",
+                "url": "https://www.law360.com/consumerprotection/articles/2484136/investors-say-overnight-crypto-founder-diverted-12-5m-?about=consumerprotection",
+                "source": "law360.com",
+                "summary": "# Law360 Authority. ## The Practice of Law. # Law360 Pulse | The Business of Law. ## Business of Law. # Law360 Authority | Deep News & Analysis. ## Employment Authority. ## Insurance Authority. ## Real Estate Authority. ## Bankruptcy Authority. ## Healthcare Authority. ## Global Coverage. ## US Coverage. # Law360 | The Practice of Law. # State Specific Coverage. # Law360 Pulse. # Law360 Canada. # Global. Mealey's California Section 17200. Mealey's Construction Defects Insurance. Mealey's Emerging Insurance Disputes. Mealey's Insurance Bad Faith. 5 million in crypto at the center of a proposed class action from investors who claim the founder of crypto project Overnight \"diverted\" funds after promising them a share of control. A Law360 subscription puts you at the center of fast-moving legal issues, trends and developments so you can act with speed and confidence. ### Case Information. #### Case Title. #### Case Number. * U.S. District Court for the Northern District of California.",
+                "score": 0.004829722
+              },
+              {
+                "title": "IRA Financial Launches Upgraded Crypto Platform for Self-Directed Retirement Investors - lifehealth.com",
+                "url": "https://www.lifehealth.com/ira-financial-launches-upgraded-crypto-platform-for-self-directed-retirement-investors/",
+                "source": "lifehealth.com",
+                "summary": "# IRA Financial Launches Upgraded Crypto Platform for Self-Directed Retirement Investors. ## New platform delivers real-time access to nearly 100 crypto tokens, enhanced analytics, faster performance, and a fully integrated mobile-friendly experience. The upgraded capabilities further reinforces IRA Financial’s position as the best solution for investing in crypto for retirement and the only self-directed retirement custodian to combine full alternative and traditional asset access with real-time crypto trading across nearly 100 tradable tokens, with an annual fee of only $100. The upgraded platform introduces a significantly improved user experience and expanded functionality, giving retirement investors a faster and more intuitive way to make secure, real-time crypto investments directly within their IRA Financial account. They want a crypto investing experience that is fast, intuitive, and fully integrated with the rest of their retirement account... They want a crypto investing experience that is fast, intuitive, and fully integrated with the rest of their retirement account,” said **Tyler Northrup**, CEO of IRA Financial.",
+                "score": 0.00402291
+              }
+            ]
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "Web3",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/search.php?query=Web3&search_type=Latest"
+          }
+        }
+      ]
+    }
+  ]
+}

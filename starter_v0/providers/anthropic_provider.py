@@ -85,4 +85,9 @@ class AnthropicProvider:
                 text_parts.append(getattr(block, "text", ""))
             elif block_type == "tool_use":
                 calls.append(ToolCall(name=getattr(block, "name"), args=dict(getattr(block, "input", {}) or {})))
-        return ModelResponse(text="\n".join(part for part in text_parts if part) or None, tool_calls=calls, raw=resp)
+        usage: dict[str, int] | None = None
+        if getattr(resp, "usage", None):
+            prompt = getattr(resp.usage, "input_tokens", 0) or 0
+            completion = getattr(resp.usage, "output_tokens", 0) or 0
+            usage = {"prompt_tokens": prompt, "completion_tokens": completion, "total_tokens": prompt + completion}
+        return ModelResponse(text="\n".join(part for part in text_parts if part) or None, tool_calls=calls, raw=resp, usage=usage)

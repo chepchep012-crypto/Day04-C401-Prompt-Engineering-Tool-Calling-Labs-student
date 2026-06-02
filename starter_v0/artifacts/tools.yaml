@@ -9,32 +9,32 @@
 tools:
   # ---------------- Core tools ----------------
   - name: clarify
-    description: "Gửi một câu hỏi cho người dùng."
+    description: "Gửi một câu hỏi cho người dùng khi thiếu thông tin bắt buộc. Luôn truyền response_type: dùng 'text' khi hỏi thông tin tự do, 'yes_no' khi xin xác nhận hành động."
     parameters:
       type: object
       properties:
         question: {type: string, default: "", description: "Câu hỏi"}
-        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời"}
-        options: {type: array, default: [], items: {type: string}, description: "Các lựa chọn"}
-      required: [question]
+        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời: 'text' cho thông tin tự do, 'yes_no' cho xác nhận"}
+        options: {type: array, default: [], items: {type: string}, description: "Các lựa chọn (chỉ dùng với choice)"}
+      required: [question, response_type]
 
   - name: timeline
-    description: "Lấy các bài đăng gần đây."
+    description: "Lấy các tweet / bài đăng gần đây từ MỘT tài khoản Twitter/X cụ thể theo handle (screenname). Dùng khi user hỏi về bài đăng của một người/tổ chức có tên tài khoản cụ thể (ví dụ: @elonmusk, @openai). KHÔNG dùng để tìm kiếm theo từ khóa."
     parameters:
       type: object
       properties:
-        screenname: {type: string, default: "", description: "Tên tài khoản"}
-        limit: {type: integer, default: 5, description: "Số lượng"}
+        screenname: {type: string, default: "", description: "Handle tài khoản Twitter/X, không có dấu @. Ví dụ: elonmusk, openai"}
+        limit: {type: integer, default: 5, description: "Số lượng bài đăng trả về"}
       required: [screenname]
 
   - name: social_search
-    description: "Tìm trên mạng xã hội."
+    description: "Tìm kiếm bài đăng trên mạng xã hội (Twitter/X) theo từ khóa hoặc chủ đề. Dùng khi user muốn xem bài đăng về một chủ đề cụ thể (ví dụ: 'AI news', 'GPT-5'). KHÔNG dùng khi user hỏi về bài đăng của một tài khoản cụ thể — trong trường hợp đó dùng timeline."
     parameters:
       type: object
       properties:
-        query: {type: string, default: "", description: "Từ khóa"}
-        search_type: {type: string, enum: [Latest, Top], default: "Latest", description: "Cách sắp xếp"}
-        limit: {type: integer, default: 5, description: "Số lượng"}
+        query: {type: string, default: "", description: "Từ khóa tìm kiếm"}
+        search_type: {type: string, enum: [Latest, Top], default: "Latest", description: "Latest: mới nhất, Top: nổi bật nhất"}
+        limit: {type: integer, default: 5, description: "Số lượng kết quả"}
       required: [query]
 
   - name: lookup
@@ -116,3 +116,113 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: translate
+    description: "Dịch văn bản từ ngôn ngữ này sang ngôn ngữ khác. Dùng khi user yêu cầu dịch nội dung hoặc khi cần hiểu tài liệu bằng ngôn ngữ khác."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Văn bản cần dịch"}
+        source_lang: {type: string, default: "en", description: "Mã ngôn ngữ nguồn, ví dụ 'en', 'vi', 'ja'"}
+        target_lang: {type: string, default: "en", description: "Mã ngôn ngữ đích, ví dụ 'vi' cho tiếng Việt, 'en' cho tiếng Anh"}
+      required: [text, target_lang]
+
+  - name: notify
+    description: "Gửi thông báo / tin nhắn qua Telegram, Gmail, hoặc cả hai. LUÔN gọi clarify(response_type='yes_no') để xác nhận trước, sau đó truyền confirmed=true khi user đồng ý. Dùng khi user muốn gửi bản tin, gửi email, hoặc đăng lên Telegram."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Nội dung tin nhắn cần gửi"}
+        channel: {type: string, enum: [telegram, gmail, both], default: "telegram", description: "Kênh gửi: 'telegram', 'gmail', hoặc 'both' để gửi cả hai"}
+        confirmed: {type: boolean, default: false, description: "Phải là true — chỉ truyền sau khi user đã xác nhận rõ ràng"}
+        subject: {type: string, default: "", description: "Tiêu đề email (chỉ dùng khi channel là gmail hoặc both)"}
+        to_email: {type: string, default: "", description: "Địa chỉ email người nhận; để trống để dùng GMAIL_TO env var"}
+      required: [text, channel, confirmed]
+
+  - name: knowledge
+    description: "Lưu và tìm kiếm knowledge base cục bộ. Dùng action=save để lưu nội dung, action=search để tìm, action=list để liệt kê, action=delete để xóa. LUÔN search knowledge trước khi ra ngoài internet khi user hỏi thông tin."
+    parameters:
+      type: object
+      properties:
+        action: {type: string, enum: [save, search, list, delete], default: "search", description: "Hành động: save/search/list/delete"}
+        query: {type: string, default: "", description: "Truy vấn tìm kiếm (action=search)"}
+        content: {type: string, default: "", description: "Nội dung cần lưu (action=save)"}
+        title: {type: string, default: "", description: "Tiêu đề (action=save)"}
+        url: {type: string, default: "", description: "URL nguồn (action=save)"}
+        tags: {type: array, default: [], items: {type: string}, description: "Danh sách tag"}
+        top_k: {type: integer, default: 3, description: "Số kết quả trả về (action=search)"}
+        entry_id: {type: string, default: "", description: "ID entry cần xóa (action=delete)"}
+      required: [action]
+
+  # ---------------- Post-processing tools ----------------
+  - name: dedup
+    description: "Bỏ các kết quả trùng lặp trong danh sách items. Dùng sau khi tổng hợp kết quả từ nhiều nguồn để loại bỏ bài viết giống nhau theo URL hoặc tiêu đề."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần lọc trùng"
+          items: {type: object}
+        key: {type: string, enum: [url, title, both], default: "url", description: "Chiến lược so sánh: 'url' (exact URL), 'title' (fuzzy title), 'both' (loại nếu url HOẶC title trùng)"}
+        title_threshold: {type: number, default: 0.80, description: "Ngưỡng overlap từ khóa để coi là trùng title (0.0–1.0)"}
+      required: [items]
+
+  - name: rank
+    description: "Xếp hạng danh sách items theo độ liên quan tới câu truy vấn. Mỗi item được gắn thêm trường _relevance (0.0–1.0). Dùng sau lookup/papers/social_search để sắp xếp kết quả sát với ý định user nhất."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Câu truy vấn gốc để so sánh"}
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần xếp hạng (có trường title, summary)"
+          items: {type: object}
+        top_k: {type: integer, default: 0, description: "Số item giữ lại; 0 = giữ tất cả"}
+      required: [query, items]
+
+  - name: keywords
+    description: "Trích xuất từ khóa nổi bật nhất (unigram và bigram) từ văn bản hoặc danh sách bài viết, xếp theo tần suất. Dùng khi user hỏi chủ đề chính hoặc muốn tag bài viết."
+    parameters:
+      type: object
+      properties:
+        text: {type: string, default: "", description: "Văn bản thô cần phân tích"}
+        items:
+          type: array
+          default: []
+          description: "Danh sách item (nối title+summary thành văn bản)"
+          items: {type: object}
+        top_k: {type: integer, default: 10, description: "Số từ khóa trả về"}
+        include_bigrams: {type: boolean, default: true, description: "Có tính cặp từ liền nhau không"}
+      required: []
+
+  - name: cite
+    description: "Tạo danh sách trích dẫn có định dạng (plain/APA/MLA) từ danh sách bài viết. Dùng khi user muốn liệt kê nguồn tham khảo hoặc tạo bibliography."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần trích dẫn (cần có title, url; tùy chọn authors, published, source)"
+          items: {type: object}
+        style: {type: string, enum: [plain, apa, mla], default: "plain", description: "Kiểu trích dẫn: 'plain' (đơn giản), 'apa' (học thuật), 'mla'"}
+        numbered: {type: boolean, default: true, description: "Có đánh số thứ tự không"}
+      required: [items]
+
+  - name: credibility
+    description: "Đánh giá độ tin cậy của danh sách bài viết hoặc một đoạn văn bản. Trả về score 0–1 và label high/medium/low dựa trên các tín hiệu: HTTPS, domain uy tín, có tác giả, có ngày, không clickbait."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          default: []
+          description: "Danh sách item cần đánh giá (có title, url, summary, authors, published)"
+          items: {type: object}
+        text: {type: string, default: "", description: "Văn bản thô (nếu không có items)"}
+        url: {type: string, default: "", description: "URL nguồn (dùng kèm text)"}
+      required: []
+

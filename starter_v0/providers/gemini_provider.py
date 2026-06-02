@@ -142,4 +142,11 @@ class GeminiProvider:
                 seen.add(key)
                 deduped_calls.append(call)
 
-        return ModelResponse(text="\n".join(part for part in text_parts if part) or None, tool_calls=deduped_calls, raw=resp)
+        usage: dict[str, int] | None = None
+        meta = getattr(resp, "usage_metadata", None)
+        if meta:
+            prompt = getattr(meta, "prompt_token_count", 0) or 0
+            completion = getattr(meta, "candidates_token_count", 0) or 0
+            total = getattr(meta, "total_token_count", 0) or (prompt + completion)
+            usage = {"prompt_tokens": prompt, "completion_tokens": completion, "total_tokens": total}
+        return ModelResponse(text="\n".join(part for part in text_parts if part) or None, tool_calls=deduped_calls, raw=resp, usage=usage)

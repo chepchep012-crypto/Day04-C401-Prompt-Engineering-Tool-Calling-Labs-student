@@ -1,0 +1,548 @@
+{
+  "transcript_id": "ui_v3_openrouter_20260602T155628298946",
+  "version": "v3",
+  "artifact_version": "v3+p39a30d427f99+t2063222c0b9e",
+  "prompt_hash": "39a30d427f99efb5bec0d3ebb32438a12006e955249c40672c113338d6bf4a8b",
+  "tools_hash": "2063222c0b9e174cdcee4b97ca2c0ec4a27f731deeef4f4f8d06a24eb4a551c7",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "created_at": "2026-06-02T15:56:28",
+  "updated_at": "2026-06-02T16:08:20",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-02T15:56:38",
+      "user": "bạn có thể giúp gì cho t",
+      "status": "answered",
+      "assistant_text": "Tôi có thể giúp bạn với nhiều nhiệm vụ khác nhau, bao gồm:\n\n1. **Xem bài đăng mạng xã hội**: Lấy tweet hoặc bài đăng gần đây từ một tài khoản Twitter cụ thể.\n2. **Tìm kiếm mạng xã hội**: Tìm bài đăng theo từ khóa trên mạng xã hội.\n3. **Tra cứu thông tin / tin tức**: Tìm kiếm thông tin chung hoặc tin tức mới nhất trên internet.\n4. **Lấy nội dung từ URL**: Đọc và tóm tắt nội dung một trang web bất kỳ.\n5. **Tìm bài báo khoa học**: Tìm kiếm nghiên cứu, bài báo trên arXiv và các nguồn học thuật.\n6. **Đọc toàn văn bài báo**: Lấy nội dung chi tiết của một bài báo khoa học từ arXiv.\n7. **Dịch thuật**: Dịch văn bản giữa các ngôn ngữ.\n8. **Gửi thông báo**: Gửi tin nhắn qua Telegram hoặc Gmail (cần xác nhận trước).\n9. **Gửi nội dung**: Gửi đoạn văn bản đến kênh đã cấu hình (cần xác nhận trước).\n10. **Lưu trữ thông tin**: Lưu, tìm kiếm, liệt kê, xóa các bài viết/thông tin bạn muốn ghi nhớ.\n11. **Tra cứu chính sách nội bộ**: Tìm trong tài liệu chính sách nội bộ của công ty.\n12. **Xử lý kết quả trùng lặp**: Lọc bỏ các bài viết trùng nhau từ nhiều nguồn.\n13. **Xếp hạng kết quả**: Sắp xếp danh sách bài viết theo độ liên quan với câu hỏi.\n14. **Trích xuất từ khóa**: Tìm các từ/cụm từ nổi bật nhất từ một đoạn văn bản.\n15. **Tạo trích dẫn**: Tạo danh sách tài liệu tham khảo theo định dạng plain/APA/MLA.\n16. **Đánh giá độ tin cậy**: Chấm điểm mức độ uy tín của một bài viết hoặc nguồn tin.\n17. **Trình bày / định dạng nội dung**: Chuyển dữ liệu thô thành văn bản đẹp theo nhiều template.\n\nNếu bạn cần giúp gì cụ thể, hãy cho tôi biết!",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 3350,
+        "completion_tokens": 485,
+        "total_tokens": 3835
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T15:56:48"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-06-02T15:57:10",
+      "user": "chào bạn",
+      "status": "answered",
+      "assistant_text": "Chào bạn! Bạn cần tôi giúp gì hôm nay?",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 3845,
+        "completion_tokens": 13,
+        "total_tokens": 3858
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T15:57:12"
+    },
+    {
+      "turn_index": 3,
+      "started_at": "2026-06-02T15:58:06",
+      "user": "bạn có thể giúp gì cho too",
+      "status": "answered",
+      "assistant_text": "Tôi có thể giúp bạn với nhiều nhiệm vụ khác nhau, bao gồm:\n\n1. **Xem bài đăng mạng xã hội**: Lấy tweet hoặc bài đăng gần đây từ một tài khoản Twitter cụ thể.\n2. **Tìm kiếm mạng xã hội**: Tìm bài đăng theo từ khóa trên mạng xã hội.\n3. **Tra cứu thông tin / tin tức**: Tìm kiếm thông tin chung hoặc tin tức mới nhất trên internet.\n4. **Lấy nội dung từ URL**: Đọc và tóm tắt nội dung một trang web bất kỳ.\n5. **Tìm bài báo khoa học**: Tìm kiếm nghiên cứu, bài báo trên arXiv và các nguồn học thuật.\n6. **Đọc toàn văn bài báo**: Lấy nội dung chi tiết của một bài báo khoa học từ arXiv.\n7. **Dịch thuật**: Dịch văn bản giữa các ngôn ngữ.\n8. **Gửi thông báo**: Gửi tin nhắn qua Telegram hoặc Gmail (cần xác nhận trước).\n9. **Gửi nội dung**: Gửi đoạn văn bản đến kênh đã cấu hình (cần xác nhận trước).\n10. **Lưu trữ thông tin**: Lưu, tìm kiếm, liệt kê, xóa các bài viết/thông tin bạn muốn ghi nhớ.\n11. **Tra cứu chính sách nội bộ**: Tìm trong tài liệu chính sách nội bộ của công ty.\n12. **Xử lý kết quả trùng lặp**: Lọc bỏ các bài viết trùng nhau từ nhiều nguồn.\n13. **Xếp hạng kết quả**: Sắp xếp danh sách bài viết theo độ liên quan với câu hỏi.\n14. **Trích xuất từ khóa**: Tìm các từ/cụm từ nổi bật nhất từ một đoạn văn bản.\n15. **Tạo trích dẫn**: Tạo danh sách tài liệu tham khảo theo định dạng plain/APA/MLA.\n16. **Đánh giá độ tin cậy**: Chấm điểm mức độ uy tín của một bài viết hoặc nguồn tin.\n17. **Trình bày / định dạng nội dung**: Chuyển dữ liệu thô thành văn bản đẹp theo nhiều template.\n\nNếu bạn cần giúp gì cụ thể, hãy cho tôi biết!",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 3873,
+        "completion_tokens": 485,
+        "total_tokens": 4358
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T15:58:15"
+    },
+    {
+      "turn_index": 4,
+      "started_at": "2026-06-02T15:59:07",
+      "user": "dịch cho tôi: Hello, My name is Russia",
+      "status": "answered",
+      "assistant_text": "Câu dịch của bạn là: \"Xin chào, Tên tôi là Nga.\"",
+      "tool_events": [
+        {
+          "tool": "translate",
+          "args": {
+            "text": "Hello, My name is Russia",
+            "source_lang": "en",
+            "target_lang": "vi"
+          },
+          "result": {
+            "tool": "translate",
+            "original": "Hello, My name is Russia",
+            "translated": "Xin chào, Tên tôi là Nga",
+            "source_lang": "en",
+            "target_lang": "vi",
+            "match_quality": 0.85
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 8953,
+        "completion_tokens": 47,
+        "total_tokens": 9000
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T15:59:12"
+    },
+    {
+      "turn_index": 5,
+      "started_at": "2026-06-02T16:00:21",
+      "user": "gửi tin xin chào qua tele",
+      "status": "waiting_for_user",
+      "assistant_text": "Bạn có muốn gửi tin nhắn 'Xin chào' qua Telegram không?",
+      "tool_events": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có muốn gửi tin nhắn 'Xin chào' qua Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có muốn gửi tin nhắn 'Xin chào' qua Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 4410,
+        "completion_tokens": 36,
+        "total_tokens": 4446
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:00:23"
+    },
+    {
+      "turn_index": 6,
+      "started_at": "2026-06-02T16:00:28",
+      "user": "không",
+      "status": "answered",
+      "assistant_text": "Được rồi! Nếu bạn cần giúp gì khác, hãy cho tôi biết nhé!",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 4436,
+        "completion_tokens": 18,
+        "total_tokens": 4454
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:00:31"
+    },
+    {
+      "turn_index": 7,
+      "started_at": "2026-06-02T16:00:48",
+      "user": "thôi gửi đi",
+      "status": "answered",
+      "assistant_text": "Tôi cần xác nhận trước khi gửi tin nhắn 'Xin chào' qua Telegram. Bạn có muốn gửi không?",
+      "tool_events": [
+        {
+          "tool": "notify",
+          "args": {
+            "text": "Xin chào",
+            "channel": "telegram",
+            "confirmed": false
+          },
+          "result": {
+            "tool": "notify",
+            "status": "needs_confirmation",
+            "message": "Chưa được xác nhận. Hãy hỏi user trước khi gửi."
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 9093,
+        "completion_tokens": 49,
+        "total_tokens": 9142
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:00:52"
+    },
+    {
+      "turn_index": 8,
+      "started_at": "2026-06-02T16:00:57",
+      "user": "ok",
+      "status": "answered",
+      "assistant_text": "Tin nhắn \"Xin chào\" đã được gửi thành công qua Telegram! Nếu bạn cần thêm bất kỳ điều gì khác, hãy cho tôi biết nhé!",
+      "tool_events": [
+        {
+          "tool": "notify",
+          "args": {
+            "text": "Xin chào",
+            "channel": "telegram",
+            "confirmed": true
+          },
+          "result": {
+            "tool": "notify",
+            "channel": "telegram",
+            "results": [
+              {
+                "channel": "telegram",
+                "status": "sent"
+              }
+            ],
+            "errors": [],
+            "status": "sent"
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 8178,
+        "completion_tokens": 56,
+        "total_tokens": 8234
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:01:02"
+    },
+    {
+      "turn_index": 9,
+      "started_at": "2026-06-02T16:02:35",
+      "user": "bệnh bạch cầu là gì",
+      "status": "answered",
+      "assistant_text": "Bệnh bạch cầu, hay còn gọi là ung thư máu, là một loại bệnh ung thư ảnh hưởng đến các tế bào bạch cầu trong cơ thể. Bệnh này xảy ra khi có sự sản sinh quá mức các tế bào bạch cầu bất thường, làm ảnh hưởng đến khả năng sản xuất các tế bào máu bình thường khác. \n\nCó nhiều loại bệnh bạch cầu, bao gồm bạch cầu cấp tính và bạch cầu mãn tính, cũng như các loại khác nhau dựa trên loại tế bào bạch cầu bị ảnh hưởng. Triệu chứng của bệnh có thể bao gồm mệt mỏi, sốt, dễ bầm tím, và nhiễm trùng thường xuyên.\n\nNếu bạn cần thông tin chi tiết hơn hoặc có câu hỏi cụ thể nào khác, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "bệnh bạch cầu",
+            "topic": "general"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "bệnh bạch cầu",
+            "topic": "general",
+            "timeframe": "week",
+            "items": []
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 8206,
+        "completion_tokens": 194,
+        "total_tokens": 8400
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:02:45"
+    },
+    {
+      "turn_index": 10,
+      "started_at": "2026-06-02T16:02:59",
+      "user": "lưu lại thông tin này cho t",
+      "status": "answered",
+      "assistant_text": "Thông tin về bệnh bạch cầu đã được lưu thành công với ID: **kb0002**. Nếu bạn cần truy cập hoặc tìm hiểu thêm về thông tin này, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "knowledge",
+          "args": {
+            "action": "save",
+            "content": "Bệnh bạch cầu, hay còn gọi là ung thư máu, là một loại bệnh ung thư ảnh hưởng đến các tế bào bạch cầu trong cơ thể. Bệnh này xảy ra khi có sự sản sinh quá mức các tế bào bạch cầu bất thường, làm ảnh hưởng đến khả năng sản xuất các tế bào máu bình thường khác. Có nhiều loại bệnh bạch cầu, bao gồm bạch cầu cấp tính và bạch cầu mãn tính, cũng như các loại khác nhau dựa trên loại tế bào bạch cầu bị ảnh hưởng. Triệu chứng của bệnh có thể bao gồm mệt mỏi, sốt, dễ bầm tím, và nhiễm trùng thường xuyên.",
+            "title": "Thông tin về bệnh bạch cầu",
+            "tags": [
+              "bệnh bạch cầu",
+              "ung thư máu",
+              "sức khỏe"
+            ]
+          },
+          "result": {
+            "tool": "knowledge",
+            "action": "save",
+            "id": "kb0002",
+            "title": "Thông tin về bệnh bạch cầu",
+            "char_count": 499,
+            "status": "saved",
+            "total_entries": 2
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 7970,
+        "completion_tokens": 234,
+        "total_tokens": 8204
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:03:05"
+    },
+    {
+      "turn_index": 11,
+      "started_at": "2026-06-02T16:03:01",
+      "user": "lọc nội dung trùng lặp \nCông ty đang triển khai dự án chuyển đổi số nhằm nâng cao hiệu quả làm việc và tối ưu hóa quy trình quản lý. Các phòng ban phối hợp chặt chẽ để đảm bảo tiến độ thực hiện. Công ty đang triển khai dự án chuyển đổi số nhằm nâng cao hiệu quả làm việc và tối ưu hóa quy trình quản lý. Các phòng ban phối hợp chặt chẽ để đảm bảo tiến độ thực hiện.",
+      "status": "answered",
+      "assistant_text": "Nội dung sau khi lọc trùng lặp vẫn giữ nguyên như sau:\n\n\"Công ty đang triển khai dự án chuyển đổi số nhằm nâng cao hiệu quả làm việc và tối ưu hóa quy trình quản lý. Các phòng ban phối hợp chặt chẽ để đảm bảo tiến độ thực hiện.\"\n\nTuy nhiên, không có nội dung nào bị loại bỏ vì cả hai đoạn văn đều giống nhau. Nếu bạn cần thêm thông tin hoặc hỗ trợ khác, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "dedup",
+          "args": {
+            "items": [
+              {
+                "text": "Công ty đang triển khai dự án chuyển đổi số nhằm nâng cao hiệu quả làm việc và tối ưu hóa quy trình quản lý. Các phòng ban phối hợp chặt chẽ để đảm bảo tiến độ thực hiện."
+              },
+              {
+                "text": "Công ty đang triển khai dự án chuyển đổi số nhằm nâng cao hiệu quả làm việc và tối ưu hóa quy trình quản lý. Các phòng ban phối hợp chặt chẽ để đảm bảo tiến độ thực hiện."
+              }
+            ]
+          },
+          "result": {
+            "tool": "dedup",
+            "key": "url",
+            "original_count": 2,
+            "removed": 0,
+            "items": [
+              {
+                "text": "Công ty đang triển khai dự án chuyển đổi số nhằm nâng cao hiệu quả làm việc và tối ưu hóa quy trình quản lý. Các phòng ban phối hợp chặt chẽ để đảm bảo tiến độ thực hiện."
+              },
+              {
+                "text": "Công ty đang triển khai dự án chuyển đổi số nhằm nâng cao hiệu quả làm việc và tối ưu hóa quy trình quản lý. Các phòng ban phối hợp chặt chẽ để đảm bảo tiến độ thực hiện."
+              }
+            ]
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 8054,
+        "completion_tokens": 208,
+        "total_tokens": 8262
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:03:09"
+    },
+    {
+      "turn_index": 12,
+      "started_at": "2026-06-02T16:03:45",
+      "user": "trích xuất từ khoá nổi bật trong đoạn đó",
+      "status": "answered",
+      "assistant_text": "Các từ khóa nổi bật trong đoạn văn bạn cung cấp bao gồm:\n\n1. Công\n2. Ang\n3. Triển\n4. Khai\n5. Chuyển\n\nNếu bạn cần thêm thông tin hoặc hỗ trợ khác, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "keywords",
+          "args": {
+            "text": "Công ty đang triển khai dự án chuyển đổi số nhằm nâng cao hiệu quả làm việc và tối ưu hóa quy trình quản lý. Các phòng ban phối hợp chặt chẽ để đảm bảo tiến độ thực hiện.",
+            "top_k": 5
+          },
+          "result": {
+            "tool": "keywords",
+            "top_k": 5,
+            "source_length": 170,
+            "keywords": [
+              {
+                "keyword": "cong",
+                "count": 1
+              },
+              {
+                "keyword": "ang",
+                "count": 1
+              },
+              {
+                "keyword": "trien",
+                "count": 1
+              },
+              {
+                "keyword": "khai",
+                "count": 1
+              },
+              {
+                "keyword": "chuyen",
+                "count": 1
+              }
+            ]
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 8129,
+        "completion_tokens": 116,
+        "total_tokens": 8245
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:03:49"
+    },
+    {
+      "turn_index": 13,
+      "started_at": "2026-06-02T16:05:42",
+      "user": "chuyển sang dạng pdf",
+      "status": "answered",
+      "assistant_text": "Tôi không thể trực tiếp tạo file PDF. Tuy nhiên, bạn có thể dễ dàng chuyển đổi nội dung thành PDF bằng cách sử dụng các công cụ trực tuyến hoặc phần mềm như Microsoft Word, Google Docs, hoặc các ứng dụng tạo PDF khác.\n\nNếu bạn cần hướng dẫn cụ thể về cách thực hiện, hãy cho tôi biết!",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 3944,
+        "completion_tokens": 69,
+        "total_tokens": 4013
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:05:51"
+    },
+    {
+      "turn_index": 14,
+      "started_at": "2026-06-02T16:06:18",
+      "user": "bạn có thể giúp gì cho t",
+      "status": "answered",
+      "assistant_text": "Tôi có thể giúp bạn với nhiều nhiệm vụ khác nhau, bao gồm:\n\n1. **Xem bài đăng mạng xã hội**: Lấy tweet/bài đăng gần đây của một tài khoản Twitter cụ thể.\n2. **Tìm kiếm mạng xã hội**: Tìm bài đăng theo từ khóa trên mạng xã hội.\n3. **Tra cứu thông tin / tin tức**: Tìm kiếm thông tin chung hoặc tin tức mới nhất trên internet.\n4. **Lấy nội dung từ URL**: Đọc và tóm tắt nội dung một trang web bất kỳ.\n5. **Tìm bài báo khoa học**: Tìm kiếm nghiên cứu, bài báo trên arXiv và các nguồn học thuật.\n6. **Đọc toàn văn bài báo**: Lấy nội dung chi tiết của một bài báo khoa học từ arXiv.\n7. **Dịch thuật**: Dịch văn bản giữa các ngôn ngữ.\n8. **Gửi thông báo**: Gửi tin nhắn qua Telegram hoặc Gmail (cần xác nhận trước).\n9. **Gửi nội dung**: Gửi đoạn văn bản đến kênh đã cấu hình (cần xác nhận trước).\n10. **Knowledge base**: Lưu, tìm kiếm, liệt kê, xóa các bài viết/thông tin bạn muốn ghi nhớ.\n11. **Tra cứu chính sách nội bộ**: Tìm trong tài liệu chính sách nội bộ của công ty.\n12. **Xử lý kết quả trùng lặp**: Lọc bỏ các bài viết trùng nhau từ nhiều nguồn.\n13. **Xếp hạng kết quả**: Sắp xếp danh sách bài viết theo độ liên quan với câu hỏi.\n14. **Trích xuất từ khóa**: Tìm các từ/cụm từ nổi bật nhất từ một đoạn văn bản.\n15. **Tạo trích dẫn**: Tạo danh sách tài liệu tham khảo theo định dạng plain/APA/MLA.\n16. **Đánh giá độ tin cậy**: Chấm điểm mức độ uy tín của một bài viết hoặc nguồn tin.\n17. **Trình bày / định dạng nội dung**: Chuyển dữ liệu thô thành văn bản đẹp theo nhiều template.\n\nNếu bạn cần hỗ trợ trong bất kỳ lĩnh vực nào, hãy cho tôi biết!",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 3991,
+        "completion_tokens": 485,
+        "total_tokens": 4476
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:06:27"
+    },
+    {
+      "turn_index": 15,
+      "started_at": "2026-06-02T16:07:15",
+      "user": "chào bạn nha",
+      "status": "answered",
+      "assistant_text": "Chào bạn! Có điều gì tôi có thể giúp bạn hôm nay không?",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 4446,
+        "completion_tokens": 17,
+        "total_tokens": 4463
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:07:17"
+    },
+    {
+      "turn_index": 16,
+      "started_at": "2026-06-02T16:07:37",
+      "user": "Tin tức AI hôm nay",
+      "status": "answered",
+      "assistant_text": "Dưới đây là một số tin tức về trí tuệ nhân tạo (AI) hôm nay:\n\n1. **AI dự kiến sẽ thúc đẩy 18 tỷ bảng chi tiêu quảng cáo kỹ thuật số tại Vương quốc Anh vào năm 2030** - Theo dự báo từ IAB UK, AI sẽ chiếm một phần ba chi tiêu quảng cáo kỹ thuật số tại Vương quốc Anh vào năm 2030. Dự báo này cho thấy AI sẽ ảnh hưởng đến chi tiêu quảng cáo trong các lĩnh vực như tạo nội dung, tìm kiếm không cần nhấp chuột và thương mại tự động. [Đọc thêm](https://www.marketingweek.com/iab-uk-ai-ad-spend/)\n\n2. **40% giám đốc điều hành nghĩ rằng AI có thể tiết kiệm tới 20%, nhưng thực tế không đạt được** - Một báo cáo từ Bain cho thấy nhiều công ty đang tăng ngân sách cho AI nhưng không thấy sự gia tăng năng suất tương ứng. 90% trong số những người được khảo sát cho biết họ sẽ tăng ngân sách AI trong năm tới, mặc dù chi phí và hiệu suất không đạt yêu cầu. [Đọc thêm](https://pitchbook.com/news/articles/40-of-executives-thought-ai-could-save-up-to-20-it-didnt-deliver)\n\n3. **Chiến dịch quảng cáo AI chỉ trích Rep. Lori Trahan** - Nhóm an toàn AI đã triển khai một chiến dịch quảng cáo lớn nhằm chỉ trích Rep. Lori Trahan, cho rằng bà đang ủng hộ các \"đại gia AI\" trong các nỗ lực lập pháp của mình. [Đọc thêm](https://www.washingtonpost.com/wp-intelligence/ai-tech-brief/2026/06/01/ai-tech-brief-exclusive-ai-ad-campaigns-slam-trahan/)\n\n4. **Báo cáo mới: Sự tái cấu trúc của ngành du lịch nhờ AI** - Ngành công nghệ du lịch đang được tái cấu trúc khi AI bắt đầu định hình cách thức khám phá, đặt chỗ và quản lý chuyến đi. [Đọc thêm](https://skift.com/insights/the-ai-rebuild-of-travel/)\n\nNếu bạn cần thêm thông tin chi tiết về bất kỳ tin tức nào, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "AI expected to drive £18bn of UK digital ad spend by 2030 - Marketing Week",
+                "url": "https://www.marketingweek.com/iab-uk-ai-ad-spend/",
+                "source": "marketingweek.com",
+                "summary": "# AI expected to drive £18bn of UK digital ad spend by 2030. IAB UK forecasts AI will drive one-third of UK digital ad spend by 2030 as advertisers adapt to changes in search, content and media buying. One-third (32%) of UK digital ad spend, equivalent to around £18bn, will be AI-driven by 2030, according to new forecasts from IAB UK. According to ‘The State of AI in Advertising: Charting the Shift from Automation to Autonomy, ‘ AI is expected to influence ad spend across four key areas– content creation, zero-click search, agentic trading and agentic commerce. To estimate the likely scale of change, IAB UK developed a series of ‘AI overlays’ that estimate the proportion of media spend by channel that is ‘AI-driven’, defined as a media buying and delivery decision made by an AI-powered algorithm. IAB UK forecasts most of the growth will come from the adoption of AI buying tools in search, such as Google’s AI Max and PMax; social, including Meta’s Advantage+; and display advertising through agentic programmatic buying.",
+                "score": 0.3331999
+              },
+              {
+                "title": "40% of executives thought AI could save up to 20%. It didn’t deliver. - PitchBook",
+                "url": "https://pitchbook.com/news/articles/40-of-executives-thought-ai-could-save-up-to-20-it-didnt-deliver",
+                "source": "pitchbook.com",
+                "summary": "## The gap between AI spending and productivity gains “should be making executives uncomfortable,” a Bain report found. Corporates are beefing up their AI budgets but seeing lackluster productivity gains, according to the latest Bain & Company report. Bain’s Automation and AI Pathfinder Survey 2026, which had 951 respondents, found that 40% of the companies that tracked their spending recorded cost savings of less than 10% from their AI initiatives. Still, 90% of those surveyed whose AI investments underdelivered plan to increase their AI budgets next year. As compute and usage costs have risen dramatically, executives and shareholders are taking a closer look at the returns that those investments have brought so far. A PitchBook analysis of 186 AI-related questions on B2C earnings calls found that 90% were probing and investigative in tone, and that ROI and financial returns have overtaken product roadmaps as the dominant focus. Employees’ use of AI tools can range from coding assistants to AI-generated research to organizing unstructured databases.",
+                "score": 0.26990628
+              },
+              {
+                "title": "AI & Tech Brief: Exclusive | AI ad campaigns slam Trahan - The Washington Post",
+                "url": "https://www.washingtonpost.com/wp-intelligence/ai-tech-brief/2026/06/01/ai-tech-brief-exclusive-ai-ad-campaigns-slam-trahan/",
+                "source": "washingtonpost.com",
+                "summary": "AI & Tech Brief from WP Intelligence. # AI & Tech Brief: Exclusive | AI ad campaigns slam Trahan. Plus, Anthropic files for a blockbuster initial public offering. Make us preferred on Google. Sign up here to get this newsletter in your inbox. * **Exclusive:** AI safety group Americans for Responsible Innovation rolls out a six-figure ad campaign this week attacking Rep. Lori Trahan (D-Massachusetts), arguing that she’s “taking the side” of AI oligarchs in her bipartisan legislative efforts. * The AI safety community doesn’t want to hand power of AI regulation to President Donald Trump’s administration now that states are passing more rigorous AI laws — and the California and New York attorneys general are challenging big AI companies. * Nvidia is rolling out a new “world model” simulator for robots and a new design platform for robot developers. In doing so, the company is running the same business playbook it did to become so dominant in the chip market.",
+                "score": 0.23527569
+              },
+              {
+                "title": "AI Savings Misses ‘Should Be Making Executives Uncomfortable,’ Bain Says - Insurance Journal",
+                "url": "https://www.insurancejournal.com/news/national/2026/06/01/871951.htm",
+                "source": "insurancejournal.com",
+                "summary": "The missed targets “should be making executives uncomfortable,” especially since many of them are approving increased spending for artificial intelligence on the basis of expected savings, the consulting firm said in a report shared exclusively with Bloomberg News. While some companies are funding fresh investment in generative and agentic AI with realized savings, the largest share (44%) cited targeted savings among their top sources of funding for the next wave of outlays, according to the report. “Despite a decade of investments in data modernization running well into hundreds of billions of dollars globally, the No. 1 reason AI programs underperform is that companies cannot reliably get access to their own data,” Bain said. Its prescription: Instead of waiting to structure all of their data to make it ingestible by AI, companies should start with what’s available to feed into the models — and then use AI to help sort out how to structure the rest.",
+                "score": 0.22715242
+              },
+              {
+                "title": "New Report: The AI Rebuild of Travel - Skift",
+                "url": "https://skift.com/insights/the-ai-rebuild-of-travel/",
+                "source": "skift.com",
+                "summary": "# New Report: The AI Rebuild of Travel. Travel technology is being rebuilt in real time as AI begins to shape how trips are discovered, booked, and managed. And systems built for websites and manual workflows are struggling to keep pace with a more connected, autonomous future. What once operated as a predictable digital journey is becoming an AI-mediated ecosystem powered by real-time data, interoperability, and increasingly intelligent systems. Skift Studio spoke with 10 senior technology, product, and digital leaders across airlines, hospitality companies, travel platforms, and technology providers to understand how the industry is preparing. One thing is clear: the next era of travel will be defined by infrastructure as much as interface. **Download the report to learn:**. * How AI assistants and agentic experiences are reshaping travel discovery and booking. * Why trust, governance, and identity are becoming central to AI-powered travel. * How airlines, hotels, and platforms are preparing for a more autonomous future.",
+                "score": 0.20429464
+              }
+            ]
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 10156,
+        "completion_tokens": 511,
+        "total_tokens": 10667
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:07:47"
+    },
+    {
+      "turn_index": 17,
+      "started_at": "2026-06-02T16:08:02",
+      "user": "sắp xếp theo thứ tự apla B",
+      "status": "answered",
+      "assistant_text": "Dưới đây là các tin tức về trí tuệ nhân tạo (AI) hôm nay, đã được sắp xếp theo thứ tự bảng chữ cái:\n\n1. **40% giám đốc điều hành nghĩ rằng AI có thể tiết kiệm tới 20%, nhưng thực tế không đạt được**  \n   Một báo cáo từ Bain cho thấy nhiều công ty đang tăng ngân sách cho AI nhưng không thấy sự gia tăng năng suất tương ứng. 90% trong số những người được khảo sát cho biết họ sẽ tăng ngân sách AI trong năm tới, mặc dù chi phí và hiệu suất không đạt yêu cầu.\n\n2. **AI dự kiến sẽ thúc đẩy 18 tỷ bảng chi tiêu quảng cáo kỹ thuật số tại Vương quốc Anh vào năm 2030**  \n   Theo dự báo từ IAB UK, AI sẽ chiếm một phần ba chi tiêu quảng cáo kỹ thuật số tại Vương quốc Anh vào năm 2030. Dự báo này cho thấy AI sẽ ảnh hưởng đến chi tiêu quảng cáo trong các lĩnh vực như tạo nội dung, tìm kiếm không cần nhấp chuột và thương mại tự động.\n\n3. **Báo cáo mới: Sự tái cấu trúc của ngành du lịch nhờ AI**  \n   Ngành công nghệ du lịch đang được tái cấu trúc khi AI bắt đầu định hình cách thức khám phá, đặt chỗ và quản lý chuyến đi.\n\n4. **Chiến dịch quảng cáo AI chỉ trích Rep. Lori Trahan**  \n   Nhóm an toàn AI đã triển khai một chiến dịch quảng cáo lớn nhằm chỉ trích Rep. Lori Trahan, cho rằng bà đang ủng hộ các \"đại gia AI\" trong các nỗ lực lập pháp của mình.\n\nNếu bạn cần thêm thông tin chi tiết về bất kỳ tin tức nào, hãy cho tôi biết!",
+      "tool_events": [
+        {
+          "tool": "rank",
+          "args": {
+            "query": "Tin tức AI hôm nay",
+            "items": [
+              {
+                "title": "AI dự kiến sẽ thúc đẩy 18 tỷ bảng chi tiêu quảng cáo kỹ thuật số tại Vương quốc Anh vào năm 2030",
+                "summary": "Theo dự báo từ IAB UK, AI sẽ chiếm một phần ba chi tiêu quảng cáo kỹ thuật số tại Vương quốc Anh vào năm 2030. Dự báo này cho thấy AI sẽ ảnh hưởng đến chi tiêu quảng cáo trong các lĩnh vực như tạo nội dung, tìm kiếm không cần nhấp chuột và thương mại tự động."
+              },
+              {
+                "title": "40% giám đốc điều hành nghĩ rằng AI có thể tiết kiệm tới 20%, nhưng thực tế không đạt được",
+                "summary": "Một báo cáo từ Bain cho thấy nhiều công ty đang tăng ngân sách cho AI nhưng không thấy sự gia tăng năng suất tương ứng. 90% trong số những người được khảo sát cho biết họ sẽ tăng ngân sách AI trong năm tới, mặc dù chi phí và hiệu suất không đạt yêu cầu."
+              },
+              {
+                "title": "Chiến dịch quảng cáo AI chỉ trích Rep. Lori Trahan",
+                "summary": "Nhóm an toàn AI đã triển khai một chiến dịch quảng cáo lớn nhằm chỉ trích Rep. Lori Trahan, cho rằng bà đang ủng hộ các \"đại gia AI\" trong các nỗ lực lập pháp của mình."
+              },
+              {
+                "title": "Báo cáo mới: Sự tái cấu trúc của ngành du lịch nhờ AI",
+                "summary": "Ngành công nghệ du lịch đang được tái cấu trúc khi AI bắt đầu định hình cách thức khám phá, đặt chỗ và quản lý chuyến đi."
+              }
+            ]
+          },
+          "result": {
+            "tool": "rank",
+            "query": "Tin tức AI hôm nay",
+            "top_k": 4,
+            "items": [
+              {
+                "title": "AI dự kiến sẽ thúc đẩy 18 tỷ bảng chi tiêu quảng cáo kỹ thuật số tại Vương quốc Anh vào năm 2030",
+                "summary": "Theo dự báo từ IAB UK, AI sẽ chiếm một phần ba chi tiêu quảng cáo kỹ thuật số tại Vương quốc Anh vào năm 2030. Dự báo này cho thấy AI sẽ ảnh hưởng đến chi tiêu quảng cáo trong các lĩnh vực như tạo nội dung, tìm kiếm không cần nhấp chuột và thương mại tự động.",
+                "_relevance": 0.25
+              },
+              {
+                "title": "40% giám đốc điều hành nghĩ rằng AI có thể tiết kiệm tới 20%, nhưng thực tế không đạt được",
+                "summary": "Một báo cáo từ Bain cho thấy nhiều công ty đang tăng ngân sách cho AI nhưng không thấy sự gia tăng năng suất tương ứng. 90% trong số những người được khảo sát cho biết họ sẽ tăng ngân sách AI trong năm tới, mặc dù chi phí và hiệu suất không đạt yêu cầu.",
+                "_relevance": 0.25
+              },
+              {
+                "title": "Chiến dịch quảng cáo AI chỉ trích Rep. Lori Trahan",
+                "summary": "Nhóm an toàn AI đã triển khai một chiến dịch quảng cáo lớn nhằm chỉ trích Rep. Lori Trahan, cho rằng bà đang ủng hộ các \"đại gia AI\" trong các nỗ lực lập pháp của mình.",
+                "_relevance": 0.25
+              },
+              {
+                "title": "Báo cáo mới: Sự tái cấu trúc của ngành du lịch nhờ AI",
+                "summary": "Ngành công nghệ du lịch đang được tái cấu trúc khi AI bắt đầu định hình cách thức khám phá, đặt chỗ và quản lý chuyến đi.",
+                "_relevance": 0.25
+              }
+            ]
+          }
+        }
+      ],
+      "token_usage": {
+        "prompt_tokens": 10759,
+        "completion_tokens": 729,
+        "total_tokens": 11488
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:08:20"
+    }
+  ],
+  "token_totals": {
+    "prompt_tokens": 111793,
+    "completion_tokens": 3752,
+    "total_tokens": 115545
+  },
+  "all_sources": []
+}

@@ -1,0 +1,783 @@
+{
+  "run_id": "v3_B_group_openrouter_20260602T162453113255",
+  "version": "v3",
+  "artifact_version": "v3+pc33b876207b0+t2063222c0b9e",
+  "prompt_hash": "c33b876207b0f810c9efa5d0fbd711dfe06889e8db1fcc64f0012347297f1f04",
+  "tools_hash": "2063222c0b9e174cdcee4b97ca2c0ec4a27f731deeef4f4f8d06a24eb4a551c7",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-06-02T16:24:53",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 8,
+    "case_accuracy": 0.8,
+    "tool_routing_accuracy": 0.8,
+    "argument_accuracy": 0.8,
+    "multiturn_accuracy": 0.6,
+    "failure_counts": {
+      "wrong_arg_value": 1,
+      "wrong_boundary": 1
+    },
+    "observed_mismatch_counts": {
+      "extra_tool_call": 1,
+      "missing_tool_call": 1
+    }
+  },
+  "results": [
+    {
+      "id": "GR01_fetch_explicit_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Câu có URL rõ ràng → phải dùng fetch với đúng URL đó, không gọi lookup."
+      },
+      "input": "Đọc bài này cho mình: https://techcrunch.com/2026/06/01/openai-new-model",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://techcrunch.com/2026/06/01/openai-new-model"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://techcrunch.com/2026/06/01/openai-new-model"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://techcrunch.com/2026/06/01/openai-new-model"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://techcrunch.com/2026/06/01/openai-new-model",
+            "items": [
+              {
+                "title": "Page not found | TechCrunch",
+                "url": "https://techcrunch.com/2026/06/01/openai-new-model",
+                "source": "techcrunch.com",
+                "summary": "Checking your Browser…\n\nVerifying...\n\nStuck? [Troubleshoot](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\nSuccess!\n\nVerification failed\n\n[Troubleshoot](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\nVerification expired\n\n[Refresh](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\nVerification expired\n\n[Refresh](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\n[Troubleshoot](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/ov2/av0/rch/b5k4r/0x4AAAAAAB5UiAgmkGtdUBSR/auto/fbE/new/normal?lang=auto#refresh)\n\n[Privacy](https://www.cloudflare.com/privacypolicy/) • [Help](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/help)\n\n![](https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/d/a0543584fb23ba47/1780379725826/qjsWqHXhQg_07Ox)\n\n [Skip to content](https://techcrunch.com/2026/06/01/openai-new-model#wp--skip-link--target)\n\nThe first StrictlyVC of 2026 hits SF on April 30. Tickets are going fast. [Register now.](https://techcrunch.com/events/strictlyvc-san-francisco-2026/?utm_source=tc&utm_medium=ad&utm_campaign=svcsf2026&utm_content=ticketsales&promo=topbanner&display=)\n\nClose\n\n# 404\n\n## Page not found\n\nWe’re sorry, we seem to have lost this page\n\n\nSearch\n\n[Back to homepage](https://www.techcrunch.com/)\n\n## Latest News\n\n- ![](https://techcrunch.com/wp-content/uploads/2026/04/54889021188_e8f5317c37_o.jpg?w=563)\n\n\n\n[Startups](https://techcrunch.com/category/startups/)\n\n\n\n### [How to make the Startup Battlefield Top 20 — and what every company gets regardless](https://techcrunch.com/2026/06/01/how-to-make-the-startup-battlefield-top-20-and-what-every-company-gets-regardless/)\n\n\n\n\n\n  - [Isabelle Johannessen](https://techcrunch.com/author/isabelle-johannessen/)\n\n7 hours ago\n\n- ![Sundar Pichai, chief executive officer of Alphabet](https://techcrunch.com/wp-content/uploads/2025/02/GettyImages-2173545265.jpg?w=562)\n\n\n\nIn Brief\n\n\n\n### [Alphabet plans to raise $80B to pay for AI buildout](https://techcrunch.com/2026/06/01/alphabet-plans-to-raise-80-billion-to-pay-for-ai-buildout/)\n\n\n\n\n\n  - [Lucas Ropek](https://techcrunch.com/author/lucas-ropek/)\n\n7 hours ago\n\n- ![Ethan Thornton at StrictlyVC San Francisco](https://techcrunch.com/wp-content/uploads/2025/08/Ethan-Thornton-SVCSF-2025-e1780338289712.jpg?w=470)\n\n\n\n[Startups](https://techcrunch.com/category/startups/)\n\n\n\n### [Defense tech darling Mach Industries hits $1.8B valuation, a 4x jump in a year](https://techcrunch.com/2026/06/01/defense-tech-darling-mach-industries-hits-1-8b-valuation-a-4x-jump-in-a-year/)\n\n\n\n\n\n  - [Julie Bort](https://techcrunch.com/author/julie-bort/)\n\n8 hours ago\n\n- ![NVIDIA CEO Jensen Huang](https://techcrunch.com/wp-content/uploads/2025/03/GettyImages-2205761886.jpg?w=543)\n\n\n\n[AI](https://techcrunch.com/category/artificial-intelligence/)\n\n\n\n### [Nvidia chases $200B CPU market with AI agent PCs from Microsoft, Dell, and HP](https://techcrunch.com/2026/06/01/nvidia-chases-200b-cpu-market-with-ai-agent-pcs-from-microsoft-dell-and-hp/)\n\n\n\n\n\n  - [Julie Bort](https://techcrunch.com/author/julie-bort/)\n\n8 hours ago\n\n- ![Kevin A. Damoa, Founder & CEO, Glīd, Claire Kroft and Ankit Malhotra, winners of the Startup Battlefield 2025, pose onstage during day three of TechCrunch Disrupt 2025 at Moscone Center on October 29, 2025 in San Francisco, California.](https://techcrunch.com/wp-content/uploads/2025/11/54889460445_20c033b45a_o-2.jpg?w=563)\n\n\n\n[Startups](https://techcrunch.com/category/startups/)\n\n\n\n### [From the stage to the future: Where are Startup Battlefield’s alumni now?](https:/"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR02_handle_mapping_lecun",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Map tên đầy đủ Yann LeCun → Twitter handle ylecun, không dùng tên nguyên."
+      },
+      "input": "Xem tweet mới nhất của Yann LeCun",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "ylecun"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "ylecun"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "ylecun"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=ylecun"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR03_out_of_scope_recipe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Yêu cầu nấu ăn hoàn toàn ngoài scope research/news → không gọi tool nào."
+      },
+      "input": "Cho mình công thức nấu phở bò truyền thống",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Dưới đây là công thức nấu phở bò truyền thống:\n\n### Nguyên liệu:\n- 500g thịt bò (thịt bắp hoặc thịt gầu)\n- 1kg xương bò\n- 1 củ hành tây\n- 1 củ gừng\n- 2-3 thanh quế\n- 3-4 hoa hồi\n- 1-2 nhánh thảo quả\n- 1-2 muỗng cà phê muối\n- 1-2 muỗng cà phê đường\n- 1-2 muỗng nước mắm\n- 400g bánh phở\n- Rau thơm (húng quế, ngò gai, giá đỗ)\n- Chanh, ớt tươi\n\n### Cách làm:\n\n1. **Nấu nước dùng:**\n   - Rửa sạch xương bò, cho vào nồi nước sôi khoảng 5-10 phút để loại bỏ tạp chất, sau đó vớt ra.\n   - Cho xương bò vào nồi lớn, đổ nước vào ngập xương, thêm hành tây và gừng đã nướng sơ qua.\n   - Đun sôi, sau đó hạ lửa nhỏ và ninh trong khoảng 3-4 giờ để nước dùng ngọt và trong.\n\n2. **Chuẩn bị gia vị:**\n   - Cho quế, hoa hồi, thảo quả vào một túi vải hoặc chảo rang nhẹ để dậy mùi, sau đó cho vào nồi nước dùng.\n\n3. **Nêm nếm:**\n   - Sau khi ninh xong, vớt xương ra, lọc lấy nước dùng. Nêm nếm với muối, đường, nước mắm cho vừa ăn.\n\n4. **Nấu thịt bò:**\n   - Thịt bò rửa sạch, thái lát mỏng. Có thể trụng qua nước sôi hoặc cho vào nước dùng nóng để thịt chín.\n\n5. **Chuẩn bị bánh phở:**\n   - Luộc bánh phở trong nước sôi khoảng 1-2 phút, sau đó vớt ra để ráo.\n\n6. **Trình bày:**\n   - Cho bánh phở vào tô, xếp thịt bò lên trên, rưới nước dùng nóng lên. Trang trí với rau thơm, giá đỗ, chanh và ớt tươi.\n\n### Thưởng thức:\nPhở bò thường được ăn kèm với nước chấm và các loại rau sống. Chúc bạn thành công với món phở bò truyền thống!",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "GR04_timeframe_month",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "'tháng này' → timeframe=month, topic=news."
+      },
+      "input": "Tin công nghệ tháng này có gì nổi bật?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "công nghệ",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "công nghệ",
+            "topic": "news",
+            "timeframe": "month"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "công nghệ",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "Эхафорсе киберҳужумларни аниқловчи сунъий интеллект учун 125 миллион доллар жалб қилди - Zamin.uz",
+                "url": "https://zamin.uz/en/technology/200579-exaforce-raises-125-million-for-ai-powered-cyberattack-detection.html",
+                "source": "zamin.uz",
+                "summary": "# Exaforce raises $125 million for AI-powered cyberattack detection. Cybercriminals are increasingly using AI to exploit software vulnerabilities. To combat these threats, cybersecurity startup Exaforce has raised $125 million in Series B funding, bringing the company's valuation to $725 million. This is reported by Techcrunch.com reports . The three-year-old startup uses AI agents called \"Exabots.\" This technology automates security operations through deep data analysis, significantly easing the workload for human analysts. According to the company, the platform can reduce manual, time-consuming tasks by up to 90 percent. Exaforce founder Ankur Singla emphasizes that the biggest challenge for cybersecurity teams is false positives. For this reason, the startup recently introduced a \"vibe hunting\" feature. Exaforce, which launched its product in the fourth quarter of last year, currently serves major clients such as Replit and Guardant Health. The company plans to reach 50 customers by the end of the year. News » Technology » Exaforce raises $125 million for AI-powered cyberattack detection.",
+                "score": 0.45907614
+              },
+              {
+                "title": "Technology News | ⚡Israel: AI21 Labs Layoffs Announced, Cutting 60% Workforce - LatestLY",
+                "url": "https://www.latestly.com/quickly/technology/israel-ai21-labs-layoffs-announced-cutting-60-workforce-7435221.html",
+                "source": "latestly.com",
+                "summary": "## Technology. # ⚡Israel: AI21 Labs Layoffs Announced, Cutting 60% Workforce. Israeli tech firm AI21 Labs is cutting over 60 per cent of its workforce, reducing staff to 70 following collapsed acquisition talks with Nebius. The company is halting standalone AI model sales to focus entirely on its Maestro agent optimisation platform, securing millions in new commercial contracts with Nebius and Wix. Vivo V80 5G Specifications Leaked, Will Feature Snapdragon 8s Gen 3 SoC; Check Likely Price   iPhone 18 Series To Replace Qualcomm Modems With In-House C2 Chips   Goodie Bag Instead of Raise: Employee Shares Photo of 'Goodie Bag' Received Instead of Annual Salary Hike on Social Media; Post Goes Viral, Sparks Outrage   Samsung Galaxy Z Fold 8 India Launch Expected on July 22; Check Tipped Price, Camera, Battery and Specifications Details.",
+                "score": 0.08151976
+              },
+              {
+                "title": "China’s model smart dairy factory offers lessons for Vietnam - Báo VietNamNet",
+                "url": "https://vietnamnet.vn/en/china-s-model-smart-dairy-factory-offers-lessons-for-vietnam-2521949.html",
+                "source": "vietnamnet.vn",
+                "summary": "## Vietnam’s dairy manufacturers are pursuing digital transformation through open data platforms that connect aging machinery with modern IoT systems. In the fourth quarter of 2024, the World Economic Forum (WEF) officially recognized Mengniu’s Ningxia facility in China as a Lighthouse Factory. The Lighthouse Factory title is awarded by the WEF to manufacturing facilities that pioneer the use of advanced digital technologies to create customer value, accelerate time-to-market and optimize operational efficiency. The results achieved by the Lighthouse Factory model have established a new benchmark for the global dairy industry. Speaking to VietNamNet on the sidelines of the International Dairy and Dairy Products Exhibition 2026, Nguyen Van, Technical Director of Tetra Pak Vietnam, said the greatest challenge facing Vietnam’s dairy sector is the lack of infrastructure uniformity. In Vietnam, major dairy producers are beginning to incorporate these technologies into their smart factory roadmaps, gradually narrowing the gap between local manufacturing operations and the world’s leading Lighthouse Factories.",
+                "score": 0.07316472
+              },
+              {
+                "title": "PM Modi salutes scientists on National Technology Day, highlights push for self-reliant India - The Statesman",
+                "url": "https://www.thestatesman.com/india/pm-modi-salutes-scientists-on-national-technology-day-highlights-push-for-self-reliant-india-1503592411.html",
+                "source": "thestatesman.com",
+                "summary": "# PM Modi salutes scientists on National Technology Day, highlights push for self-reliant India. Prime Minister Narendra Modi on Monday greeted the nation on the occasion of National Technology Day, describing the 1998 Pokhran nuclear tests as a landmark achievement that showcased India’s scientific capabilities and determination. ‎In a post on social media platform X, Modi remembered the contribution of Indian scientists and researchers behind the successful nuclear tests conducted in Pokhran on May 11, 1998, under the leadership of the then Prime Minister Atal Bihari Vajpayee. ‎“Greetings on National Technology Day. We recall with pride the hard work and dedication of our scientists, which led to the successful tests in Pokhran in 1998. ‎Emphasising the role of technology in shaping the country’s future, Modi said innovation and scientific advancement were becoming increasingly important in driving economic growth and creating opportunities across sectors. ‎National Technology Day is observed every year on May 11 to mark Operation Shakti, the series of nuclear tests carried out in Rajasthan’s Pokhran in 1998.",
+                "score": 0.06608538
+              },
+              {
+                "title": "CGT Sector Opts for New Tech for Efficiency and Consistency - Genetic Engineering and Biotechnology News",
+                "url": "https://www.genengnews.com/topics/bioprocessing/cgt-sector-opting-for-new-tech-for-efficiency-and-consistency/",
+                "source": "genengnews.com",
+                "summary": "# CGT Sector Opts for New Tech for Efficiency and Consistency. A maturing, data-rich and more commercially-focused cell and gene therapy (CGT) industry is finally embracing innovative manufacturing technologies, according to the head of U.K.-based industrial software firm, Autolomous. Early CGT manufacturing relied heavily on technologies borrowed from biologics manufacturing, systems originally built for producing therapeutic proteins rather than patient-specific therapies. Data is also driving the adoption of new technologies. In cell and gene therapy production, large volumes of data are collected by different instruments, software platforms, QC systems, environmental monitoring tools, and manual inputs—many of which were never designed to communicate with one another. A typical, modern digital cell and gene therapy manufacturing setup includes systems that manage manufacturing execution, laboratory information, quality, electronic batch records, and cloud-based data platforms. The need to keep track of cell and gene therapy raw materials is also fueling the adoption of innovative technologies, with patient-specific therapies being a case in point.",
+                "score": 0.049222115
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GR05_missing_search_keyword",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Thiếu keyword/chủ đề cần tìm → phải hỏi lại trước khi gọi social_search."
+      },
+      "input": "Tìm tweet liên quan cho mình",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn tìm tweet liên quan đến chủ đề gì hoặc từ khóa nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tìm tweet liên quan đến chủ đề gì hoặc từ khóa nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tìm tweet liên quan đến chủ đề gì hoặc từ khóa nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM01_carryover_search_type",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: carry query='Claude AI' từ lượt 1, cập nhật search_type=Top từ 'phổ biến nhất' ở lượt 2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tweet về Claude AI"
+        },
+        {
+          "role": "user",
+          "content": "Lấy loại phổ biến nhất nhé"
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề Claude AI"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Claude AI",
+              "search_type": "Top"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "Claude AI",
+              "search_type": "Top",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "Claude AI",
+            "search_type": "Top",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/search.php?query=Claude+AI&search_type=Top"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM02_carryover_limit_new_handle",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: đổi handle sang JeffBezos ở lượt 2, carry limit=5 từ lượt 1."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 5 tweet của Elon Musk"
+        },
+        {
+          "role": "user",
+          "content": "Bây giờ chuyển sang Jeff Bezos đi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn lấy 5 tweet thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "JeffBezos",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "jeffbezos",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "jeffbezos",
+            "limit": 5
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "HTTPError",
+            "message": "429 Client Error: Too Many Requests for url: https://twitter-api45.p.rapidapi.com/timeline.php?screenname=jeffbezos"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM03_switch_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: cập nhật timeframe week→month ở lượt 2, carry query=AI và topic=news."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin AI tuần này"
+        },
+        {
+          "role": "user",
+          "content": "Chuyển sang tin tháng này thôi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn là về AI nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "extra_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "extra tool call social_search"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "month"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "AI Impact: How AI Raised the Bar for Lawyers - Newsweek",
+                "url": "https://www.newsweek.com/ai-impact-how-ai-raised-the-bar-for-lawyers-12009050",
+                "source": "newsweek.com",
+                "summary": "# AI Impact: How AI Raised the Bar for Lawyers. ## AI Impact examines legal AI workloads, hidden productivity costs, finance transformation and AI-powered health care claims. *Editor's note: This is AI Impact, Newsweek's weekly newsletter where each week, we will explore how business leaders are unlocking real value through artificial intelligence.*. #### Read More on AI. AI is now changing that reputation, though not in the way many lawyers may have expected. Ironclad, an AI contracting platform, found in its third annual “State of AI in Legal” report that 92 percent of legal professionals now use AI in some capacity for legal work, up from 69 percent in 2025. “AI is not just reducing workload; it is changing what legal teams are expected to deliver,” Jasmine Singh, general counsel at Ironclad, told *Newsweek*. Ironclad found that 94 percent of respondents who use AI for legal work use it for contract-specific tasks.",
+                "score": 0.9273633
+              },
+              {
+                "title": "Acrisure: How AI is the Critical Core Engine for Growth - FinTech Magazine",
+                "url": "https://fintechmagazine.com/news/acrisure-how-ai-is-the-critical-core-engine-for-growth",
+                "source": "fintechmagazine.com",
+                "summary": "# Acrisure: How AI is the Critical Core Engine for Growth. Benjamin Funk, Chief Technology & AI Officer at Acrisure, explains how the company’s implementation of AI at its core is key to its success. For the modern business, AI is more than just a means to an end. Aside from the front-end benefits focused on efficiency, AI is adopting a vital role in every boardroom: strategy. Simply put, AI is more than a tool in fintech. It is rapidly becoming the solution to every company’s growth strategy. In this Q&A with FinTech Magazine, Benjamin Funk, Chief Technology & AI Officer at Acrisure, explains how Acrisure’s AI strategy is the core of its operation. At Acrisure, I’m now leading technology, innovation, and AI across our engineering, data, analytics, product, sales tech and agentic automation teams. Not as an overlay, but as a critical and core engine for how a business ought to run.",
+                "score": 0.8976953
+              },
+              {
+                "title": "AI Startup Artisan Accused of Stealing ‘This is Fine’ Comic Art - Startup Ecosystem Canada",
+                "url": "https://www.startupecosystem.ca/news/ai-startup-artisan-accused-of-stealing-this-is-fine-comic-art/",
+                "source": "startupecosystem.ca",
+                "summary": "By Startup Eco SystemNo Comments. ## AI Startup Artisan Accused of Stealing ‘This is Fine’ Comic Art. KC Green, the artist behind the popular ‘This is fine’ meme, has accused AI startup Artisan of using his artwork without permission in an advertisement campaign. The ad, spotted in a subway station, altered Green’s original comic to promote ‘Ava the AI BDR’. Artisan responded by expressing respect for Green and has planned to discuss the matter with him directly. #### ‘This is fine’ creator says AI startup stole his art. acquisition AI AI development AI infrastructure AI innovation AI integration AI investment AI models AI safety AI technology Amazon Anthropic Apple Artificial Intelligence Autonomous vehicles Canada founder news Canada startup news ChatGPT cryptocurrency Cybersecurity Electric Vehicles Elon Musk entrepreneurship fintech Funding round Generative AI Global founder news Global startup news healthcare innovation Innovation investment IPO Meta Microsoft Nvidia Ontario startup news OpenAI Sam Altman Seed funding Silicon Valley TechCrunch Disrupt Tech innovation Tesla Toronto startup news venture capital.",
+                "score": 0.8407826
+              },
+              {
+                "title": "“Manufacturing Sites are the Core of AI Competition”... Ibex Unveils Industrial Physical AI Strategy at AWC 2026 - 벤처스퀘어",
+                "url": "https://www.venturesquare.net/en/1085851/",
+                "source": "venturesquare.net",
+                "summary": "# “Manufacturing Sites are the Core of AI Competition”… Ibex Unveils Industrial Physical AI Strategy at AWC 2026. On the 27th, AIVEX gave a presentation on the topic of \"Industrial Physical AI Technology Trends and Applications\" at the \"AI World Congress 2026 (AWC 2026)\" held at Ajou University. In this announcement, the company explained that the era of 'Physical AI,' where AI perceives, judges, and acts upon the real physical world—moving beyond Generative and Agentic AI—is beginning in earnest. It explained that AI, which used to understand language and knowledge through text-based learning, is now evolving to a stage where it understands and interacts with the physical environment based on video and behavioral data. Seong Min-soo, CEO of Ibex, stated, “The center of AI is expanding beyond generative AI in the digital space to physical AI operating in actual industrial sites,” adding, “We will lead the advancement of manufacturing AI through AI Vision and AI Robotics technologies optimized for manufacturing environments.”.",
+                "score": 0.81757444
+              },
+              {
+                "title": "AI & Tech Brief: Trump admin to test frontier models - The Washington Post",
+                "url": "https://www.washingtonpost.com/wp-intelligence/ai-tech-brief/2026/05/05/ai-tech-brief-trump-admin-test-frontier-models/",
+                "source": "washingtonpost.com",
+                "summary": "AI & Tech Brief from WP Intelligence. # AI & Tech Brief: Trump admin to test frontier models. Plus, why the entry of financial giants in AI forecasts “token inequality.”. Make us preferred on Google. Sign up here to get this newsletter in your inbox. * The Commerce Department announced Tuesday that it will be conducing pre-deployment testing of AI models from Google, Microsoft and xAI. This marks a pivot in the White House’s earlier approach to AI policy. * I break down what the new partnership between Anthropic and financial services firms means for business adoption of AI. Expect more inequality between the capabilities of AI start-ups and the AI firms with larger financial resources. * A new WP Intelligence report analyzes the bottlenecks in physical AI, including in the proprietary data needed to train robots.",
+                "score": 0.81405276
+              }
+            ]
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "AI",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "HTTPError",
+            "message": "403 Client Error: Forbidden for url: https://twitter-api45.p.rapidapi.com/search.php?query=AI&search_type=Latest"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM04_multiturn_confirm_then_send",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: lượt 1 agent hỏi confirm, lượt 2+3 user xác nhận → lượt cuối phải gọi send với confirmed=true."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Gửi bản tin này lên Telegram: 'OpenAI ra mô hình mới hôm nay'"
+        },
+        {
+          "role": "user",
+          "content": "Ừ, gửi đi"
+        },
+        {
+          "role": "user",
+          "content": "Xác nhận gửi luôn đi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "notify",
+            "args": {
+              "text": "OpenAI ra mô hình mới hôm nay",
+              "channel": "telegram",
+              "confirmed": true
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_boundary",
+        "failures": [
+          "missing tool call send",
+          "extra tool call notify"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "notify",
+          "args": {
+            "text": "OpenAI ra mô hình mới hôm nay",
+            "channel": "telegram",
+            "confirmed": true
+          },
+          "result": {
+            "tool": "notify",
+            "channel": "telegram",
+            "results": [
+              {
+                "channel": "telegram",
+                "status": "sent"
+              }
+            ],
+            "errors": [],
+            "status": "sent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM05_correction_topic",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "3 turns: sửa query blockchain→Web3 ở lượt 2, carry topic=news và timeframe=day."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin blockchain hôm nay"
+        },
+        {
+          "role": "user",
+          "content": "Không phải blockchain, là Web3"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn hôm nay thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Web3",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Web3",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Web3",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Web3",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "HalaPremium.com Launches as the Arab World’s Premier Digital Asse - The National Law Review",
+                "url": "https://natlawreview.com/press-releases/halapremiumcom-launches-arab-worlds-premier-digital-asset-marketplace-ai",
+                "source": "natlawreview.com",
+                "summary": "### HalaPremium.com Launches as the Arab World’s Premier Digital Asset Marketplace for AI, Web3, and Vision 2030 Ecosystems. The home of premium domains for the Arab world. *HalaPremium.com launches the MENA region's premier digital asset marketplace, offering curated AI, Web3 and Vision 2030 domains with AI-driven valuation models.*. DUBAI, UNITED ARAB EMIRATES, June 2, 2026 /EINPresswire.com/ -- HalaPremium.com officially launched today as the definitive premium digital asset marketplace for the Middle East and North Africa (MENA) region. Functioning as a high-tier, curated ecosystem for the most strategic .com and premium-TLD domain names in the Arab world, the platform is expressly designed to serve the institutional, corporate, and entrepreneurial forces shaping the region’s economic future. HalaPremium meticulously hand-picks and categorizes its digital real estate around the critical mega-themes defining the Arab decade: artificial intelligence and agentic technology, biotechnology and life sciences, blockchain and real-world asset (RWA) tokenization, next-generation telecommunications, immersive spatial computing, financial technology, the global energy transition, and the monumental infrastructure ecosystem rising around Saudi Arabia's Vision 2030.",
+                "score": 0.41962478
+              },
+              {
+                "title": "Mondrian Estate Teams With One-Time NFT Sensation Doodles - Artnet News",
+                "url": "https://news.artnet.com/art-world/mondrian-estate-doodles-nft-2777701",
+                "source": "news.artnet.com",
+                "summary": "The project remixes the abstract artist's masterpieces in the colors of the Doodles universe. In a move with distinctly 2021 energy, the estate of the abstract artist **Piet Mondrian** has collaborated with a web3 entertainment company to drop a batch of digital collectibles, on-chain tokens the world once called NFTs. The company in question is **Doodles**, the outfit whose 10,000-strong lineup of mildly quirky pastel-colored avatars once ranked among the most coveted art assets on the blockchain. Together, Mondrian’s estate and Doodles have remixed five of the artist’s works, selling them from June 3 on **OpenSea**, the largest online marketplace for digital collectibles. Dubai Plans a Massive New Museum for Digital Art. How Is Arts Patronage Changing? <Art World> # An Idyllic ‘Creative Compound’ in Upstate New York Has Hit the Market for $4.25 Million—Alas, the Art Is Not Included.",
+                "score": 0.28196922
+              },
+              {
+                "title": "US PMI Shows Manufacturing Growth for the Fifth Consecutive Month in May - Supply Chain Digest",
+                "url": "https://www.scdigest.com/ontarget/26-06-02.php?cid=23122",
+                "source": "scdigest.com",
+                "summary": "| | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |",
+                "score": 0.046055444
+              },
+              {
+                "title": "Ethereum Meme Coin Little Pepe (LILPEPE) Nearly Sells Out Presale, Tops $28 Million Raised - markets.businessinsider.com",
+                "url": "https://markets.businessinsider.com/news/stocks/ethereum-meme-coin-little-pepe-lilpepe-nearly-sells-out-presale-tops-28-million-raised-1036215203",
+                "source": "markets.businessinsider.com",
+                "summary": "# Ethereum Meme Coin Little Pepe (LILPEPE) Nearly Sells Out Presale, Tops $28 Million Raised. DUBAI, United Arab Emirates, June 01, 2026 (GLOBE NEWSWIRE) -- Little Pepe (LILPEPE), an Ethereum-based Layer 2 blockchain project combining meme culture with low-cost transactions, security, and speed, announced that its presale has raised over $28.19 million toward a target of $28.77 million. The token is currently priced at $0.0022, with 16.98 billion of the total 17.25 billion tokens sold to date. **Little Pepe (LILPEPE) Presale: Stage 13 Price Still Offers A Clear Entry Point**. The LILPEPE presale has moved fast, and that speed is part of the story. Little Pepe calls this phase its “pregnancy stage,” with the line that it is “cooking up in the cryptowomb with Mumma Pepe.” It is playful, sure, but the core pitch is still easy to follow. Little Pepe is trying to keep the fun while adding a cleaner technical story, a public audit, and a presale structure that is already close to full.",
+                "score": 0.038964175
+              },
+              {
+                "title": "ICIS expands polymer demand insight to help customers make better decisions across global plastics markets - BeBeez International",
+                "url": "https://bebeez.eu/2026/06/02/icis-expands-polymer-demand-insight-to-help-customers-make-better-decisions-across-global-plastics-markets/",
+                "source": "bebeez.eu",
+                "summary": "# ICIS expands polymer demand insight to help customers make better decisions across global plastics markets. LONDON, June 2, 2026 /PRNewswire/ — ICIS, a global leader in commodity intelligence, announced it has acquired the AMI Plastics Market Intelligence Dataset, strengthening its ability to provide customers with deeper, more connected insight into global polymer demand. By bringing AMI’s established downstream analysis into the ICIS Supply & Demand Database, customers can now access a more complete picture of the plastics value chain. By integrating AMI’s data into the ICIS supply and demand capability, we are enabling customers to better understand where the market is moving and make decisions with greater confidence.”. By combining this data together with our existing expertise, we will empower our customers with richer insight into supply and demand, a comprehensive view of global polymer markets, and trusted guidance to interpret what the data really means in this fast-moving landscape.”.",
+                "score": 0.03330229
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

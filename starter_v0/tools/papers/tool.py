@@ -10,6 +10,8 @@ import requests
 
 from tools._shared import TIMEOUT, err
 
+ARXIV_TIMEOUT = max(TIMEOUT, 60)  # arxiv can be slow
+
 
 ARXIV_API_URL = "https://export.arxiv.org/api/query"
 ARXIV_MIN_INTERVAL_SECONDS = 3.0
@@ -32,7 +34,7 @@ def _arxiv_get(url: str, *, params: dict[str, Any] | None = None) -> requests.Re
     last_response: requests.Response | None = None
     for attempt in range(3):
         _rate_limit_arxiv()
-        response = requests.get(url, params=params, headers={"User-Agent": _arxiv_user_agent()}, timeout=TIMEOUT)
+        response = requests.get(url, params=params, headers={"User-Agent": _arxiv_user_agent()}, timeout=ARXIV_TIMEOUT)
         last_response = response
         if response.status_code != 429:
             return response

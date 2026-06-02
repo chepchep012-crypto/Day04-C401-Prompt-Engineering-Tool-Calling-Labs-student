@@ -10,6 +10,8 @@ import requests
 
 from tools._shared import ROOT, TIMEOUT, err
 
+ARXIV_TIMEOUT = max(TIMEOUT, 60)
+
 
 ARXIV_DIR = ROOT / "arxiv_papers"
 ARXIV_MIN_INTERVAL_SECONDS = 3.0
@@ -41,7 +43,7 @@ def _download_arxiv_pdf(arxiv_url: str) -> tuple[str, Path, str]:
     ARXIV_DIR.mkdir(parents=True, exist_ok=True)
     output_path = ARXIV_DIR / f"{arxiv_id}.pdf"
     _rate_limit_arxiv()
-    response = requests.get(pdf_url, headers={"User-Agent": _arxiv_user_agent()}, timeout=TIMEOUT, stream=True)
+    response = requests.get(pdf_url, headers={"User-Agent": _arxiv_user_agent()}, timeout=ARXIV_TIMEOUT, stream=True)
     response.raise_for_status()
     with output_path.open("wb") as file:
         for chunk in response.iter_content(chunk_size=8192):

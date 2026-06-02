@@ -3,5 +3,106 @@
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "GR01_fetch_explicit_url",
+      "phase": "B",
+      "query": "Đọc bài này cho mình: https://techcrunch.com/2026/06/01/openai-new-model",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "fetch", "args": {"url": "https://techcrunch.com/2026/06/01/openai-new-model"}}]},
+      "metadata": {"what_it_tests": "Câu có URL rõ ràng → phải dùng fetch với đúng URL đó, không gọi lookup."}
+    },
+    {
+      "id": "GR02_handle_mapping_lecun",
+      "phase": "B",
+      "query": "Xem tweet mới nhất của Yann LeCun",
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "timeline", "args": {"screenname": "ylecun"}}]},
+      "metadata": {"what_it_tests": "Map tên đầy đủ Yann LeCun → Twitter handle ylecun, không dùng tên nguyên."}
+    },
+    {
+      "id": "GR03_out_of_scope_recipe",
+      "phase": "B",
+      "query": "Cho mình công thức nấu phở bò truyền thống",
+      "failure_type": "out_of_scope",
+      "expect": {"no_tool": true, "behavior": "refuse"},
+      "metadata": {"what_it_tests": "Yêu cầu nấu ăn hoàn toàn ngoài scope research/news → không gọi tool nào."}
+    },
+    {
+      "id": "GR04_timeframe_month",
+      "phase": "B",
+      "query": "Tin công nghệ tháng này có gì nổi bật?",
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "lookup", "args": {"topic": "news", "timeframe": "month"}}]},
+      "metadata": {"what_it_tests": "'tháng này' → timeframe=month, topic=news."}
+    },
+    {
+      "id": "GR05_missing_search_keyword",
+      "phase": "B",
+      "query": "Tìm tweet liên quan cho mình",
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "text"}}]},
+      "metadata": {"what_it_tests": "Thiếu keyword/chủ đề cần tìm → phải hỏi lại trước khi gọi social_search."}
+    },
+    {
+      "id": "GM01_carryover_search_type",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tìm tweet về Claude AI"},
+        {"role": "user", "content": "Lấy loại phổ biến nhất nhé"},
+        {"role": "user", "content": "Giữ chủ đề Claude AI"}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "social_search", "args": {"query": "Claude AI", "search_type": "Top"}}]},
+      "metadata": {"what_it_tests": "3 turns: carry query='Claude AI' từ lượt 1, cập nhật search_type=Top từ 'phổ biến nhất' ở lượt 2."}
+    },
+    {
+      "id": "GM02_carryover_limit_new_handle",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Lấy 5 tweet của Elon Musk"},
+        {"role": "user", "content": "Bây giờ chuyển sang Jeff Bezos đi"},
+        {"role": "user", "content": "Vẫn lấy 5 tweet thôi"}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "timeline", "args": {"screenname": "JeffBezos", "limit": 5}}]},
+      "metadata": {"what_it_tests": "3 turns: đổi handle sang JeffBezos ở lượt 2, carry limit=5 từ lượt 1."}
+    },
+    {
+      "id": "GM03_switch_timeframe",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tin AI tuần này"},
+        {"role": "user", "content": "Chuyển sang tin tháng này thôi"},
+        {"role": "user", "content": "Vẫn là về AI nhé"}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "lookup", "args": {"query": "AI", "topic": "news", "timeframe": "month"}}]},
+      "metadata": {"what_it_tests": "3 turns: cập nhật timeframe week→month ở lượt 2, carry query=AI và topic=news."}
+    },
+    {
+      "id": "GM04_multiturn_confirm_then_send",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Gửi bản tin này lên Telegram: 'OpenAI ra mô hình mới hôm nay'"},
+        {"role": "user", "content": "Ừ, gửi đi"},
+        {"role": "user", "content": "Xác nhận gửi luôn đi"}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "send", "args": {"confirmed": true}}]},
+      "metadata": {"what_it_tests": "3 turns: lượt 1 agent hỏi confirm, lượt 2+3 user xác nhận → lượt cuối phải gọi send với confirmed=true."}
+    },
+    {
+      "id": "GM05_correction_topic",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tin blockchain hôm nay"},
+        {"role": "user", "content": "Không phải blockchain, là Web3"},
+        {"role": "user", "content": "Vẫn hôm nay thôi"}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "lookup", "args": {"query": "Web3", "topic": "news", "timeframe": "day"}}]},
+      "metadata": {"what_it_tests": "3 turns: sửa query blockchain→Web3 ở lượt 2, carry topic=news và timeframe=day."}
+    }
+  ]
 }

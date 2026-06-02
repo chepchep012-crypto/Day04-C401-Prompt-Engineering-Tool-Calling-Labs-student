@@ -1,0 +1,36 @@
+{
+  "transcript_id": "ui_v3_openrouter_20260602T160815155585",
+  "version": "v3",
+  "artifact_version": "v3+p39a30d427f99+t2063222c0b9e",
+  "prompt_hash": "39a30d427f99efb5bec0d3ebb32438a12006e955249c40672c113338d6bf4a8b",
+  "tools_hash": "2063222c0b9e174cdcee4b97ca2c0ec4a27f731deeef4f4f8d06a24eb4a551c7",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Downloads\\day4\\Day04-C401-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "created_at": "2026-06-02T16:08:15",
+  "updated_at": "2026-06-02T16:08:43",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-06-02T16:08:40",
+      "user": "SAO MẤT TRÍCH DẪN  RỒI",
+      "status": "answered",
+      "assistant_text": "Bạn có thể cho tôi biết rõ hơn về vấn đề bạn đang gặp phải với trích dẫn không? Bạn cần trích dẫn cho tài liệu nào hoặc có vấn đề gì cụ thể không?",
+      "tool_events": [],
+      "token_usage": {
+        "prompt_tokens": 3358,
+        "completion_tokens": 40,
+        "total_tokens": 3398
+      },
+      "sources": [],
+      "ended_at": "2026-06-02T16:08:43"
+    }
+  ],
+  "token_totals": {
+    "prompt_tokens": 3358,
+    "completion_tokens": 40,
+    "total_tokens": 3398
+  },
+  "all_sources": []
+}

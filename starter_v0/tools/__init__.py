@@ -17,6 +17,14 @@ from .policy.tool import search_company_policy
 from .social_search.tool import search_tweets
 from .send.tool import send_telegram
 from .lookup.tool import web_search
+from .translate.tool import translate_text
+from .notify.tool import send_notify
+from .knowledge.tool import manage_knowledge
+from .dedup.tool import dedup_items
+from .rank.tool import rank_items
+from .keywords.tool import extract_keywords
+from .cite.tool import build_citations
+from .credibility.tool import assess_credibility
 
 
 # NOTE (starter_v0): tool names here are intentionally vague. These keys are the
@@ -35,6 +43,14 @@ TOOL_FUNCTIONS = {
     "policy": search_company_policy,
     "papers": arxiv_search,
     "paper_text": get_arxiv_paper_text,
+    "translate": translate_text,
+    "notify": send_notify,
+    "knowledge": manage_knowledge,
+    "dedup": dedup_items,
+    "rank": rank_items,
+    "keywords": extract_keywords,
+    "cite": build_citations,
+    "credibility": assess_credibility,
 }
 
 
