@@ -170,6 +170,28 @@
   .spinner-wrap { display: flex; align-items: center; gap: 10px; color: var(--muted); padding: 20px; font-size: 13px; }
   .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Token pills (in table) ── */
+  .tok-row { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+  .tok-pill {
+    font-size: 11px; padding: 2px 7px; border-radius: 5px;
+    background: rgba(108,99,255,.12); border: 1px solid rgba(108,99,255,.2);
+    color: var(--accent2); white-space: nowrap;
+  }
+  .tok-pill.total { background: rgba(108,99,255,.25); font-weight: 600; }
+
+  /* ── Source list in table cell ── */
+  .src-list { display: flex; flex-direction: column; gap: 3px; }
+  .src-item { display: flex; align-items: baseline; gap: 5px; }
+  .src-tag {
+    font-size: 10px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 5px; color: var(--muted); white-space: nowrap; flex-shrink: 0;
+  }
+  .src-link {
+    font-size: 11px; color: var(--info); text-decoration: none;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 300px;
+  }
+  .src-link:hover { text-decoration: underline; color: var(--accent2); }
 </style>
 </head>
 <body>
@@ -208,6 +230,14 @@
     <div class="stat-card">
       <div class="stat-label">Total Turns</div>
       <div class="stat-value blue" id="stat-turns">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Tokens</div>
+      <div class="stat-value purple" id="stat-tokens">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Sources</div>
+      <div class="stat-value green" id="stat-sources">—</div>
     </div>
   </div>
 
@@ -321,17 +351,24 @@ function renderTranscripts(data) {
   el.innerHTML = `<div class="table-wrap"><table>
     <thead><tr>
       <th>Transcript ID</th><th>Version</th><th>Provider</th>
-      <th>Turns</th><th>Tool Calls</th><th>Created</th><th>Updated</th>
+      <th>Turns</th><th>Tool Calls</th><th>Tokens (P/C/T)</th><th>Sources</th><th>Created</th>
     </tr></thead>
-    <tbody>${data.map((t, i) => `<tr onclick="openTranscriptModal(${i})">
-      <td style="font-family:monospace;font-size:11px;color:var(--muted)">${esc(t.transcript_id).slice(0,32)}</td>
-      <td><span class="badge badge-purple">${esc(t.version)}</span></td>
-      <td style="font-size:12px;color:var(--muted)">${esc(t.provider)}</td>
-      <td style="text-align:center"><strong>${t.total_turns}</strong></td>
-      <td style="text-align:center">${t.total_tool_calls}</td>
-      <td style="font-size:11px;color:var(--muted)">${fmt(t.created_at)}</td>
-      <td style="font-size:11px;color:var(--muted)">${fmt(t.updated_at)}</td>
-    </tr>`).join('')}</tbody>
+    <tbody>${data.map((t, i) => {
+      const tok = t.token_totals || {};
+      const tokStr = tok.total_tokens
+        ? `${tok.prompt_tokens||0}/${tok.completion_tokens||0}/<strong>${tok.total_tokens}</strong>`
+        : '—';
+      return `<tr onclick="openTranscriptModal(${i})">
+        <td style="font-family:monospace;font-size:11px;color:var(--muted)">${esc(t.transcript_id).slice(0,32)}</td>
+        <td><span class="badge badge-purple">${esc(t.version)}</span></td>
+        <td style="font-size:12px;color:var(--muted)">${esc(t.provider)}</td>
+        <td style="text-align:center"><strong>${t.total_turns}</strong></td>
+        <td style="text-align:center">${t.total_tool_calls}</td>
+        <td style="font-size:12px;color:var(--accent2)">${tokStr}</td>
+        <td style="text-align:center">${t.total_sources||0}</td>
+        <td style="font-size:11px;color:var(--muted)">${fmt(t.created_at)}</td>
+      </tr>`;
+    }).join('')}</tbody>
   </table></div>`;
 }
 
@@ -478,6 +515,12 @@ async function loadAll() {
 
   const totalTurns = transcripts.reduce((s, t) => s + (t.total_turns || 0), 0);
   document.getElementById('stat-turns').textContent = totalTurns;
+
+  const totalTokens = transcripts.reduce((s, t) => s + ((t.token_totals||{}).total_tokens||0), 0);
+  document.getElementById('stat-tokens').textContent = totalTokens > 0 ? totalTokens.toLocaleString() : '—';
+
+  const totalSources = transcripts.reduce((s, t) => s + (t.total_sources||0), 0);
+  document.getElementById('stat-sources').textContent = totalSources > 0 ? totalSources : '—';
 
   renderRuns(runs);
   renderTranscripts(transcripts);

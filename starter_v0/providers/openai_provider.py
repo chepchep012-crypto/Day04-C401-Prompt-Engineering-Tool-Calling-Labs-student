@@ -56,4 +56,11 @@ class OpenAIProvider:
         for call in msg.tool_calls or []:
             args = json.loads(call.function.arguments or "{}")
             calls.append(ToolCall(name=call.function.name, args=args))
-        return ModelResponse(text=msg.content, tool_calls=calls, raw=resp)
+        usage: dict[str, int] | None = None
+        if resp.usage:
+            usage = {
+                "prompt_tokens": resp.usage.prompt_tokens or 0,
+                "completion_tokens": resp.usage.completion_tokens or 0,
+                "total_tokens": resp.usage.total_tokens or 0,
+            }
+        return ModelResponse(text=msg.content, tool_calls=calls, raw=resp, usage=usage)

@@ -97,6 +97,79 @@ def tool_results_message(events: list[dict]) -> dict:
     }
 
 
+def _extract_sources(tool_events: list[dict]) -> list[dict[str, str]]:
+    """Extract citable sources (url + title) from tool results."""
+    sources: list[dict[str, str]] = []
+    seen_urls: set[str] = set()
+
+    def _add(url: str, title: str = "", tool: str = "") -> None:
+        url = (url or "").strip()
+        if url and url not in seen_urls:
+            seen_urls.add(url)
+            sources.append({"url": url, "title": (title or url)[:120], "tool": tool})
+
+    for ev in tool_events:
+        tool = ev.get("tool", "")
+        args = ev.get("args", {})
+        result = ev.get("result") or {}
+
+        # fetch / paper_text — single URL arg
+        if tool in ("fetch", "paper_text"):
+            url = args.get("url") or args.get("arxiv_url", "")
+            title = result.get("title") or result.get("source", "")
+            _add(url, title, tool)
+
+        # lookup — result is a list of hits with url/title
+        elif tool == "lookup":
+            for item in (result.get("results") or result if isinstance(result, list) else []):
+                if isinstance(item, dict):
+                    _add(item.get("url", ""), item.get("title", ""), tool)
+
+        # papers — list of paper objects
+        elif tool == "papers":
+            for item in (result.get("papers") or result if isinstance(result, list) else []):
+                if isinstance(item, dict):
+                    url = item.get("url") or item.get("arxiv_url", "")
+                    _add(url, item.get("title", ""), tool)
+
+        # knowledge search — results list
+        elif tool == "knowledge":
+            for item in result.get("results", []):
+                if isinstance(item, dict) and item.get("url"):
+                    _add(item["url"], item.get("title", ""), tool)
+
+        # social_search / timeline — items may have url
+        elif tool in ("social_search", "timeline"):
+            for item in (result.get("tweets") or result.get("results") or
+                         (result if isinstance(result, list) else [])):
+                if isinstance(item, dict) and item.get("url"):
+                    _add(item["url"], item.get("text", "")[:60], tool)
+
+    return sources
+
+
+def _update_transcript_totals(transcript: dict[str, Any]) -> None:
+    """Recompute cumulative token totals and collect all sources in the transcript."""
+    turns = transcript.get("turns", [])
+    total_prompt = sum(t.get("token_usage", {}).get("prompt_tokens", 0) for t in turns)
+    total_completion = sum(t.get("token_usage", {}).get("completion_tokens", 0) for t in turns)
+    transcript["token_totals"] = {
+        "prompt_tokens": total_prompt,
+        "completion_tokens": total_completion,
+        "total_tokens": total_prompt + total_completion,
+    }
+    # Aggregate unique sources across all turns
+    seen: set[str] = set()
+    all_sources: list[dict] = []
+    for t in turns:
+        for s in t.get("sources", []):
+            url = s.get("url", "")
+            if url and url not in seen:
+                seen.add(url)
+                all_sources.append(s)
+    transcript["all_sources"] = all_sources
+
+
 def run_agent(user_text: str) -> dict[str, Any]:
     """Run the agent for one user turn. Returns a dict with text + tool_events."""
     state = _state
@@ -116,24 +189,41 @@ def run_agent(user_text: str) -> dict[str, Any]:
         "status": "started",
         "assistant_text": None,
         "tool_events": [],
+        "token_usage": {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0},
+        "sources": [],
     }
 
     tool_events: list[dict] = []
     working = list(messages)
+    token_usage: dict[str, int] = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
+
+    def _add_usage(u: dict[str, int] | None) -> None:
+        if u:
+            token_usage["prompt_tokens"] += u.get("prompt_tokens", 0)
+            token_usage["completion_tokens"] += u.get("completion_tokens", 0)
+            token_usage["total_tokens"] += u.get("total_tokens", 0)
 
     for _ in range(state["max_tool_rounds"]):
         response = state["provider"].complete(
             working, state["openai_tools"], model=state["model"], temperature=0.0
         )
+        _add_usage(response.usage)
         calls = response.tool_calls
 
         if not calls:
             state["history"].append({"role": "user", "content": user_text})
             state["history"].append({"role": "assistant", "content": response.text or ""})
-            turn_record.update({"status": "answered", "assistant_text": response.text or "", "tool_events": tool_events, "ended_at": now_iso()})
+            sources = _extract_sources(tool_events)
+            turn_record.update({
+                "status": "answered", "assistant_text": response.text or "",
+                "tool_events": tool_events, "ended_at": now_iso(),
+                "token_usage": token_usage, "sources": sources,
+            })
             state["transcript"].setdefault("turns", []).append(turn_record)
+            _update_transcript_totals(state["transcript"])
             write_transcript(state["transcript_path"], state["transcript"])
-            return {"text": response.text or "", "tool_events": tool_events}
+            return {"text": response.text or "", "tool_events": tool_events,
+                    "token_usage": token_usage, "sources": sources}
 
         working.append(assistant_tool_message(response.text, calls))
         non_clarify: list[dict] = []
@@ -147,10 +237,17 @@ def run_agent(user_text: str) -> dict[str, Any]:
                 question = result.get("question") or call.args.get("question") or "Bạn bổ sung thêm thông tin nhé."
                 state["history"].append({"role": "user", "content": user_text})
                 state["history"].append({"role": "assistant", "content": question})
-                turn_record.update({"status": "waiting_for_user", "assistant_text": question, "tool_events": tool_events, "ended_at": now_iso()})
+                sources = _extract_sources(tool_events)
+                turn_record.update({
+                    "status": "waiting_for_user", "assistant_text": question,
+                    "tool_events": tool_events, "ended_at": now_iso(),
+                    "token_usage": token_usage, "sources": sources,
+                })
                 state["transcript"].setdefault("turns", []).append(turn_record)
+                _update_transcript_totals(state["transcript"])
                 write_transcript(state["transcript_path"], state["transcript"])
-                return {"text": question, "tool_events": tool_events}
+                return {"text": question, "tool_events": tool_events,
+                        "token_usage": token_usage, "sources": sources}
 
             non_clarify.append(event)
 
@@ -159,10 +256,17 @@ def run_agent(user_text: str) -> dict[str, Any]:
     state["history"].append({"role": "user", "content": user_text})
     fallback = "Đã vượt quá số vòng tool. Vui lòng thử lại."
     state["history"].append({"role": "assistant", "content": fallback})
-    turn_record.update({"status": "max_tool_rounds", "assistant_text": fallback, "tool_events": tool_events, "ended_at": now_iso()})
+    sources = _extract_sources(tool_events)
+    turn_record.update({
+        "status": "max_tool_rounds", "assistant_text": fallback,
+        "tool_events": tool_events, "ended_at": now_iso(),
+        "token_usage": token_usage, "sources": sources,
+    })
     state["transcript"].setdefault("turns", []).append(turn_record)
+    _update_transcript_totals(state["transcript"])
     write_transcript(state["transcript_path"], state["transcript"])
-    return {"text": fallback, "tool_events": tool_events}
+    return {"text": fallback, "tool_events": tool_events,
+            "token_usage": token_usage, "sources": sources}
 
 
 # ── Helper: scan runs / transcripts ──────────────────────────────────────────
@@ -208,6 +312,8 @@ def _load_transcript_summaries() -> list[dict[str, Any]]:
             data = json.loads(f.read_text(encoding="utf-8"))
             turns = data.get("turns", [])
             tool_count = sum(len(t.get("tool_events", [])) for t in turns)
+            token_totals = data.get("token_totals", {})
+            all_sources = data.get("all_sources", [])
             results.append({
                 "file": f.name,
                 "transcript_id": data.get("transcript_id", f.stem),
@@ -218,6 +324,8 @@ def _load_transcript_summaries() -> list[dict[str, Any]]:
                 "updated_at": data.get("updated_at", ""),
                 "total_turns": len(turns),
                 "total_tool_calls": tool_count,
+                "token_totals": token_totals,
+                "total_sources": len(all_sources),
                 "turns": [
                     {
                         "turn_index": t.get("turn_index", i + 1),
@@ -226,6 +334,8 @@ def _load_transcript_summaries() -> list[dict[str, Any]]:
                         "status": t.get("status", ""),
                         "started_at": t.get("started_at", ""),
                         "tool_calls": [e.get("tool") for e in t.get("tool_events", [])],
+                        "token_usage": t.get("token_usage", {}),
+                        "sources": t.get("sources", []),
                     }
                     for i, t in enumerate(turns)
                 ],

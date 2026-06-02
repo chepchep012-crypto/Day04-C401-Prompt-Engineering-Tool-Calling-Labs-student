@@ -241,11 +241,135 @@
   #send-btn:active { transform: scale(0.95); }
   #send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+  /* ── Source link colors ── */
+  :root { --info: #60a5fa; }
+
+  /* ── App shell: sidebar + main ── */
+  .app-shell {
+    display: flex; flex: 1; overflow: hidden;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 260px; flex-shrink: 0;
+    background: var(--surface); border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    transition: width 0.2s ease;
+    overflow: hidden;
+  }
+  .sidebar.collapsed { width: 0; }
+  .sidebar-head {
+    padding: 12px 14px 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .sidebar-head h3 { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .sidebar-head button {
+    background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px;
+    padding: 2px 6px; border-radius: 5px;
+  }
+  .sidebar-head button:hover { background: var(--surface2); color: var(--text); }
+  .sidebar-list {
+    flex: 1; overflow-y: auto; padding: 8px 6px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .sidebar-list::-webkit-scrollbar { width: 3px; }
+  .sidebar-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .hist-item {
+    padding: 9px 10px; border-radius: 8px; cursor: pointer;
+    border: 1px solid transparent; transition: all 0.12s;
+  }
+  .hist-item:hover { background: var(--surface2); border-color: var(--border); }
+  .hist-item.active { background: rgba(108,99,255,.15); border-color: rgba(108,99,255,.35); }
+  .hist-title {
+    font-size: 12px; color: var(--text); white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px;
+  }
+  .hist-meta { font-size: 10px; color: var(--muted); display: flex; gap: 8px; }
+  .hist-badge {
+    font-size: 9px; background: rgba(108,99,255,.15); color: var(--accent2);
+    border-radius: 3px; padding: 1px 4px;
+  }
+  .sidebar-empty { padding: 24px 12px; text-align: center; font-size: 12px; color: var(--muted); }
+  .sidebar-new-btn {
+    margin: 8px; padding: 9px; border-radius: 8px; font-size: 13px;
+    background: rgba(108,99,255,.12); border: 1px dashed rgba(108,99,255,.3);
+    color: var(--accent2); cursor: pointer; text-align: center;
+    transition: all 0.15s; flex-shrink: 0;
+  }
+  .sidebar-new-btn:hover { background: rgba(108,99,255,.22); border-color: var(--accent); }
+
+  /* ── Chat main area ── */
+  .chat-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* ── History view overlay ── */
+  .hist-view {
+    display: none; flex: 1; flex-direction: column; overflow: hidden;
+  }
+  .hist-view.open { display: flex; }
+  .hist-view-head {
+    padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+  }
+  .hist-view-head button {
+    background: none; border: 1px solid var(--border); color: var(--muted);
+    border-radius: 7px; padding: 5px 10px; font-size: 12px; cursor: pointer;
+  }
+  .hist-view-head button:hover { background: var(--surface2); color: var(--text); }
+  .hist-view-title { font-size: 13px; font-weight: 600; flex: 1; }
+  .hist-view-meta { font-size: 11px; color: var(--muted); }
+  .hist-messages {
+    flex: 1; overflow-y: auto; padding: 20px 16px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .hist-messages::-webkit-scrollbar { width: 4px; }
+  .hist-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
   /* ── Version badge ── */
   .version-badge {
     font-size: 11px; background: var(--surface2);
     border: 1px solid var(--border); border-radius: 6px;
     padding: 3px 8px; color: var(--muted);
+  }
+  .info-bar {
+    background: var(--tool-bg);
+    border: 1px solid var(--tool-border);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .info-bar-row {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .info-label {
+    color: var(--muted); font-size: 11px; flex-shrink: 0;
+  }
+  .token-pills {
+    display: flex; gap: 6px; flex-wrap: wrap;
+  }
+  .token-pill {
+    background: rgba(108,99,255,.12); border: 1px solid rgba(108,99,255,.25);
+    border-radius: 6px; padding: 2px 8px; font-size: 11px;
+    color: var(--accent2); white-space: nowrap;
+  }
+  .token-pill.total {
+    background: rgba(108,99,255,.22); font-weight: 600;
+  }
+  .source-links {
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .source-link {
+    color: var(--info); font-size: 11px; text-decoration: none;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    max-width: 100%;
+  }
+  .source-link:hover { text-decoration: underline; color: var(--accent2); }
+  .source-tool {
+    font-size: 10px; color: var(--muted);
+    background: var(--surface2); border-radius: 4px; padding: 1px 5px;
+    margin-right: 4px;
   }
 </style>
 </head>
@@ -254,6 +378,7 @@
 <!-- Header -->
 <header>
   <div class="header-left">
+    <button class="btn-icon" id="sidebar-toggle" onclick="toggleSidebar()" title="Lịch sử chat" style="font-size:15px">☰</button>
     <div class="avatar">🤖</div>
     <div>
       <div class="header-title">Research Agent</div>
@@ -262,10 +387,41 @@
   </div>
   <div class="header-actions">
     <span class="version-badge">{{ version }}</span>
+    <a href="/logs" class="btn-icon" title="Xem Logs Dashboard" style="text-decoration:none">📊 Logs</a>
     <button class="btn-icon" title="Download transcript" onclick="window.open('/transcript/download','_blank')">⬇️</button>
     <button class="btn-icon" onclick="clearChat()" title="Xóa lịch sử">🗑️</button>
   </div>
 </header>
+
+<!-- App shell -->
+<div class="app-shell">
+
+<!-- Sidebar: chat history -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-head">
+    <h3>Lịch sử chat</h3>
+    <button onclick="toggleSidebar()" title="Đóng">✕</button>
+  </div>
+  <button class="sidebar-new-btn" onclick="newChat()">＋ Đoạn chat mới</button>
+  <div class="sidebar-list" id="hist-list">
+    <div class="sidebar-empty">Đang tải…</div>
+  </div>
+</div>
+
+<!-- Chat main -->
+<div class="chat-main">
+
+<!-- History view (read-only replay) -->
+<div class="hist-view" id="hist-view">
+  <div class="hist-view-head">
+    <button onclick="closeHistView()">← Quay lại</button>
+    <div>
+      <div class="hist-view-title" id="hv-title"></div>
+      <div class="hist-view-meta" id="hv-meta"></div>
+    </div>
+  </div>
+  <div class="hist-messages" id="hv-messages"></div>
+</div>
 
 <!-- Messages -->
 <div id="messages">
@@ -288,7 +444,141 @@
   <button id="send-btn" onclick="sendMessage()">➤</button>
 </div>
 
+</div><!-- /chat-main -->
+</div><!-- /app-shell -->
+
 <script>
+  // ── Sidebar ───────────────────────────────────────────────────────────
+  const sidebarEl = document.getElementById('sidebar');
+  const histListEl = document.getElementById('hist-list');
+  const histViewEl = document.getElementById('hist-view');
+  const messagesContainerEl = document.getElementById('messages');
+  const inputBarEl = document.querySelector('.input-bar');
+
+  function toggleSidebar() {
+    sidebarEl.classList.toggle('collapsed');
+  }
+
+  function newChat() {
+    closeHistView();
+    document.querySelectorAll('.hist-item').forEach(el => el.classList.remove('active'));
+  }
+
+  function fmt(dt) {
+    if (!dt) return '';
+    try { return new Date(dt).toLocaleString('vi-VN', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}); } catch { return dt; }
+  }
+
+  async function loadHistory() {
+    try {
+      const res = await fetch('/api/transcripts');
+      const data = await res.json();
+      if (!data.length) {
+        histListEl.innerHTML = '<div class="sidebar-empty">Đưa có lịch sử nào</div>';
+        return;
+      }
+      histListEl.innerHTML = data.map((t, i) => {
+        const firstMsg = (t.turns && t.turns[0]) ? (t.turns[0].user || '').slice(0, 50) : t.transcript_id.slice(0, 40);
+        return `<div class="hist-item" onclick="openHistItem(${i})" id="hi-${i}">
+          <div class="hist-title">${escHtml(firstMsg) || escHtml(t.transcript_id.slice(0,40))}</div>
+          <div class="hist-meta">
+            <span>${fmt(t.created_at)}</span>
+            <span class="hist-badge">${t.total_turns} turns</span>
+          </div>
+        </div>`;
+      }).join('');
+      histListEl._data = data;
+    } catch {
+      histListEl.innerHTML = '<div class="sidebar-empty">Lỗi tải lịch sử</div>';
+    }
+  }
+
+  function escHtml(s) {
+    return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function openHistItem(idx) {
+    const data = histListEl._data;
+    if (!data) return;
+    const t = data[idx];
+    document.querySelectorAll('.hist-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('hi-' + idx).classList.add('active');
+
+    document.getElementById('hv-title').textContent = t.transcript_id;
+    document.getElementById('hv-meta').textContent =
+      `${t.provider} · ${t.total_turns} turns · ${fmt(t.created_at)}`;
+
+    const hvMsg = document.getElementById('hv-messages');
+    hvMsg.innerHTML = '';
+    const turns = t.turns || [];
+    if (!turns.length) {
+      hvMsg.innerHTML = '<div style="color:var(--muted);text-align:center;padding:32px">Transcript trống</div>';
+    }
+    turns.forEach(turn => {
+      // User bubble
+      if (turn.user) {
+        const userRow = document.createElement('div');
+        userRow.className = 'msg-row user';
+        userRow.innerHTML = `
+          <div class="msg-avatar">👤</div>
+          <div class="msg-content">
+            <div class="bubble">${escHtml(turn.user)}</div>
+            <div class="msg-time">${fmt(turn.started_at)}</div>
+          </div>`;
+        hvMsg.appendChild(userRow);
+      }
+      // Tool chips
+      const tools = turn.tool_calls || [];
+      const toolHtml = tools.length
+        ? `<div class="tool-calls">${tools.map(tc =>
+            `<div class="tool-chip" style="cursor:default">
+              <span class="tool-icon">${toolIcon(tc)}</span>
+              <span class="tool-name">${escHtml(tc)}</span>
+            </div>`).join('')}</div>` : '';
+      // Bot bubble
+      if (turn.assistant_text) {
+        const tu = turn.token_usage || {};
+        const tokHtml = tu.total_tokens
+          ? `<div class="info-bar" style="margin-top:4px">
+              <div class="info-bar-row">
+                <span class="info-label">🧠 Tokens</span>
+                <div class="token-pills">
+                  <span class="token-pill">prompt&nbsp;${tu.prompt_tokens||0}</span>
+                  <span class="token-pill">completion&nbsp;${tu.completion_tokens||0}</span>
+                  <span class="token-pill total">total&nbsp;${tu.total_tokens||0}</span>
+                </div>
+              </div>
+             </div>` : '';
+        const botRow = document.createElement('div');
+        botRow.className = 'msg-row bot';
+        botRow.innerHTML = `
+          <div class="msg-avatar" style="background:var(--surface2)">🤖</div>
+          <div class="msg-content">
+            ${toolHtml}
+            <div class="bubble">${formatText(turn.assistant_text)}</div>
+            ${tokHtml}
+            <div class="msg-time">${fmt(turn.started_at)}</div>
+          </div>`;
+        hvMsg.appendChild(botRow);
+      }
+    });
+
+    // Show history view, hide live chat
+    histViewEl.classList.add('open');
+    messagesContainerEl.style.display = 'none';
+    inputBarEl.style.display = 'none';
+  }
+
+  function closeHistView() {
+    histViewEl.classList.remove('open');
+    messagesContainerEl.style.display = '';
+    inputBarEl.style.display = '';
+    document.querySelectorAll('.hist-item').forEach(el => el.classList.remove('active'));
+  }
+
+  // Load history on page open
+  loadHistory();
+
   const messagesEl = document.getElementById('messages');
   const inputEl = document.getElementById('input-area');
   const sendBtn = document.getElementById('send-btn');
@@ -308,8 +598,8 @@
   function fillInput(el) {
     const text = el.textContent.replace(/^[^\s]+\s/, '');
     inputEl.value = text;
-    inputEl.focus();
     inputEl.dispatchEvent(new Event('input'));
+    sendMessage();
   }
 
   function scrollToBottom() {
@@ -362,9 +652,10 @@
     return map[name] || map.default;
   }
 
-  function appendBotMsg(text, toolEvents) {
+  function appendBotMsg(text, toolEvents, tokenUsage, sources) {
     const row = document.createElement('div');
     row.className = 'msg-row bot';
+    const uid = Date.now();
 
     let toolHtml = '';
     if (toolEvents && toolEvents.length > 0) {
@@ -375,7 +666,7 @@
         const detail = `Args:\n${argsStr}\n\nResult:\n${resultStr}`;
         return `
           <div>
-            <div class="tool-chip" onclick="toggleDetail('td-${i}-${Date.now()}')">
+            <div class="tool-chip" onclick="toggleDetail('td-${i}-${uid}')">
               <span class="tool-icon">${toolIcon(ev.tool)}</span>
               <span class="tool-name">${escHtml(ev.tool)}</span>
               <span style="color:var(--muted);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px">
@@ -383,10 +674,40 @@
               </span>
               <span class="tool-status ${hasError ? 'err' : 'ok'}">${hasError ? '✗ error' : '✓ ok'}</span>
             </div>
-            <div class="tool-detail" id="td-${i}-${Date.now()}">${escHtml(detail)}</div>
+            <div class="tool-detail" id="td-${i}-${uid}">${escHtml(detail)}</div>
           </div>`;
       }).join('');
       toolHtml = `<div class="tool-calls">${chips}</div>`;
+    }
+
+    // ── Info bar: tokens + sources ─────────────────────────────────────────
+    let infoHtml = '';
+    const hasTokens = tokenUsage && tokenUsage.total_tokens > 0;
+    const hasSources = sources && sources.length > 0;
+    if (hasTokens || hasSources) {
+      let rows = '';
+      if (hasTokens) {
+        rows += `<div class="info-bar-row">
+          <span class="info-label">🧠 Tokens</span>
+          <div class="token-pills">
+            <span class="token-pill">prompt&nbsp;${tokenUsage.prompt_tokens}</span>
+            <span class="token-pill">completion&nbsp;${tokenUsage.completion_tokens}</span>
+            <span class="token-pill total">total&nbsp;${tokenUsage.total_tokens}</span>
+          </div>
+        </div>`;
+      }
+      if (hasSources) {
+        const links = sources.map(s =>
+          `<a class="source-link" href="${escHtml(s.url)}" target="_blank" rel="noopener">
+            <span class="source-tool">${escHtml(s.tool||'')}</span>${escHtml(s.title || s.url)}
+          </a>`
+        ).join('');
+        rows += `<div class="info-bar-row" style="flex-direction:column;align-items:flex-start">
+          <span class="info-label">🔗 Nguồn tài liệu (${sources.length})</span>
+          <div class="source-links">${links}</div>
+        </div>`;
+      }
+      infoHtml = `<div class="info-bar">${rows}</div>`;
     }
 
     row.innerHTML = `
@@ -394,6 +715,7 @@
       <div class="msg-content">
         ${toolHtml}
         <div class="bubble">${formatText(text)}</div>
+        ${infoHtml}
         <div class="msg-time">${nowTime()}</div>
       </div>`;
     messagesEl.appendChild(row);
@@ -441,7 +763,7 @@
       });
       const data = await res.json();
       removeTyping();
-      appendBotMsg(data.text || data.error || 'Lỗi không xác định.', data.tool_events || []);
+      appendBotMsg(data.text || data.error || 'Lỗi không xác định.', data.tool_events || [], data.token_usage || null, data.sources || []);
     } catch (err) {
       removeTyping();
       appendBotMsg('⚠️ Không thể kết nối server. Kiểm tra lại.', []);
